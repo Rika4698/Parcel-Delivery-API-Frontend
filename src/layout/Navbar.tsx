@@ -1,0 +1,129 @@
+"use client";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
+import ThemeButton from "@/components/theme/ModeSwitch";
+
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [active, setActive] = useState("Home");
+
+  const navItems = ["Home", "Track Parcel", "About Us", "Contact Us"];
+
+  return (
+    <>
+      {/* ===== NAVBAR ===== */}
+      <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-1.5rem)] sm:w-[calc(100%-6rem)] z-50 overflow-hidden rounded-full border border-blue-500/20 dark:border-blue-800 backdrop-blur-lg mt-4 animate-slide-down">
+        {/* Background */}
+        <div className="absolute inset-0 bg-white/80 dark:bg-gray-800 backdrop-blur-md"></div>
+
+        {/* Floating Bubbles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute h-4 w-4 rounded-full bg-blue-400/10 dark:bg-gray-600 animate-float top-2 left-[6%]" />
+          <div className="absolute h-3 w-3 rounded-full bg-blue-400/10 dark:bg-gray-600 animate-float top-8 left-[20%] [animation-delay:0.5s]" />
+          <div className="absolute h-5 w-5 rounded-full bg-blue-400/10 dark:bg-gray-600 animate-float top-8 left-[33%] [animation-delay:0.5s]" />
+          <div className="absolute h-5 w-5 rounded-full bg-blue-400/10 dark:bg-gray-600 animate-float top-6 left-[70%] [animation-delay:1s]" />
+           <div className="absolute h-5 w-5 rounded-full bg-blue-400/10 dark:bg-gray-600 animate-float top-4 left-[80%] [animation-delay:1s]" />
+          <div className="absolute h-6 w-6 rounded-full bg-blue-400/10 dark:bg-gray-600 animate-float top-2 left-[60%] [animation-delay:1.5s]" />
+        </div>
+
+        {/* Navbar Content */}
+        <div className="relative px-4 sm:px-8 flex items-center justify-between">
+          {/* Logo */}
+          <img
+            className="w-40 sm:w-48 h-[70px] sm:h-[75px]"
+            src="https://i.ibb.co.com/chw8TdMt/delivo-high-resolution-logo-transparent.png"
+            alt="Delivo Logo"
+          />
+
+          {/* Desktop Links */}
+          <div className="hidden lg:flex items-center space-x-10">
+            {navItems.map((item) => (
+              <button
+                key={item}
+                onClick={() => setActive(item)}
+                className={`relative group text-blue-500 dark:text-blue-200 transition font-medium text-lg ${
+                  active === item ? "text-blue-700 dark:text-blue-400" : "hover:text-blue-700 hover:dark:text-blue-400"
+                }`}
+              >
+                {item}
+                <div
+                  className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-500 transition-all duration-300 ${
+                    active === item
+                      ? "w-full opacity-100"
+                      : "w-0 group-hover:w-full opacity-70"
+                  }`}
+                ></div>
+              </button>
+            ))}
+          </div>
+
+          {/* Right Section */}
+          <div className="flex items-center space-x-4">
+            <ThemeButton />
+            <button className="hidden sm:flex relative group">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-200"></div>
+              <div className="relative px-5 py-2 bg-blue-950 rounded-lg">
+                <span className="text-blue-200 group-hover:text-white transition">
+                  Get Started
+                </span>
+              </div>
+            </button>
+
+            {/* Mobile Toggle */}
+            <button
+              onClick={() => setIsOpen(true)}
+              className="lg:hidden relative group"
+              aria-label="Toggle mobile menu"
+            >
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-cyan-400 rounded blur opacity-60 group-hover:opacity-100 transition"></div>
+              <div className="relative p-2 bg-blue-950 rounded">
+                <Menu className="w-6 h-6 text-blue-200 group-hover:text-white" />
+              </div>
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* ===== MOBILE SIDEBAR ===== */}
+      <div
+        className={`lg:hidden fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm transform transition-all duration-300 ${
+          isOpen ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
+        onClick={() => setIsOpen(false)}
+      >
+        <div
+          className={`absolute top-0 left-0 h-full w-64 bg-white shadow-lg border-r border-blue-500/20 p-6 transform transition-transform duration-300 ${
+            isOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={() => setIsOpen(false)}
+            className="absolute top-4 right-4 text-blue-600 hover:text-blue-800"
+          >
+            <X className="w-6 h-6" />
+          </button>
+
+          <nav className="mt-10 space-y-4">
+            {navItems.map((item) => (
+              <button
+                key={item}
+                onClick={() => {
+                  setActive(item);
+                  setIsOpen(false);
+                }}
+                className={`block w-full text-left px-3 py-2 rounded-lg transition-all ${
+                  active === item
+                    ? "bg-blue-100 text-blue-700 font-medium"
+                    : "text-blue-500 hover:bg-blue-50 hover:text-blue-600"
+                }`}
+              >
+                {item}
+              </button>
+            ))}
+          </nav>
+        </div>
+      </div>
+    </>
+  );
+}
