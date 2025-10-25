@@ -1,13 +1,48 @@
 "use client";
-import { useState } from "react";
+import {  useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import ThemeButton from "@/components/theme/ModeSwitch";
+import { useUserInfoQuery } from '@/redux/features/auth/auth';
+import { User2Icon, UserIcon } from 'lucide-react';
+import UserAvatar from "@/components/Avatar";
+import { Dropdown } from "@/components/Dropdown";
+import { Link } from "react-router";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState("Home");
+  const { data, isLoading } = useUserInfoQuery(undefined);
+
+ 
+
+  //  console.log(data);
+    const [openDropdown, setOpenDropdown] = useState(false);
+
+
 
   const navItems = ["Home", "Track Parcel", "About Us", "Contact Us"];
+    const avatarRef = useRef<HTMLDivElement | null>(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+
+   const toggleDropdown = () => setOpenDropdown((prev)=> !prev);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        avatarRef.current &&
+        !avatarRef.current.contains(event.target as Node)
+      ) {
+        setOpenDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+
 
   return (
     <>
@@ -41,8 +76,8 @@ export default function Navbar() {
               <button
                 key={item}
                 onClick={() => setActive(item)}
-                className={`relative group text-blue-500 dark:text-blue-200 transition font-medium text-lg ${
-                  active === item ? "text-blue-700 dark:text-blue-400" : "hover:text-blue-700 hover:dark:text-blue-400"
+                className={`relative group text-blue-500 dark:text-blue-200 transition font-medium text-base xl:text-lg ${
+                  active === item ? "text-blue-700 dark:text-blue-400" : "hover:text-blue-700 dark:hover:text-blue-400"
                 }`}
               >
                 {item}
@@ -58,16 +93,48 @@ export default function Navbar() {
           </div>
 
           {/* Right Section */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2.5 lg:space-x-4">
             <ThemeButton />
-            <button className="hidden sm:flex relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-200"></div>
-              <div className="relative px-5 py-2 bg-blue-950 rounded-lg">
-                <span className="text-blue-200 group-hover:text-white transition">
-                  Get Started
-                </span>
-              </div>
-            </button>
+           <div  className="relative" ref={avatarRef} >
+            {isLoading ? (
+              <User2Icon className="w-6 h-6" />
+            ) : data?.data ? (
+              <>
+                <button
+                
+                  onClick={toggleDropdown}
+                  className="cursor-pointer flex items-center gap-1 p-2 text-gray-800 dark:text-gray-100 rounded-full bg-gray-100 dark:bg-gray-400 hover:bg-gray-300 dark:hover:bg-gray-500"
+                >
+                  {data?.data?.picture ? (
+                    <UserAvatar user={data?.data} />
+                  ) : (
+                    <UserIcon className="w-6 h-6 " />
+                  )}
+                </button>
+             
+              </>
+            ) : (
+              <button className="rounded bg-blue-600 dark:bg-blue-400 p-2 text-sm font-semibold text-white">
+                <Link to="/login">LogIn</Link>
+              </button>
+            )}
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             {/* Mobile Toggle */}
             <button
@@ -75,14 +142,27 @@ export default function Navbar() {
               className="lg:hidden relative group"
               aria-label="Toggle mobile menu"
             >
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-cyan-400 rounded blur opacity-60 group-hover:opacity-100 transition"></div>
-              <div className="relative p-2 bg-blue-950 rounded">
-                <Menu className="w-6 h-6 text-blue-200 group-hover:text-white" />
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-300 to-cyan-300 rounded blur opacity-60 group-hover:opacity-100 transition"></div>
+              <div className="relative p-2 bg-blue-600 dark:bg-blue-700 rounded">
+                <Menu className="w-5 h-5 text-white dark:text-blue-200 group-hover:text-white" />
               </div>
             </button>
           </div>
         </div>
       </nav>
+
+
+     
+      {openDropdown && (
+        <div
+          ref={dropdownRef}
+          onClick={e => e.stopPropagation()}
+          className="fixed top-[97px] right-10 w-60 sm:w-64 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-lg drop-shadow-xl z-[1000] animate-fade-in"
+        >
+          <Dropdown isOpen={openDropdown} userData={data?.data} onClose={() => setOpenDropdown(false)} />
+        </div>
+      )}
+
 
       {/* ===== MOBILE SIDEBAR ===== */}
       <div
@@ -92,14 +172,14 @@ export default function Navbar() {
         onClick={() => setIsOpen(false)}
       >
         <div
-          className={`absolute top-0 left-0 h-full w-64 bg-white shadow-lg border-r border-blue-500/20 p-6 transform transition-transform duration-300 ${
+          className={`absolute top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg border-r border-blue-500/20 p-6 transform transition-transform duration-300 ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
           onClick={(e) => e.stopPropagation()}
         >
           <button
             onClick={() => setIsOpen(false)}
-            className="absolute top-4 right-4 text-blue-600 hover:text-blue-800"
+            className="absolute top-4 right-4 text-blue-600 dark:text-blue-400 hover:text-blue-800  dark:hover:text-blue-600  "
           >
             <X className="w-6 h-6" />
           </button>
@@ -112,10 +192,10 @@ export default function Navbar() {
                   setActive(item);
                   setIsOpen(false);
                 }}
-                className={`block w-full text-left px-3 py-2 rounded-lg transition-all ${
+                className={`block w-full text-center px-3 py-2 rounded-lg transition-all ${
                   active === item
-                    ? "bg-blue-100 text-blue-700 font-medium"
-                    : "text-blue-500 hover:bg-blue-50 hover:text-blue-600"
+                    ? "bg-blue-100 text-blue-700 dark:text-blue-600 font-medium"
+                    : "text-blue-500 dark:text-blue-400 hover:bg-blue-50 hover:text-blue-600"
                 }`}
               >
                 {item}
