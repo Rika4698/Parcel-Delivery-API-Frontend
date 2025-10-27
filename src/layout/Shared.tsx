@@ -15,7 +15,7 @@ function Shared({ children }: IProps) {
       <Navbar />
       <div className="">{children}</div>
       <Footer />
-      {/* <ScrollToTop /> */}
+      
     </div>
   );
 }

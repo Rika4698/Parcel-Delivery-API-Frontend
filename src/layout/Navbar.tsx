@@ -47,7 +47,7 @@ export default function Navbar() {
   return (
     <>
       {/* ===== NAVBAR ===== */}
-      <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-1.5rem)] sm:w-[calc(100%-6rem)] z-50 overflow-hidden rounded-full border border-blue-500/20 dark:border-blue-800 backdrop-blur-lg mt-4 animate-slide-down">
+      <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-1.5rem)] sm:w-[calc(100%-6rem)] z-50 overflow-hidden rounded-full border-2 border-blue-600/20 dark:border-blue-800 backdrop-blur-lg mt-4 animate-slide-down">
         {/* Background */}
         <div className="absolute inset-0 bg-white/80 dark:bg-gray-800 backdrop-blur-md"></div>
 
