@@ -11,6 +11,7 @@ import { Auth } from '@/utils/Auth';
 import { GenerateRoutes } from '@/utils/GenerateRoutes';
 import { createBrowserRouter, Navigate} from 'react-router';
 import { adminSidebar } from './adminSidebar';
+import { senderSidebar } from './senderSidebar';
 
 
 
@@ -37,6 +38,14 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Navigate to={'/admin'} /> },
       ...GenerateRoutes(adminSidebar),
+    ],
+  },
+    {
+    Component: Auth(Dashboard, Role.sender as TRole),
+    path: '/sender',
+    children: [
+      { index: true, element: <Navigate to={'/sender'} /> },
+      ...GenerateRoutes(senderSidebar),
     ],
   },
    {
