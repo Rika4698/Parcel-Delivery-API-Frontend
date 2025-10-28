@@ -25,14 +25,14 @@ export default function HeroSection() {
 
 
   return (
-      <div className="relative bg-gradient-to-br from-blue-100 via-white to-blue-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-500 overflow-x-hidden ">
+      <div className="relative bg-gradient-to-br from-blue-100 via-white to-blue-200 dark:from-gray-900 dark:via-slate-800 dark:to-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-500 overflow-x-hidden ">
       <main>
 
         {/* Hero Section */}
         <section className="relative min-h-[70vh] md:min-h-[90vh] flex flex-col items-center justify-center px-4 text-center">
 
           {/* Decorative Gradient Overlay (Glow Effect) */}
-          
+
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-1/4 left-1/3 w-[300px] h-[300px] bg-blue-300/30 dark:bg-blue-500/30 blur-2xl rounded-full"></div>
             <div className="absolute bottom-1/4 right-1/3 w-[300px] h-[300px] bg-purple-500/20 dark:bg-purple-700/20 blur-2xl rounded-full"></div>

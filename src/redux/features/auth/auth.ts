@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { baseApi } from '@/redux/baseApi';
 
 export const authApi = baseApi.injectEndpoints({
@@ -32,6 +33,14 @@ export const authApi = baseApi.injectEndpoints({
       }),
       providesTags: ['user'],
     }),
+    updateProfile: builder.mutation({
+      query: ({ id, payload }: { id: string; payload: any }) => ({
+        url: `/user/update-profile/${id}`,
+        method: 'PATCH',
+        data: payload,
+      }),
+      invalidatesTags: ['user'],
+    }),
  
   }),
 });
@@ -41,5 +50,6 @@ export const {
   useRegisterMutation,
   useLogoutMutation,
   useUserInfoQuery,
+  useUpdateProfileMutation,
 
 } = authApi;

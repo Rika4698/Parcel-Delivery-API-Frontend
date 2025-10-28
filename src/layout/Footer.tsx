@@ -4,7 +4,7 @@ import { Mail, Phone, MapPin, Clock } from "lucide-react";
 
 const Footer = () => {
     return (
-        <footer className="bg-white/80 dark:bg-gray-800 backdrop-blur-md ">
+        <footer className="bg-gradient-to-bl from-blue-100 via-white to-blue-200 dark:from-gray-900 dark:via-slate-700 dark:to-gray-900 text-gray-800 backdrop-blur-md ">
             <div className="w-11/12 max-w-7xl mx-auto py-16">
                 <div className="lg:flex lg:items-start lg:gap-8">
                     <div className="">
