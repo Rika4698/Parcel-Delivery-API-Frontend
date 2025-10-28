@@ -12,6 +12,7 @@ import { GenerateRoutes } from '@/utils/GenerateRoutes';
 import { createBrowserRouter, Navigate} from 'react-router';
 import { adminSidebar } from './adminSidebar';
 import { senderSidebar } from './senderSidebar';
+import { receiverSidebar } from './receiverSidebar';
 
 
 
@@ -46,6 +47,14 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Navigate to={'/sender'} /> },
       ...GenerateRoutes(senderSidebar),
+    ],
+  },
+   {
+    Component: Auth(Dashboard, Role.receiver as TRole),
+    path: '/receiver',
+    children: [
+      { index: true, element: <Navigate to={'/receiver'} /> },
+      ...GenerateRoutes(receiverSidebar),
     ],
   },
    {
