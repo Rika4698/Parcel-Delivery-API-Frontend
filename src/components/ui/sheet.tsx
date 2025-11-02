@@ -3,6 +3,7 @@ import * as SheetPrimitive from "@radix-ui/react-dialog"
 import { XIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import { useUserInfoQuery } from "@/redux/features/auth/auth"
 
 function Sheet({ ...props }: React.ComponentProps<typeof SheetPrimitive.Root>) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />
@@ -42,6 +43,9 @@ function SheetOverlay({
   )
 }
 
+
+
+
 function SheetContent({
   className,
   children,
@@ -50,6 +54,17 @@ function SheetContent({
 }: React.ComponentProps<typeof SheetPrimitive.Content> & {
   side?: "top" | "right" | "bottom" | "left"
 }) {
+
+  const { data: userData } = useUserInfoQuery(undefined);
+  
+     const roleBg =
+      userData?.data?.role === "ADMIN"
+        ? "border-blue-100 dark:border-gray-700"
+        : userData?.data?.role === "SENDER"
+        ? "  border-purple-400 dark:border-stone-600"
+        : userData?.data?.role === "RECEIVER"
+        ? "bg-gradient-to-b from-orange-100 to-orange-300 dark:from-orange-900 dark:to-orange-700"
+        : "bg-sidebar";
   return (
     <SheetPortal>
       <SheetOverlay />
@@ -60,18 +75,18 @@ function SheetContent({
           side === "right" &&
             "data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm",
           side === "left" &&
-            "data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm",
+            "data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm",roleBg,
           side === "top" &&
             "data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top inset-x-0 top-0 h-auto border-b",
           side === "bottom" &&
-            "data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 h-auto border-t",
+            "data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 h-auto border-t",roleBg,
           className
         )}
         {...props}
       >
         {children}
         <SheetPrimitive.Close className="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none">
-          <XIcon className="size-4" />
+          <XIcon className="size-4 " />
           <span className="sr-only">Close</span>
         </SheetPrimitive.Close>
       </SheetPrimitive.Content>

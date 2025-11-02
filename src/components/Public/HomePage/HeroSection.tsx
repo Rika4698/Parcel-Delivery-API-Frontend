@@ -25,7 +25,7 @@ export default function HeroSection() {
 
 
   return (
-      <div className="relative bg-gradient-to-br from-blue-100 via-white to-blue-200 dark:from-gray-900 dark:via-slate-800 dark:to-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-500 overflow-x-hidden ">
+      <div className="relative bg-gradient-to-br from-blue-100 via-purple-100 to-blue-200 dark:from-gray-900 dark:via-slate-800 dark:to-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-500 overflow-x-hidden ">
       <main>
 
         {/* Hero Section */}

@@ -20,8 +20,14 @@ export default function Navbar() {
 
 
 
-  const navItems = ["Home", "Track Parcel", "About Us", "Contact Us"];
-    const avatarRef = useRef<HTMLDivElement | null>(null);
+  const navItems = [
+  { name: "Home", path: "/" },
+  { name: "Track Parcel", path: "/track-parcel" },
+  { name: "About Us", path: "/about" },
+  { name: "Contact Us", path: "/contact" },
+];
+
+  const avatarRef = useRef<HTMLDivElement | null>(null);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
 
@@ -73,22 +79,23 @@ export default function Navbar() {
           {/* Desktop Links */}
           <div className="hidden lg:flex items-center space-x-10">
             {navItems.map((item) => (
-              <button
-                key={item}
-                onClick={() => setActive(item)}
+              <Link
+                key={item.name}
+                to={item.path}
                 className={`relative group text-blue-500 dark:text-blue-200 transition font-medium text-base xl:text-lg ${
-                  active === item ? "text-blue-700 dark:text-blue-400" : "hover:text-blue-700 dark:hover:text-blue-400"
+                  active === item.name ? "text-blue-700 dark:text-blue-400" : "hover:text-blue-700 dark:hover:text-blue-400"
                 }`}
+                onClick={()=> setActive(item.name)}
               >
-                {item}
+                {item.name}
                 <div
                   className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-500 transition-all duration-300 ${
-                    active === item
+                    active === item.name
                       ? "w-full opacity-100"
                       : "w-0 group-hover:w-full opacity-70"
                   }`}
                 ></div>
-              </button>
+              </Link>
             ))}
           </div>
 
@@ -186,20 +193,21 @@ export default function Navbar() {
 
           <nav className="mt-10 space-y-4">
             {navItems.map((item) => (
-              <button
-                key={item}
+              <Link
+                key={item.name}
+                to={item.path}
                 onClick={() => {
-                  setActive(item);
+                  setActive(item.name);
                   setIsOpen(false);
                 }}
                 className={`block w-full text-center px-3 py-2 rounded-lg transition-all ${
-                  active === item
+                  active === item.name
                     ? "bg-blue-100 text-blue-700 dark:text-blue-600 font-medium"
                     : "text-blue-500 dark:text-blue-400 hover:bg-blue-50 hover:text-blue-600"
                 }`}
               >
-                {item}
-              </button>
+                {item.name}
+              </Link>
             ))}
           </nav>
         </div>

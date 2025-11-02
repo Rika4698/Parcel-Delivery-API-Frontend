@@ -30,7 +30,7 @@ export const Dropdown = ({userData, onClose }: any) => {
           src={
             userData?.picture
               ? userData.picture
-              : 'https://placehold.co/40x40/a0aec0/ffffff?text=JL'
+              : 'https://placehold.co/40x40/a0aec0/ffffff?text=PF'
           }
           alt="User Avatar"
           className="w-10 h-10 rounded-full flex-shrink-0"

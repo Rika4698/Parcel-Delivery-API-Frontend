@@ -13,6 +13,7 @@ import { createBrowserRouter, Navigate} from 'react-router';
 import { adminSidebar } from './adminSidebar';
 import { senderSidebar } from './senderSidebar';
 import { receiverSidebar } from './receiverSidebar';
+import About from '@/Public/About';
 
 
 
@@ -25,6 +26,10 @@ export const router = createBrowserRouter([
       {
         Component: Home,
         index: true,
+      },
+      {
+        Component: About,
+        path: 'about',
       },
       
  

@@ -41,22 +41,38 @@ export function SidebarDesign({ ...props }: React.ComponentProps<typeof Sidebar>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild>
+            <SidebarMenuButton asChild className={` ${ userData?.data?.role === "ADMIN"
+      ? "hover:bg-gradient-to-b from-blue-300 to-blue-200 dark:from-gray-600 dark:to-stone-700 py-6"
+      : userData?.data?.role === "SENDER"
+      ? "hover:bg-gradient-to-b from-purple-300 to-blue-200 dark:from-stone-700 dark:to-gray-800 py-6"
+      : userData?.data?.role === "RECEIVER"
+      ? "bg-gradient-to-b from-orange-100 to-orange-300 dark:from-orange-900 dark:to-orange-700"
+      : "bg-sidebar"}`}>
               <SidebarMenuButton size="lg" asChild>
-                <div className="flex justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                      <img src="/logo.png" className="size-7" />
+                <div className={`flex justify-between mt-3 ${ userData?.data?.role === "ADMIN"
+      ? "hover:bg-gradient-to-b from-blue-300 to-blue-200 dark:from-gray-700 dark:to-stone-800 py-6"
+      : userData?.data?.role === "SENDER"
+      ? "hover:bg-gradient-to-b from-purple-300 to-blue-200 dark:from-stone-700 dark:to-gray-800 py-6"
+      : userData?.data?.role === "RECEIVER"
+      ? "bg-gradient-to-b from-orange-100 to-orange-300 dark:from-orange-900 dark:to-orange-700"
+      : "bg-sidebar"}`}>
+                  <div className="flex items-center gap-2 ">
+                    <div className=" flex aspect-square size-16 items-center justify-center rounded-lg ">
+                      <img
+            className="w-40 sm:w-48 h-[70px] sm:h-[75px]"
+            src="https://i.ibb.co.com/chw8TdMt/delivo-high-resolution-logo-transparent.png"
+            alt="Delivo Logo"
+          />
                     </div>
                     <div className="flex gap-0.5 leading-none ">
                       <span className="uppercase">
                         {userData?.data?.role}
                       </span>
-                      <span className="font-medium">Dashboard</span>
+                      <span className="font-medium ml-2">Dashboard</span>
                     </div>
                   </div>
                   <div
-                    className="hidden max-md:flex"
+                    className="hidden max-lg:flex"
                     onClick={() => setOpenMobile(!openMobile)}
                   >
                     <CircleX />

@@ -26,11 +26,12 @@ import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import { z } from "zod";
 
-// ✅ Form validation schema
+// Form validation schema
 const formSchema = z.object({
   name: z.string().min(2, "Name is required"),
   email: z.string().email("Invalid email address"),
   password: z.string().min(8, "Password must be at least 8 characters long"),
+  role: z.enum(["SENDER", "RECEIVER"]),
 });
 
 const Register = () => {
@@ -43,13 +44,14 @@ const Register = () => {
   }
 
   const [isVisible, setIsVisible] = useState(false);
-  const [role, setRole] = useState<"SENDER" | "RECEIVER">("SENDER");
+ 
 
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       name: "",
       email: "",
       password: "",
+      role: "SENDER",
     },
     resolver: zodResolver(formSchema),
   });
@@ -59,8 +61,10 @@ const Register = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (formData) => {
     setIsLoading(true);
     try {
-      const payload = { ...formData, role };
-      const res = await registerUser(payload).unwrap();
+    
+      // console.log("Register Payload:", formData);
+      
+      const res = await registerUser(formData).unwrap();
       setIsLoading(false);
       if (res.success) {
         toast.success("Account Created Successfully");
@@ -76,7 +80,7 @@ const Register = () => {
 
   return (
     <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 bg-white dark:bg-gray-900 overflow-x-hidden">
-      {/* ===== LEFT: FORM SECTION ===== */}
+      {/*  LEFT: FORM SECTION  */}
       <div className="flex items-center justify-center px-6 py-12 lg:px-12">
         <div className="w-full max-w-md mx-auto flex flex-col items-center">
           <p className="mt-6 text-xl font-bold tracking-tight text-gray-800 dark:text-white">
@@ -180,35 +184,39 @@ const Register = () => {
               />
 
               {/* Role Selection */}
-              <div>
-                <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">
-                  Register as
-                </label>
-                <div className="flex gap-4">
-                  <label className="flex items-center gap-2 text-black dark:text-gray-200">
-                    <input
-                      type="radio"
-                      name="role"
-                      value="SENDER"
-                      checked={role === "SENDER"}
-                      onChange={() => setRole("SENDER")}
-                      className="accent-indigo-500"
-                    />
-                    Sender
-                  </label>
-                  <label className="flex items-center gap-2 text-black dark:text-gray-200">
-                    <input
-                      type="radio"
-                      name="role"
-                      value="RECEIVER"
-                      checked={role === "RECEIVER"}
-                      onChange={() => setRole("RECEIVER")}
-                      className="accent-indigo-500"
-                    />
-                    Receiver
-                  </label>
-                </div>
-              </div>
+             <FormField
+  control={form.control}
+  name="role"
+  render={({ field }) => (
+    <div>
+      <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">
+        Register as
+      </label>
+      <div className="flex gap-4">
+        <label className="flex items-center gap-2 text-black dark:text-gray-200">
+          <input
+            type="radio"
+            value="SENDER"
+            checked={field.value === "SENDER"}
+            onChange={() => field.onChange("SENDER")}
+            className="accent-indigo-500"
+          />
+          Sender
+        </label>
+        <label className="flex items-center gap-2 text-black dark:text-gray-200">
+          <input
+            type="radio"
+            value="RECEIVER"
+            checked={field.value === "RECEIVER"}
+            onChange={() => field.onChange("RECEIVER")}
+            className="accent-indigo-500"
+          />
+          Receiver
+        </label>
+      </div>
+    </div>
+  )}
+/>
 
               {/* Submit Button */}
               <button
@@ -241,7 +249,7 @@ const Register = () => {
         </div>
       </div>
 
-      {/* ===== RIGHT: IMAGE SECTION ===== */}
+      {/* RIGHT: IMAGE SECTION  */}
       <div className="hidden lg:block">
         <img
           src="https://i.ibb.co/YByRGLk9/profile-view-attractive-young-delivery-guy-with-some-packages-waiting-door-open.jpg"
