@@ -102,9 +102,9 @@ const About = () => {
             <section className="relative overflow-hidden bg-gradient-to-br from-purple-50 via-blue-50 to-purple-100 dark:from-gray-900 dark:via-slate-800 dark:to-gray-900 py-32 sm:py-40">
                 <div className="container mx-auto px-4">
                     <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-1/4 left-1/3 w-[300px] h-[300px] bg-purple-500/20 dark:bg-purple-700/20  blur-2xl rounded-full"></div>
-            <div className="absolute bottom-1/4 right-1/3 w-[300px] h-[300px] bg-blue-300/30 dark:bg-blue-500/30 blur-2xl rounded-full"></div>
-          </div>
+                        <div className="absolute top-1/4 left-1/3 w-[300px] h-[300px] bg-purple-500/20 dark:bg-purple-700/20  blur-2xl rounded-full"></div>
+                        <div className="absolute bottom-1/4 right-1/3 w-[300px] h-[300px] bg-blue-300/30 dark:bg-blue-500/30 blur-2xl rounded-full"></div>
+                    </div>
                     <div className="max-w-4xl mx-auto text-center space-y-8">
                         <div className="space-y-4">
                             <Badge variant="secondary" className="w-fit mx-auto animate-bounce border border-blue-600 dark:border-blue-400">
@@ -112,13 +112,13 @@ const About = () => {
                                 About Delivo
                             </Badge>
                             <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-purple-700 via-blue-500 to-cyan-600 dark:from-purple-400 dark:via-blue-400 dark:to-cyan-300 leading-tight">
-                                Your Packages, 
+                                Your Packages,
                                 <span> Our Priority</span>
-                                
-                                
+
+
                             </h1>
                             <p className="text-sm sm:text-lg md:text-xl font-semibold text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mt-16">
-                               At <span className="text-blue-500 dark:text-blue-300 font-semibold underline">Delivo</span>, we make sure every parcel is handled with care. From doorstep pickup to secure delivery, our goal is to make sending and receiving packages simple, fast, and stress-free for everyone.
+                                At <span className="text-blue-500 dark:text-blue-300 font-semibold underline">Delivo</span>, we make sure every parcel is handled with care. From doorstep pickup to secure delivery, our goal is to make sending and receiving packages simple, fast, and stress-free for everyone.
                             </p>
                         </div>
                     </div>
@@ -240,19 +240,19 @@ const About = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {team.map((member, index) => (
-                               <Card
-          key={index}
-          className="hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 border border-blue-200 dark:border-gray-600 hover:border-blue-500 dark:hover:border-blue-400 bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg"
-        >
+                            <Card
+                                key={index}
+                                className="hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 border border-blue-200 dark:border-gray-600 hover:border-blue-500 dark:hover:border-blue-400 bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg"
+                            >
                                 <CardContent className="p-6 text-center space-y-4">
-                                   <div className="mx-auto w-32 h-32 rounded-full overflow-hidden shadow-lg border-4 border-blue-100 dark:border-gray-700">
-              <img
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                src={member.image}
-                alt={member.name}
-                loading="lazy"
-              />
-            </div>
+                                    <div className="mx-auto w-32 h-32 rounded-full overflow-hidden shadow-lg border-4 border-blue-100 dark:border-gray-700">
+                                        <img
+                                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                                            src={member.image}
+                                            alt={member.name}
+                                            loading="lazy"
+                                        />
+                                    </div>
                                     <div className="space-y-2">
                                         <h3 className="text-xl font-semibold text-foreground">{member.name}</h3>
                                         <p className="text-blue-700 dark:text-blue-400 font-medium">{member.role}</p>
