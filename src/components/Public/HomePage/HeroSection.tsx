@@ -40,7 +40,7 @@ export default function HeroSection() {
 
           {/* Hero Text */}
           <div className="relative z-10 mt-32">
-            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-700 via-purple-500 to-cyan-600 dark:from-blue-400 dark:via-purple-400 dark:to-cyan-300 mb-4 leading-tight">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 dark:from-blue-400 dark:via-purple-400 dark:to-cyan-300 mb-4 leading-tight">
               Fast & Secure Parcel Delivery Across Bangladesh
             </h1>
 

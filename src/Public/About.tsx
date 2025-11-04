@@ -352,7 +352,7 @@ const About = () => {
             </section>
 
             {/* CTA Section */}
-            <section className="py-20 bg-gradient-to-r from-blue-400 to-purple-600 dark:from-blue-200  dark:to-purple-400">
+            <section className="py-20 bg-gradient-to-r from-blue-400 to-purple-600 dark:from-blue-300  dark:to-purple-400">
                 <div className="container mx-auto px-4 text-center">
                     <div className="max-w-3xl mx-auto space-y-8">
                         <div className="space-y-4">

@@ -14,6 +14,7 @@ import { adminSidebar } from './adminSidebar';
 import { senderSidebar } from './senderSidebar';
 import { receiverSidebar } from './receiverSidebar';
 import About from '@/Public/About';
+import Contact from '@/Public/Contact';
 
 
 
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
       {
         Component: About,
         path: 'about',
+      },
+      {
+        Component: Contact,
+        path: 'contact',
       },
       
  
