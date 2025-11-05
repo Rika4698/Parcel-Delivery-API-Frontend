@@ -18,14 +18,27 @@ interface DailyTrendChartProps {
   data: Record<string, string | number>[];
 }
 
-const BAR_COLORS = {
-  PENDING: '#FBBF24',
-  APPROVED: '#2DD4BF',
-  IN_TRANSIT: '#60A5FA',
-  DELIVERED: '#4ADE80',
-  CANCELLED: '#F87171',
-  BLOCKED: '#A78BFA',
+const useDarkMode = () => {
+  const [isDark, setIsDark] = useState(
+    document.documentElement.classList.contains('dark')
+  );
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return isDark;
 };
+
 
 
 const useIsMobile = (breakpoint = 1024) => {
@@ -51,6 +64,23 @@ const formatXAxisTick = (tickItem: string) => {
 
 export const DailyTrendChart = ({ data }: DailyTrendChartProps) => {
   const isMobile = useIsMobile();
+   const isDark = useDarkMode();
+
+   const BAR_COLORS = {
+  PENDING: '#FBBF24',
+  APPROVED: '#2DD4BF',
+  IN_TRANSIT: '#60A5FA',
+  DELIVERED: '#4ADE80',
+  CANCELLED: '#F87171',
+  BLOCKED: '#A78BFA',
+};
+
+
+
+   const gridColor = isDark ? 'rgba(148,163,184,0.3)' : 'rgba(203,213,225,0.5)';
+  const axisColor = isDark ? '#E5E7EB' : '#475569';
+  const tooltipBg = isDark ? '#1E293B' : '#FFFFFF';
+  const tooltipBorder = isDark ? '#334155' : '#E2E8F0';
 
   const chartData = isMobile ? data.slice(-5) : data;
 
@@ -69,27 +99,70 @@ export const DailyTrendChart = ({ data }: DailyTrendChartProps) => {
         >
           <CartesianGrid
             strokeDasharray="3 3"
-            stroke="rgba(203, 213, 225, 0.5)"
+            stroke={gridColor}
             vertical={false}
           />
           <XAxis
-            dataKey="date"
-            fontSize={12}
-            className="fill-slate-500"
+           dataKey="date"
             tickLine={false}
             axisLine={false}
-
-            tickFormatter={isMobile ? formatXAxisTick : undefined}
+            fontSize={12}
+            tick={(props) => {
+              const { x, y, payload } = props;
+              return (
+                <text
+                  x={x}
+                  y={y + 10}
+                  textAnchor="middle"
+                  fill={axisColor}
+                  fontSize={12}
+                  style={{ fontFamily: 'sans-serif' }}
+                >
+                  {formatXAxisTick(payload.value)}
+                </text>
+              );
+            }}
           />
+
+
           <YAxis
-            fontSize={12}
-            className="fill-slate-500"
             tickLine={false}
             axisLine={false}
+            fontSize={12}
+            tick={(props) => {
+              const { x, y, payload } = props;
+              return (
+                <text
+                  x={x - 5}
+                  y={y + 3}
+                  textAnchor="end"
+                  fill={axisColor}
+                  fontSize={12}
+                  style={{ fontFamily: 'sans-serif' }}
+                >
+                  {payload.value}
+                </text>
+              );
+            }}
           />
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip content={<CustomTooltip />}
+            cursor={{
+              fill: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(241,245,249,0.5)',
+            }}
+            contentStyle={{
+              backgroundColor: tooltipBg,
+              border: `1px solid ${tooltipBorder}`,
+              color: axisColor,
+              borderRadius: '8px',
+            }} />
 
-          {!isMobile && <Legend verticalAlign="bottom" height={36} />}
+          { (
+            <Legend
+              verticalAlign="bottom"
+              height={36}
+              wrapperStyle={{ color: axisColor, fontSize: isMobile ? '10px' : '14px',  }}
+            />
+          ) }
 
           <Bar dataKey="PENDING" stackId="a" fill={BAR_COLORS.PENDING} />
           <Bar dataKey="APPROVED" stackId="a" fill={BAR_COLORS.APPROVED} />

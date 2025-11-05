@@ -10,52 +10,119 @@ import {
   Bar,
 } from 'recharts';
 import { ChartContainer } from './ChartContainer';
+import { useEffect, useState } from 'react';
 
 interface MonthlyShipmentsChartProps {
   data: { name: string; Shipments: number }[];
 }
 
-export const MonthlyShipmentsChart = ({ data }: MonthlyShipmentsChartProps) => (
-  <ChartContainer
-    title="Monthly Shipments"
-    description="Total parcels shipped per month over the last year."
-    icon={
-      <BarChart2 className="text-slate-500 dark:text-slate-400" size={24} />
-    }
-  >
-    <ResponsiveContainer width="100%" height="100%">
-      <BarChart
-        data={data}
-        margin={{ top: 5, right: 20, left: -10, bottom: 5 }}
-      >
-        <CartesianGrid
-          strokeDasharray="3 3"
-          vertical={false}
-          stroke="rgba(203, 213, 225, 0.5)"
-        />
-        <XAxis
-          dataKey="name"
-          fontSize={12}
-          tickLine={false}
-          axisLine={false}
-          className="fill-slate-500"
-        />
-        <YAxis
-          fontSize={12}
-          tickLine={false}
-          axisLine={false}
-          className="fill-slate-500"
-        />
-        <Tooltip
-          cursor={{ fill: 'rgba(241, 245, 249, 0.5)' }}
-          contentStyle={{
-            borderRadius: '8px',
-            border: '1px solid #e2e8f0',
-          }}
-        />
-        <Legend iconSize={10} wrapperStyle={{ fontSize: '14px' }} />
-        <Bar dataKey="Shipments" fill="#3B82F6" radius={[4, 4, 0, 0]} />
-      </BarChart>
-    </ResponsiveContainer>
-  </ChartContainer>
-);
+const useDarkMode = () => {
+  const [isDark, setIsDark] = useState(
+    document.documentElement.classList.contains('dark')
+  );
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return isDark;
+};
+
+
+export const MonthlyShipmentsChart = ({ data }: MonthlyShipmentsChartProps) => {
+  const isDark = useDarkMode();
+
+  const axisColor = isDark ? '#E5E7EB' : '#475569'; 
+  const gridColor = isDark ? 'rgba(182, 190, 200, 0.3)' : 'rgba(112, 115, 119, 0.5)';
+  const barColor = isDark ? '#60A5FA' : '#3B82F6'; 
+  const tooltipBg = isDark ? '#1E293B' : '#FFFFFF';
+  const tooltipBorder = isDark ? '#334155' : '#e2e8f0';
+
+  return (
+    <ChartContainer
+      title="Monthly Shipments"
+      description="Total parcels shipped per month over the last year."
+      icon={<BarChart2 className="text-slate-500 dark:text-slate-400" size={24} />}
+    >
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={gridColor} />
+
+        
+          <XAxis
+            dataKey="name"
+            tickLine={false}
+            axisLine={false}
+            fontSize={12}
+            tick={(props) => {
+              const { x, y, payload } = props;
+              return (
+                <text
+                  x={x}
+                  y={y + 10}
+                  textAnchor="middle"
+                  fill={axisColor}
+                  fontSize={12}
+                  style={{ fontFamily: 'sans-serif' }}
+                >
+                  {payload.value}
+                </text>
+              );
+            }}
+          />
+
+
+          <YAxis
+            tickLine={false}
+            axisLine={false}
+            fontSize={12}
+            tick={(props) => {
+              const { x, y, payload } = props;
+              return (
+                <text
+                  x={x - 5}
+                  y={y + 3}
+                  textAnchor="end"
+                  fill={axisColor}
+                  fontSize={12}
+                  style={{ fontFamily: 'sans-serif' }}
+                >
+                  {payload.value}
+                </text>
+              );
+            }}
+          />
+
+          <Tooltip
+            cursor={{ fill: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(241,245,249,0.5)' }}
+            contentStyle={{
+              backgroundColor: tooltipBg,
+              border: `1px solid ${tooltipBorder}`,
+              color: axisColor,
+              borderRadius: '8px',
+            }}
+          />
+
+          <Legend
+            iconSize={10}
+            wrapperStyle={{
+              fontSize: '14px',
+              color: axisColor,
+            }}
+          />
+
+          <Bar dataKey="Shipments" fill={barColor} radius={[4, 4, 0, 0]} />
+        </BarChart>
+      </ResponsiveContainer>
+    </ChartContainer>
+  );
+};

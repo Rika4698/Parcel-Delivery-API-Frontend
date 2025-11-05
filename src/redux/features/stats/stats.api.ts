@@ -8,12 +8,21 @@ export const statsApi = baseApi.injectEndpoints({
         method: 'GET',
       }),
     }),
+
+    getUserStats: builder.query({
+      query: () => ({
+        url: '/stats/user-stats',
+        method: 'GET',
+      }),
+    }),
     
    
   }),
+  
 });
 
 export const {
   useGetParcelsStatsQuery,
+  useGetUserStatsQuery
   
 } = statsApi;

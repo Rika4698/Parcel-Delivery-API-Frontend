@@ -20,3 +20,10 @@ export interface ParcelStatsData {
   monthlyShipments?: MonthlyShipment[];
   dailyTrend?: DailyTrend[];
 }
+export interface RoleStat {
+  _id: string;
+  count: number;
+}
+export interface UserStatsData {
+  roleStats?: RoleStat[];
+}

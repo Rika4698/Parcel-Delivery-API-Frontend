@@ -1,13 +1,15 @@
 import { useMemo } from 'react';
 import {
   useGetParcelsStatsQuery,
+  useGetUserStatsQuery,
 } from '@/redux/features/stats/stats.api';
 import Loading from '@/components/Loading';
 import { StatsGrid } from '@/components/Admin/analytics/StatsGrid';
 import { MonthlyShipmentsChart } from '@/components/Admin/analytics/MonthlyShipmentsChart';
 import { ParcelStatusPieChart } from '@/components/Admin/analytics/ParcelStatusPieChart';
 import { DailyTrendChart } from '@/components/Admin/analytics/DailyTrendChart';
-import type { ParcelStatsData } from '@/types/analytics';
+import type { ParcelStatsData, UserStatsData } from '@/types/analytics';
+import { UserRolesChart } from '@/components/Admin/analytics/UserRolesChart';
 
 
 
@@ -17,10 +19,11 @@ export default function AnalyticsPage() {
     isLoading,
     isError,
   } = useGetParcelsStatsQuery(undefined);
+  const { data: userStats } = useGetUserStatsQuery(undefined);
   
 
   const parcelStatsData: ParcelStatsData = parcelStats?.data || {};
-  
+  const userStatsData: UserStatsData = userStats?.data || {};
 
   const processedStats = useMemo(() => {
     if (!parcelStatsData.parcelStats) {
@@ -86,6 +89,16 @@ export default function AnalyticsPage() {
     });
   }, [parcelStatsData.dailyTrend]);
 
+
+   const userRolesData = useMemo(() => {
+    if (!userStatsData.roleStats) return [];
+    return userStatsData.roleStats.map(role => ({
+      name: role._id.charAt(0).toUpperCase() + role._id.slice(1).toLowerCase(),
+      Users: role.count,
+    }));
+  }, [userStatsData.roleStats]);
+
+
   if (isLoading) return <Loading className="h-screen" />;
 
   if (isError) {
@@ -134,6 +147,9 @@ export default function AnalyticsPage() {
           </div>
           <div className="lg:col-span-3">
             <DailyTrendChart data={dailyTrendData} />
+          </div>
+          <div className="lg:col-span-3">
+            <UserRolesChart data={userRolesData} />
           </div>
      
         </div>

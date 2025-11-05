@@ -16,7 +16,7 @@ export const ChartContainer = ({
   className = '',
 }: ChartContainerProps) => (
   <div
-    className={`bg-white dark:bg-slate-800 p-6 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm ${className}`}
+    className={`bg-white dark:bg-slate-800 p-6 rounded-lg border border-slate-200 dark:border-slate-500 shadow-lg  ${className}`}
   >
     <div className="flex items-start mb-4">
       <div className="mr-4 flex-shrink-0">{icon}</div>
