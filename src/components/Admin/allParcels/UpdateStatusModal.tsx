@@ -1,4 +1,4 @@
-import { useEffect, useState, type FC, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FC, type FormEvent } from "react";
 import { X } from "lucide-react";
 import type { Parcel, ParcelStatus } from "@/types/parcel";
 
@@ -16,7 +16,18 @@ export const UpdateStatusModal: FC<UpdateStatusModalProps> = ({
   onUpdate,
   isSave
 }) => {
+   const modalRef = useRef<HTMLDivElement>(null);
   const [newStatus, setNewStatus] = useState<ParcelStatus | ''>('');
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        onClose();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [onClose]);
 
   useEffect(() => {
     if (parcel) {
@@ -47,8 +58,8 @@ export const UpdateStatusModal: FC<UpdateStatusModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-[#00000051] bg-opacity-60 z-50 flex justify-center items-center p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-sm">
-        <div className="flex justify-between items-center p-4 border-b dark:border-gray-700">
+      <div  ref={modalRef} className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-sm">
+        <div className="flex justify-between items-center p-4 border-b border-gray-300 dark:border-gray-600">
           <h2 className="text-xl font-bold text-gray-900 dark:text-white">
             Update Status
           </h2>
@@ -78,7 +89,7 @@ export const UpdateStatusModal: FC<UpdateStatusModalProps> = ({
                 id="status"
                 value={newStatus}
                 onChange={e => setNewStatus(e.target.value as ParcelStatus)}
-                className="mt-1 block w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="mt-1 block w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-black dark:text-white"
               >
                 {availableStatuses.map(status => (
                   <option key={status} value={status}>
@@ -88,7 +99,7 @@ export const UpdateStatusModal: FC<UpdateStatusModalProps> = ({
               </select>
             </div>
           </div>
-          <div className="flex justify-end gap-4 p-4 bg-gray-50 dark:bg-gray-800/50 border-t dark:border-gray-700 rounded-b-lg">
+          <div className="flex justify-end gap-4 p-4 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-300 dark:border-gray-600 rounded-b-lg">
             <button
               type="button"
               onClick={onClose}

@@ -1,4 +1,5 @@
-import type { FC } from 'react';
+
+import { useEffect,useRef, type FC } from 'react';
 import { Clock, CopyIcon, Package, X } from 'lucide-react';
 import type { Parcel } from '@/types/parcel';
 import { toast } from 'sonner';
@@ -12,7 +13,18 @@ export const ParcelDetailsModal: FC<ParcelDetailsModalProps> = ({
   parcel,
   onClose,
 }) => {
-  if (!parcel) return null;
+  const modalRef = useRef<HTMLDivElement>(null);
+  
+
+   useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        onClose();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [onClose]);
 
 
   const copyToClipboard = async (text: string) => {
@@ -23,11 +35,11 @@ export const ParcelDetailsModal: FC<ParcelDetailsModalProps> = ({
       console.error('Failed to copy!', err);
     }
   };
-
+if (!parcel) return null;
   return (
     <div className="fixed inset-0 bg-[#00000051] bg-opacity-60 z-50 flex justify-center items-center p-4 transition-opacity duration-300">
-      <div className="bg-white dark:bg-gray-800 rounded-lg">
-        <div className="flex justify-between items-center p-4 border-b dark:border-gray-700">
+      <div ref={modalRef} className="bg-white dark:bg-gray-800 rounded-lg">
+        <div className="flex justify-between items-center p-4 border-b border-gray-300 dark:border-gray-600">
           <div className="flex items-center gap-3">
             <Package className="text-indigo-500" size={24} />
             <h2 className="text-xl font-bold text-gray-900 dark:text-white">
@@ -83,7 +95,7 @@ export const ParcelDetailsModal: FC<ParcelDetailsModalProps> = ({
                 <p className="font-semibold text-lg text-gray-600 dark:text-gray-300">
                   Fee
                 </p>
-                <span className="pt-1 bg-blue-600 p-1 rounded-lg text-lg">
+                <span className="pt-1 bg-blue-600 text-white p-1 rounded-lg text-lg">
                   {parcel.fee} tk
                 </span>
               </div>
@@ -123,7 +135,7 @@ export const ParcelDetailsModal: FC<ParcelDetailsModalProps> = ({
               )}
             </div>
             <div className="bg-gray-50 dark:bg-gray-700/50 p-3 rounded-md">
-              <h2 className="text-lg"> Sender Details</h2>
+              <h2 className="text-lg text-gray-800 dark:text-gray-100"> Sender Details</h2>
               <div className="bg-gray-100 dark:bg-gray-700/100 p-2">
                 <div className="flex gap-2">
                   <p className="font-semibold text-gray-600 dark:text-gray-300">
@@ -157,7 +169,7 @@ export const ParcelDetailsModal: FC<ParcelDetailsModalProps> = ({
                       className="flex items-center justify-between text-sm bg-white dark:bg-gray-800 p-2 rounded shadow-sm"
                     >
                       <StatusBadge status={log?.status} />
-                      <span>by {log?.updatedBy?.role}</span>
+                      <span className="text-gray-600 dark:text-gray-300">by {log?.updatedBy?.role}</span>
                       <span className="text-gray-600 dark:text-gray-300">
                         {log.updatedAt}
                       </span>
@@ -168,7 +180,7 @@ export const ParcelDetailsModal: FC<ParcelDetailsModalProps> = ({
             )}
           </div>
         </div>
-        <div className="flex justify-end p-4 bg-gray-50 dark:bg-gray-800/50 border-t dark:border-gray-700 rounded-b-lg">
+        <div className="flex justify-end p-4 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-300  dark:border-gray-600 rounded-b-lg">
           <button
             type="button"
             onClick={onClose}
