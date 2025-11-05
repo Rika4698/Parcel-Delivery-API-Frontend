@@ -89,23 +89,33 @@ export function SidebarDesign({ ...props }: React.ComponentProps<typeof Sidebar>
           <SidebarMenu>
             {data.navMain.map(item => (
               <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton asChild>
+                <SidebarMenuButton  
+              className="text-black dark:text-white bg-blue-600/20 dark:bg-blue-500/20" asChild>
                   <span>{item.title}</span>
                 </SidebarMenuButton>
                 {item.items?.length && (
                   <SidebarMenuSub>
-                    {item.items.map((subItem: any) => (
-                      <SidebarMenuSubItem key={subItem.title}>
-                        <SidebarMenuSubButton asChild>
-                          <Link
-                            to={subItem.url}
-                            onClick={() => isMobile && setOpenMobile(false)}
-                          >
-                            {subItem.title}
-                          </Link>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                    ))}
+                    {item.items.map((subItem: any) => {
+  const isActive = location.pathname === subItem.url; // current route check
+
+  return (
+    <SidebarMenuSubItem key={subItem.title}>
+      <SidebarMenuSubButton 
+        asChild 
+        isActive={isActive} 
+        className="data-[active=true]:bg-blue-600/20 dark:data-[active=true]:bg-blue-500/20 data-[active=true]:text-black dark:data-[active=true]:text-white"
+      >
+        <Link
+          to={subItem.url}
+          onClick={() => isMobile && setOpenMobile(false)}
+        >
+          {subItem.title}
+        </Link>
+      </SidebarMenuSubButton>
+    </SidebarMenuSubItem>
+  );
+})}
+
                   </SidebarMenuSub>
                 )}
               </SidebarMenuItem>

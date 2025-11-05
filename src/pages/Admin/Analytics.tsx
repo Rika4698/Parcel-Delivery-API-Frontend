@@ -115,7 +115,7 @@ export default function AnalyticsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-sky-100 dark:bg-gray-800 p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen bg-sky-100 dark:bg-neutral-800 p-4 sm:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto space-y-8">
         <header>
           <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
