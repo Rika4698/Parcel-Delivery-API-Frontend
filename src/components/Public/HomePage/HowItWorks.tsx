@@ -39,7 +39,7 @@ const steps =[
     
 
     return (
-        <div className="min-h-screen">
+        <div >
             <section className="py-20 bg-gradient-to-br from-purple-100 via-blue-50 to-purple-100 dark:from-gray-900 dark:via-slate-800 dark:to-gray-900">
                 <div className="w-11/12 max-w-7xl mx-auto">
                     <div className="text-center space-y-4 mb-16">
