@@ -132,6 +132,7 @@ export default function AllParcels() {
               <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">
                 All Parcels
               </h1>
+              <h3 className=' font-medium text-gray-900 dark:text-white'>Total: {parcels.length} parcels</h3>
             </div>
 
             {/* Search & Filter */}
@@ -233,6 +234,7 @@ export default function AllParcels() {
               setCurrentPage={setCurrentPage}
               currentPage={currentPage}
               meta={data?.data?.meta}
+            
             />
           </div>
         </section>

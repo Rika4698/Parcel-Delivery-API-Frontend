@@ -96,7 +96,7 @@ if (!parcel) return null;
                   Fee
                 </p>
                 <span className="pt-1 bg-blue-600 text-white p-1 rounded-lg text-lg">
-                  {parcel.fee} tk
+                  {parcel.fee} TK
                 </span>
               </div>
               <div className="sm:col-span-2 bg-gray-50 dark:bg-gray-700/50 p-3 rounded-md">

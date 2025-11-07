@@ -44,3 +44,30 @@ export interface Parcel {
   updatedAt: string;
   __v: number;
 }
+
+export interface ITrackParcel {
+  _id: string;
+  senderId: { name: string; email: string };
+  receiverEmail: string;
+  parcelDetails: {
+    weight: number;
+    address: string;
+    phone: string;
+    note: string;
+  };
+  currentStatus: string;
+  statusHistory: {
+    status: string;
+    updatedAt: string;
+    updatedBy: { role: string };
+  }[];
+  fee: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface TResponse<T> {
+  success: boolean;
+  message: string;
+  data: T;
+}

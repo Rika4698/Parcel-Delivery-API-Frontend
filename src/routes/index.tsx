@@ -15,6 +15,7 @@ import { senderSidebar } from './senderSidebar';
 import { receiverSidebar } from './receiverSidebar';
 import About from '@/Public/About';
 import Contact from '@/Public/Contact';
+import TrackParcel from '@/Public/TrackParcel';
 
 
 
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
       {
         Component: Home,
         index: true,
+      },
+     {
+        Component: TrackParcel,
+        path: 'track-parcel',
       },
       {
         Component: About,
