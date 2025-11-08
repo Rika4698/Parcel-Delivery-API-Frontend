@@ -28,3 +28,14 @@ export interface IUser {
   picture?: string;
   address?: string; 
 }
+
+export interface IMessages {
+  _id: string;
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  createdAt: string; 
+  updatedAt: string; 
+  __v?: number;
+}

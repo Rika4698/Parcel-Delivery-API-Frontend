@@ -112,84 +112,82 @@ export default function AllUsers() {
           </div>
 
             {/* Table */}
-          <div className="overflow-x-auto ">
-            <table className="w-full text-left">
-              <thead className="bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-100">
-                <tr>
-                  <th className="p-4 font-semibold text-sm">User</th>
-                  <th className="p-4 font-semibold text-sm">Role</th>
-                  <th className="p-4 font-semibold text-sm">Is Verified</th>
-                  <th className="p-4 font-semibold text-sm">Status</th>
-                  <th className="p-4 font-semibold text-sm">Details</th>
-                  <th className="p-4 font-semibold text-sm text-center">
-                    Activity
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                {users?.map((user: IUser) => (
-                  <tr
-                    key={user._id}
-                    className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-200"
-                  >
-                    <td className="p-4 flex items-center gap-4">
-                      <div
-                        className={`h-10 w-10 rounded-full flex items-center justify-center text-white text-lg font-bold border-2 ${
-                          user?.isActive === 'ACTIVE'
-                            ? 'bg-green-500 border-green-500'
-                            : 'bg-red-500 border-red-500'
-                        }`}
-                      >
-                        <img
-                          src={
-                            user.picture ||
-                            'https://i.ibb.co.com/7yJRGBz/355-3554387-create-digital-profile-icon-blue-profile-icon-png.jpg'
-                          }
-                          alt=""
-                          className="h-full w-full object-cover rounded-full"
-                        />
-                      </div>
-                      <div>
-                        <div className="font-medium text-gray-800 dark:text-gray-200">{user.name}</div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">
-                          {user.email}
-                        </div>
-                      </div>
-                    </td>
-                    <td className="p-4 text-sm font-medium text-gray-800 dark:text-gray-200">{user.role}</td>
-                    <td className="p-4">
-                      <span
-                        className={`px-3 py-1 text-xs font-semibold rounded-full ${
-                          user.isVerified === true
-                            ? 'bg-green-100 text-green-800 dark:bg-green-700/50 dark:text-green-300'
-                            : 'bg-red-100 text-red-800 dark:bg-red-700/50 dark:text-red-300'
-                        }`}
-                      >
-                        {user.isVerified ? 'Verified' : 'Unverified'}
-                      </span>
-                    </td>
-                    <td className="p-4 text-sm">
-                      <span
-                        className={`px-3 py-1 text-xs font-semibold rounded-full ${
-                          user.isActive === 'ACTIVE'
-                            ? 'bg-green-100 text-green-800 dark:bg-green-700/50 dark:text-green-300'
-                            : 'bg-red-100 text-red-800 dark:bg-red-700/50 dark:text-red-300'
-                        }`}
-                      >
-                        {user.isActive}
-                      </span>
-                    </td>
-                    <td className="p-4 text-sm text-gray-800 dark:text-gray-200">
-                      <UserDetailsDialog user={user} />
-                    </td>
-                    <td className="p-4 text-center text-gray-800 dark:text-gray-200 ">
-                      <UpdateUserStatusDialog  user={user} />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <div className="overflow-x-auto">
+  {data?.meta?.total === 0 ? (
+    <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+      <p className="font-semibold text-lg">No users found</p>
+      <p className="text-sm">Try adjusting your search or filter criteria.</p>
+    </div>
+  ) : (
+    <table className="w-full text-left">
+      <thead className="bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-100">
+        <tr>
+          <th className="p-4 font-semibold text-sm">User</th>
+          <th className="p-4 font-semibold text-sm">Role</th>
+          <th className="p-4 font-semibold text-sm">Is Verified</th>
+          <th className="p-4 font-semibold text-sm">Status</th>
+          <th className="p-4 font-semibold text-sm">Details</th>
+          <th className="p-4 font-semibold text-sm text-center">Activity</th>
+        </tr>
+      </thead>
+      <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+        {users.map((user: IUser) => (
+          <tr
+            key={user._id}
+            className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-200"
+          >
+            <td className="p-4 flex items-center gap-4">
+              <div className="h-10 w-10 rounded-full overflow-hidden">
+                <img
+                  src={
+                    user.picture ||
+                    'https://i.ibb.co.com/7yJRGBz/355-3554387-create-digital-profile-icon-blue-profile-icon-png.jpg'
+                  }
+                  alt={user.name}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div>
+                <div className="font-medium text-gray-800 dark:text-gray-200">{user.name}</div>
+                <div className="text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
+              </div>
+            </td>
+            <td className="p-4 text-sm font-medium text-gray-800 dark:text-gray-200">{user.role}</td>
+            <td className="p-4">
+              <span
+                className={`px-3 py-1 text-xs font-semibold rounded-full ${
+                  user.isVerified
+                    ? 'bg-green-100 text-green-800 dark:bg-green-700/50 dark:text-green-300'
+                    : 'bg-red-100 text-red-800 dark:bg-red-700/50 dark:text-red-300'
+                }`}
+              >
+                {user.isVerified ? 'Verified' : 'Unverified'}
+              </span>
+            </td>
+            <td className="p-4 text-sm">
+              <span
+                className={`px-3 py-1 text-xs font-semibold rounded-full ${
+                  user.isActive === 'ACTIVE'
+                    ? 'bg-green-100 text-green-800 dark:bg-green-700/50 dark:text-green-300'
+                    : 'bg-red-100 text-red-800 dark:bg-red-700/50 dark:text-red-300'
+                }`}
+              >
+                {user.isActive}
+              </span>
+            </td>
+            <td className="p-4 text-sm text-gray-800 dark:text-gray-200">
+              <UserDetailsDialog user={user} />
+            </td>
+            <td className="p-4 text-center text-gray-800 dark:text-gray-200">
+              <UpdateUserStatusDialog user={user} />
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )}
+</div>
+
 
 
           <div className='py-6 mr-4 flex justify-end'>
