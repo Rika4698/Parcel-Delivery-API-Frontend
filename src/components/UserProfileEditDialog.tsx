@@ -73,7 +73,7 @@ export function UserProfileEditDialog({ user }: userProps) {
 
       setIsUpdate(false);
       setImage(null);
-
+   console.log(res);
       if (res.success) {
         toast.success('Profile updated successfully!');
       }

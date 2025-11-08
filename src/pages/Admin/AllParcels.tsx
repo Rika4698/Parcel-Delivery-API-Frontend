@@ -19,18 +19,19 @@ export default function AllParcels() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [filter, setFilter] = useState('');
   const [isSave, setIsSave] = useState(false);
-  const searchTrim = searchParams.get('searchTrim') || undefined;
-  const statusFilter = searchParams.get('filter') || undefined;
+  const searchTrim = searchParams.get('searchTrim') || '';
+  const statusFilter = searchParams.get('filter') || '';
   const [currentPage, setCurrentPage] = useState(1);
 
+  // Fetch data
   const { data, isLoading } = useAllParcelsQuery({
-    currentStatus: statusFilter,
-    searchTrim: searchTrim,
+    currentStatus: statusFilter || undefined,
+    searchTrim: searchTrim || undefined,
     page: currentPage,
     limit: 5,
   });
 
-  const [parcels, setParcels] = useState<Parcel[]>(data?.data?.data || []);
+  const [parcels, setParcels] = useState<Parcel[]>([]);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [selectedParcel, setSelectedParcel] = useState<Parcel | null>(null);
   const [parcelToUpdate, setParcelToUpdate] = useState<Parcel | null>(null);
@@ -49,7 +50,7 @@ export default function AllParcels() {
     parcelId: string,
     newStatus: Partial<ParcelStatus>
   ) => {
-    const toastId = toast.loading('Parcel Updating...');
+    const toastId = toast.loading('Updating parcel...');
     setIsSave(true);
     try {
       const res = await updateParcelStatus({
@@ -58,7 +59,7 @@ export default function AllParcels() {
       }).unwrap();
       setIsSave(false);
       if (res.success) {
-        toast.success('Parcel Updated successfully', { id: toastId });
+        toast.success('Parcel updated successfully', { id: toastId });
       }
       setIsUpdateModalOpen(false);
       setParcelToUpdate(null);
@@ -68,25 +69,26 @@ export default function AllParcels() {
     }
   };
 
-  const handleSearchchange = (value: string) => {
+  // Search Handler
+  const handleSearchChange = (value: string) => {
     const params = new URLSearchParams(searchParams);
-    if (value === '') {
+    if (!value.trim()) {
       params.delete('searchTrim');
     } else {
-      params.set('searchTrim', value);
+      params.set('searchTrim', value.trim());
     }
     setSearchParams(params);
+    setCurrentPage(1);
   };
 
+  //Filter Handler
   const handleFilterChange = (value: string) => {
     const params = new URLSearchParams(searchParams);
-    if (value === '') {
-      params.delete('filter');
-    } else {
-      params.set('filter', value);
-    }
+    if (!value) params.delete('filter');
+    else params.set('filter', value);
     setSearchParams(params);
     setFilter(value);
+    setCurrentPage(1);
   };
 
   if (isLoading) return <Loading className="h-screen" />;
@@ -94,9 +96,10 @@ export default function AllParcels() {
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      toast.success('Tracking ID Copied Successfully');
-    } catch (err) {
-      console.error('Failed to copy!', err);
+      toast.success('Tracking ID copied!');
+    } catch (error) {
+      console.log(error);
+      toast.error('Failed to copy!');
     }
   };
 
@@ -124,28 +127,30 @@ export default function AllParcels() {
         isSave={isSave}
       />
 
-      <div className="bg-sky-100 dark:bg-neutral-800 p-2 sm:p-4 lg:p-6 min-h-screen ">
+      <div className="bg-sky-100 dark:bg-neutral-800 p-2 sm:p-4 lg:p-6 min-h-screen">
         <section className="w-full mx-auto">
-          <div className="bg-white dark:bg-gray-800  rounded-xl shadow-lg">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
             {/* Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4 p-4 sm:p-5">
               <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">
                 All Parcels
               </h1>
-              <h3 className=' font-medium text-gray-900 dark:text-white'>Total: {parcels.length} parcels</h3>
+              <h3 className="font-medium text-gray-900 dark:text-white">
+                Total: {data?.data?.meta?.total || 0} parcels
+              </h3>
             </div>
 
             {/* Search & Filter */}
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6 p-4 ">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6 p-4">
               <div className="relative md:col-span-3">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                   <Search className="h-5 w-5 text-gray-400" />
                 </span>
                 <input
                   type="text"
-                  placeholder="Search..."
+                  placeholder="Search by tracking ID, email, location..."
                   value={searchTrim}
-                  onChange={e => handleSearchchange(e.target.value)}
+                  onChange={e => handleSearchChange(e.target.value)}
                   className="w-full pl-10 pr-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 border-transparent focus:border-indigo-500 focus:ring-indigo-500 text-gray-900 dark:text-gray-100"
                 />
               </div>
@@ -172,8 +177,8 @@ export default function AllParcels() {
 
             {/* Table */}
             <div className="overflow-x-auto">
-              <table className="min-w-full text-left ">
-                <thead className="bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-100 ">
+              <table className="min-w-full text-left">
+                <thead className="bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-100">
                   <tr>
                     <th className="px-4 py-2 text-left">Tracking ID</th>
                     <th className="px-4 py-2 text-left">Receiver Email</th>
@@ -230,12 +235,10 @@ export default function AllParcels() {
               )}
             </div>
 
-
             <PaginationView
               setCurrentPage={setCurrentPage}
               currentPage={currentPage}
               meta={data?.data?.meta}
-            
             />
           </div>
         </section>

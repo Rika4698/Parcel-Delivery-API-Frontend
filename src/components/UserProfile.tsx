@@ -38,7 +38,7 @@ export default function UserProfile() {
   };
 
   return (
-    <div className="bg-slate-100 dark:bg-slate-900 min-h-screen p-4 sm:p-6 lg:p-8 font-sans transition-colors duration-300">
+    <div className="bg-sky-100 dark:bg-neutral-800 min-h-screen p-4 sm:p-6 lg:p-8 font-sans transition-colors duration-300">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-1">
