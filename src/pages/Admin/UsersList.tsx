@@ -12,7 +12,7 @@ import { useSearchParams } from 'react-router';
 
 export default function AllUsers() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const searchTrem = searchParams.get('searchTerm') || undefined;
+  const searchTrem = searchParams.get('searchTerm') || '';
     const statusFilter = searchParams.get('filter') || undefined;
   const [searchInput, setSearchInput] = useState(searchTrem);
     const [filter, setFilter] = useState('');
@@ -41,15 +41,16 @@ export default function AllUsers() {
 
 
     const handleSearchchange = (value: string) => {
-      const params = new URLSearchParams(searchParams);
-      if (value === '') {
-        params.delete('searchTerm');
-      } else {
-        params.set('searchTerm', value);
-        console.log(params.get('searchTerm'));
-      }
+     setSearchInput(value);
 
-      setSearchParams(params);
+  const params = new URLSearchParams(searchParams);
+  if (value.trim() === '') {
+    params.delete('searchTerm');
+  } else {
+    params.set('searchTerm', value.trim());
+  }
+
+  setSearchParams(params);
     };
  const handleFilterChange = (value: string) => {
    const params = new URLSearchParams(searchParams);
@@ -85,9 +86,9 @@ export default function AllUsers() {
               <input
                 type="text"
                 placeholder="Search..."
-                value={searchTrem}
+                value={searchInput}
                 onChange={e => {
-                  setSearchInput(e.target.value);
+                
                   handleSearchchange(e.target.value);
                 }}
                 className="w-full pl-10 pr-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 border-transparent focus:border-indigo-500 focus:ring-indigo-500 text-gray-900 dark:text-gray-100"
