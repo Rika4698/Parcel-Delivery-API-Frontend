@@ -20,6 +20,15 @@ export const userApis = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['all-users'],
     }),
+        updatePublicUser: builder.mutation({
+          query: ({ id, payload }: { id: string; payload: any }) => ({
+            url: `/user/update-profile/${id}`,
+            method: 'PATCH',
+            data: payload,
+          }),
+          invalidatesTags: ['user'],
+        }),
+     
     
    
   }),
@@ -28,5 +37,6 @@ export const userApis = baseApi.injectEndpoints({
 export const {
   useGetAllUsersQuery,
   useUpdateUserMutation,
+  useUpdatePublicUserMutation
   
 } = userApis;

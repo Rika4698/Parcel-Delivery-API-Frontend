@@ -4,6 +4,7 @@ const Analytics = lazy(() => import('@/pages/Admin/Analytics'));
 const AllParcels = lazy(() => import('@/pages/Admin/AllParcels'));
 const AllUsers = lazy(() => import('@/pages/Admin/UsersList'));
 const ContactMessage = lazy(() => import('@/pages/Admin/ContactMessage'));
+const UserProfile = lazy(() => import('@/components/UserProfile'));
 
 
 export const adminSidebar: ISidebarItem[] = [
@@ -25,10 +26,15 @@ export const adminSidebar: ISidebarItem[] = [
         url: '/admin/users',
         component: AllUsers,
       },
-         {
+      {
         title: 'Messages',
         url: '/admin/contact-message',
         component: ContactMessage,
+      },
+      {
+        title: 'Profile',
+        url: '/admin/Profile',
+        component: UserProfile,
       },
   
     ],
