@@ -24,8 +24,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 
 const Contact = () => {
 
- const [isSubmitting, setIsSubmitting] = useState(false);
- 
+const [isLoading, setIsLoading] = useState(false);
   const form = useForm({
     defaultValues: {
       name: '',
@@ -34,22 +33,18 @@ const Contact = () => {
       message: '',
     },
   });
-  const [contactUs, {isLoading}] = useContactMutation();
-  
+  const [contactUs] = useContactMutation();
   const onSubmit = async (data: any) => {
-    setIsSubmitting(true);
+    setIsLoading(true);
     const toastId = toast.loading('Sending message...');
     try {
-      await contactUs(data).unwrap();
+      await contactUs(data);
       toast.success('Message sent successfully!', { id: toastId });
       form.reset();
-      
+      setIsLoading(false);
     } catch (error) {
-      toast.error('Failed to send message. Please try again later.', { id: toastId });
-      
-    } finally {
-      setIsSubmitting(false);
-      
+      toast.error('Failed to send message. Please try again later.');
+      return;
     }
     console.log(data);
   };
@@ -202,7 +197,7 @@ const Contact = () => {
                             <Card className='border border-purple-200 dark:border-gray-600   '>
                                 <CardContent className="p-6">
   <Form {...form}>
-    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+    <form  action="#" method="POST" onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
       <div className="grid grid-cols-1 gap-4">
         {/* Full Name */}
         <FormField
@@ -308,10 +303,10 @@ const Contact = () => {
       {/* Submit Button */}
       <button
         type="submit"
-        disabled={isLoading || isSubmitting}
+        disabled={isLoading }
         className="w-full p-1 rounded-md flex justify-center border border-purple-600/20 dark:border-purple-300/20 bg-purple-600 dark:bg-purple-400 hover:bg-purple-500 dark:hover:bg-purple-500 text-white dark:text-black"
       >
-        {isLoading || isSubmitting ? (
+        {isLoading ? (
           <>
             <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white dark:border-black mr-2"></div>
             Sending Message...
