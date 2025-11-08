@@ -183,7 +183,7 @@ function Sidebar({
       <div
         data-slot="sidebar"
         className={cn(
-          " text-sidebar-foreground flex h-full w-(--sidebar-width) flex-col ", roleBg,
+          " text-sidebar-foreground flex h-full w-(--sidebar-width) flex-col overflow-y-auto", roleBg,
           className
         )}
         {...props}
@@ -200,7 +200,7 @@ function Sidebar({
           data-sidebar="sidebar"
           data-slot="sidebar"
           data-mobile="true"
-          className={cn(" text-sidebar-foreground w-(--sidebar-width) p-0 [&>button]:hidden" , roleBg      )}
+          className={cn(" text-sidebar-foreground w-(--sidebar-width) p-0 [&>button]:hidden h-screen overflow-y-auto" , roleBg      )}
           style={
             {
               "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
@@ -257,7 +257,7 @@ function Sidebar({
         <div
           data-sidebar="sidebar"
           data-slot="sidebar-inner"
-          className={cn(" group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm  ", roleBg         )}
+          className={cn(" group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm  min-h-screen overflow-y-auto", roleBg         )}
         >
           {children}
         </div>

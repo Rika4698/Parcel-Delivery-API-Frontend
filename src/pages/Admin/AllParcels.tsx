@@ -124,11 +124,11 @@ export default function AllParcels() {
         isSave={isSave}
       />
 
-      <div className="bg-sky-100 dark:bg-neutral-800 p-2 sm:p-4 lg:p-6 min-h-screen font-sans">
+      <div className="bg-sky-100 dark:bg-neutral-800 p-2 sm:p-4 lg:p-6 min-h-screen ">
         <section className="w-full mx-auto">
-          <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-lg">
+          <div className="bg-white dark:bg-gray-800  rounded-xl shadow-lg">
             {/* Header */}
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4 p-4 sm:p-5">
               <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">
                 All Parcels
               </h1>
@@ -136,7 +136,7 @@ export default function AllParcels() {
             </div>
 
             {/* Search & Filter */}
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6 p-4 ">
               <div className="relative md:col-span-3">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                   <Search className="h-5 w-5 text-gray-400" />
@@ -172,7 +172,7 @@ export default function AllParcels() {
 
             {/* Table */}
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[600px] text-left table-auto border-collapse ">
+              <table className="min-w-full text-left ">
                 <thead className="bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-100 ">
                   <tr>
                     <th className="px-4 py-2 text-left">Tracking ID</th>
@@ -229,6 +229,7 @@ export default function AllParcels() {
                 </div>
               )}
             </div>
+
 
             <PaginationView
               setCurrentPage={setCurrentPage}

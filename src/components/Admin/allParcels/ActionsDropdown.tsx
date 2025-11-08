@@ -58,7 +58,7 @@ export const ActionsDropdown: FC<ActionsDropdownProps> = ({
   const handleToggle = () => {
     if (buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
-      const dropdownHeight = 150;
+      const dropdownHeight = 120;
       const isBottomCutOff =
         rect.bottom + dropdownHeight > window.innerHeight;
 

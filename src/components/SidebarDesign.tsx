@@ -56,7 +56,7 @@ export function SidebarDesign({ ...props }: React.ComponentProps<typeof Sidebar>
       : userData?.data?.role === "RECEIVER"
       ? "bg-gradient-to-b from-orange-100 to-orange-300 dark:from-orange-900 dark:to-orange-700"
       : "bg-sidebar"}`}>
-                  <div className="flex items-center gap-2 ">
+                  <Link to='/' className="flex items-center gap-2 ">
                     <div className=" flex aspect-square size-16 items-center justify-center rounded-lg ">
                       <img
             className="w-40 sm:w-48 h-[70px] sm:h-[75px]"
@@ -70,7 +70,7 @@ export function SidebarDesign({ ...props }: React.ComponentProps<typeof Sidebar>
                       </span>
                       <span className="font-medium ml-2">Dashboard</span>
                     </div>
-                  </div>
+                  </Link>
                   <div
                     className="hidden max-lg:flex"
                     onClick={() => setOpenMobile(!openMobile)}

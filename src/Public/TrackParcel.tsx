@@ -65,8 +65,9 @@ export default function TrackParcel() {
     !isError && submittedId && TrackedData?.data ? TrackedData.data : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-purple-50 to-blue-100 dark:from-gray-900 dark:via-slate-800 dark:to-gray-900 py-32 sm:py-40">
-      <div className="container mx-auto px-4">
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-blue-100 via-purple-50 to-blue-100 dark:from-gray-900 dark:via-slate-800 dark:to-gray-900 py-32 sm:py-40 ">
+      <div></div>
+      <div className="container mx-auto px-4 ">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/4 left-1/3 w-[300px] h-[300px] bg-purple-300/20 dark:bg-purple-700/20 blur-2xl rounded-full"></div>
           <div className="absolute bottom-1/4 right-1/3 w-[300px] h-[300px] bg-blue-200/30 dark:bg-blue-800/30 blur-2xl rounded-full"></div>
@@ -263,6 +264,8 @@ export default function TrackParcel() {
           </div>
         )}
       </div>
+
+      
     </div>
   );
 }

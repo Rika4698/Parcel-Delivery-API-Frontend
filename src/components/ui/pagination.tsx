@@ -14,7 +14,7 @@ function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
       role="navigation"
       aria-label="pagination"
       data-slot="pagination"
-      className={cn("mx-auto flex w-full justify-center", className)}
+      className={cn("mx-auto flex w-full justify-center ", className)}
       {...props}
     />
   )
@@ -58,8 +58,8 @@ function PaginationLink({
       : "h-9 px-3";
 
   const variantClasses = isActive
-    ? "border border-gray-300 bg-gray-100 dark:bg-gray-800 dark:border-gray-700"
-    : "hover:bg-gray-100 dark:hover:bg-gray-800";
+    ? "border-2 border-gray-900 bg-gray-800 dark:bg-gray-100 dark:border-gray-900 text-gray-100 dark:text-gray-800"
+    : "hover:bg-gray-800 dark:hover:bg-gray-100 hover:text-gray-100 dark:hover:text-gray-800 text-gray-800 dark:text-gray-200 ";
 
   return (
     <a
@@ -78,7 +78,7 @@ function PaginationPrevious({
     <PaginationLink
       aria-label="Go to previous page"
       size="default"
-      className={cn("gap-1 px-2.5 sm:pl-2.5", className)}
+      className={cn("gap-1 px-2.5 sm:pl-2.5 text-gray-800 dark:text-gray-200 bg-gray-200 dark:bg-gray-950", className)}
       {...props}
     >
       <ChevronLeftIcon />
@@ -95,7 +95,7 @@ function PaginationNext({
     <PaginationLink
       aria-label="Go to next page"
       size="default"
-      className={cn("gap-1 px-2.5 sm:pr-2.5", className)}
+      className={cn("gap-1 px-2.5 sm:pr-2.5 text-gray-800 dark:text-gray-200 bg-gray-200 dark:bg-gray-950", className)}
       {...props}
     >
       <span className="hidden sm:block">Next</span>
@@ -115,7 +115,7 @@ function PaginationEllipsis({
       className={cn("flex size-9 items-center justify-center", className)}
       {...props}
     >
-      <MoreHorizontalIcon className="size-4" />
+      <MoreHorizontalIcon className="size-4 text-gray-800 dark:text-gray-200 " />
       <span className="sr-only">More pages</span>
     </span>
   )
