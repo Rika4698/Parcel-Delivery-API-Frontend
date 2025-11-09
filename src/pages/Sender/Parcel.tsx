@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Search, Filter, CopyIcon } from 'lucide-react';
 
-import { useAllParcelsQuery, useCancelParcelMutation } from '@/redux/features/parcel/parcel.api';
+import { useAllParcelsQuery, useCancelParcelMutation, useUpdateParcelMutation } from '@/redux/features/parcel/parcel.api';
 import { useSearchParams } from 'react-router';
 import { toast } from 'sonner';
 import PaginationView from '@/components/Pagination';
@@ -13,20 +13,21 @@ import { StatusBadge } from '@/components/uis';
 import { ActionsDropdown } from '@/components/Sender/Parcel/ActionsDropdown';
 import { ParcelDetailsModal } from '@/components/ParcelDetailsModal';
 import Loading from '@/components/Loading';
+import { UpdateParcelModal } from '@/components/Sender/Parcel/UpdateParcelModal';
 
 export default function Parcel() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [filter, setFilter] = useState('');
   const [isUpdate, setIsUpdate] = useState(false)
  
-  const searchTrem = searchParams.get('searchTerm') || undefined;
-  const statusFilter = searchParams.get('filter') || undefined
+   const searchTrim = searchParams.get('searchTrim') || '';
+  const statusFilter = searchParams.get('filter') || '';
 
   const [currentPage, setCurrentPage] = useState(1)
 
   const { data, isLoading } = useAllParcelsQuery({
-    currentStatus: statusFilter,
-    searchTerm: searchTrem,
+    currentStatus: statusFilter || undefined,
+    searchTrim: searchTrim || undefined,
     page: currentPage,
     limit: 5
   });
@@ -36,6 +37,7 @@ export default function Parcel() {
 
   const [parcels, setParcels] = useState<Parcel[]>(data?.data?.data || []);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isUpdateParcelModalOpen, setIsUpdateParcelModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [selectedParcel, setSelectedParcel] = useState<Parcel | null>(null);
   const [parcelToUpdate, setParcelToUpdate] = useState<Parcel | null>(null);
@@ -45,11 +47,43 @@ export default function Parcel() {
     if (data?.data?.data) setParcels(data.data.data);
   }, [data]);
 
+  const handleOpenUpdateParcelModal = (parcel: Parcel) => {
+  setParcelToUpdate(parcel);
+  setIsUpdateParcelModalOpen(true);
+};
+
   const handleOpenUpdateModal = (parcel: Parcel) => {
     setParcelToUpdate(parcel);
     setIsUpdateModalOpen(true);
   };
+
+ const [updateParcel] = useUpdateParcelMutation();
+  const handleUpdateParcel = async (
+    parcelId: string,
+    updatedData: Partial<Parcel>
+  ) => {
+    const toastId = toast.loading('Updating parcel...');
+    setIsUpdate(true);
+    try {
+      const res = await updateParcel({
+        id: parcelId,
+        payload: updatedData,
+      }).unwrap();
+      setIsUpdate(false);
+      console.log(res);
+      if (res.success) {
+        toast.success('Parcel updated successfully', { id: toastId });
+      }
+      setIsUpdateParcelModalOpen(false);
+      setParcelToUpdate(null);
+    } catch (error: any) {
+      toast.error(error.data?.message || 'Failed to update parcel');
+      setIsUpdate(false);
+    }
+  };
+
   const [cancelParcel] = useCancelParcelMutation()
+
   const handleUpdateStatus = async (parcelId: string) => {
     const toastId = toast.loading('Parcel Creating...');
     setIsUpdate(true)
@@ -67,16 +101,18 @@ export default function Parcel() {
    }
   };
 
-  const handleSearchchange = (value: string) => {
-    const params = new URLSearchParams(searchParams)
-    if (value === '') {
-      params.delete('searchTerm');
+   const handleSearchChange = (value: string) => {
+    const params = new URLSearchParams(searchParams);
+    if (!value.trim()) {
+      params.delete('searchTrim');
     } else {
-      params.set('searchTerm', value);
+      params.set('searchTrim', value.trim());
     }
+    setSearchParams(params);
+    setCurrentPage(1);
+  };
 
-    setSearchParams(params)
-  }
+
   const handleFilterChange = (value: string) => {
     const params = new URLSearchParams(searchParams);
 
@@ -110,6 +146,14 @@ export default function Parcel() {
         parcel={selectedParcel}
         onClose={() => setSelectedParcel(null)}
       />
+
+      <UpdateParcelModal
+  isOpen={isUpdateParcelModalOpen}
+ onClose={() => setIsUpdateParcelModalOpen(false)}
+  parcel={parcelToUpdate}
+  onUpdate={handleUpdateParcel}
+  isUpdate={isUpdate}
+/>
       <UpdateStatusModal
         isOpen={isUpdateModalOpen}
         onClose={() => setIsUpdateModalOpen(false)}
@@ -155,8 +199,8 @@ export default function Parcel() {
                 <input
                   type="text"
                   placeholder="Search..."
-                  value={searchTrem}
-                  onChange={e => handleSearchchange(e.target.value)}
+                  value={searchTrim}
+                  onChange={e => handleSearchChange(e.target.value)}
                   className="w-full pl-9 sm:pl-10 pr-4 py-2 text-sm sm:text-base rounded-lg bg-gray-100 dark:bg-gray-700 border-transparent focus:border-indigo-500 focus:ring-indigo-500 text-gray-900 dark:text-gray-100"
                 />
               </div>
@@ -179,75 +223,7 @@ export default function Parcel() {
             </div>
 
             {/* Parcel Table - All Screens with Horizontal Scroll */}
-            {/* <div className="overflow-x-auto ">
-              <div className="inline-block min-w-full align-middle ">
-                <table className="min-w-full text-left">
-                  <thead className="bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-100">
-                    <tr>
-                      <th className=" text-xs font-medium uppercase tracking-wider whitespace-nowrap">Tracking ID</th>
-                      <th className=" text-xs font-medium uppercase tracking-wider whitespace-nowrap">Receiver Email</th>
-                      <th className="text-xs font-medium uppercase tracking-wider whitespace-nowrap">Created At</th>
-                      <th className=" text-xs font-medium uppercase tracking-wider whitespace-nowrap">Updated At</th>
-                      <th className="py-3 text-xs font-medium uppercase tracking-wider whitespace-nowrap">Status</th>
-                      <th className=" text-xs font-medium uppercase tracking-wider text-center whitespace-nowrap">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                    {(parcels || []).map(parcel => (
-                      <tr
-                        key={parcel._id}
-                        className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition"
-                      >
-                        <td className=" whitespace-nowrap text-xs sm:text-sm font-medium text-indigo-600 dark:text-indigo-400">
-                          <div className="flex items-center gap-2">
-                            <span className="max-w-[120px] sm:max-w-none truncate">{parcel.trackingId}</span>
-                            <CopyIcon
-                              onClick={() => copyToClipboard(parcel.trackingId)}
-                              className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0 cursor-pointer hover:text-indigo-800 active:scale-95"
-                            />
-                          </div>
-                        </td>
-                        <td className=" whitespace-nowrap text-xs sm:text-sm text-gray-800 dark:text-gray-200">
-                          <span className="max-w-[150px] sm:max-w-[200px] truncate inline-block">{parcel.receiverEmail}</span>
-                        </td>
-                        <td className=" whitespace-nowrap text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-                          {new Date(parcel.createdAt).toLocaleString('en-GB', {
-                            day: '2-digit',
-                            month: '2-digit',
-                            year: '2-digit',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                          })}
-                        </td>
-                        <td className=" whitespace-nowrap text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-                          {new Date(parcel.updatedAt).toLocaleString('en-GB', {
-                            day: '2-digit',
-                            month: '2-digit',
-                            year: '2-digit',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                          })}
-                        </td>
-                        <td className=" whitespace-nowrap text-xs sm:text-sm">
-                          <StatusBadge status={parcel.currentStatus} />
-                        </td>
-                        <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-center text-xs sm:text-sm font-medium">
-                          <ActionsDropdown
-                            onViewDetails={() => setSelectedParcel(parcel)}
-                            onUpdateStatus={() => handleOpenUpdateModal(parcel)}
-                            parcel={parcel}
-                          />
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div> */}
-
-
-
-               <div className="overflow-x-auto">
+              <div className="overflow-x-auto">
                           <table className="min-w-full text-left ">
                             <thead className="bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-100">
                               <tr>
@@ -299,6 +275,7 @@ export default function Parcel() {
                                   <td className="px-4 py-2 text-center text-sm font-medium">
                                     <ActionsDropdown
                                       onViewDetails={() => setSelectedParcel(parcel)}
+                                      onUpdateParcel={() => handleOpenUpdateParcelModal(parcel)}
                                       onUpdateStatus={() => handleOpenUpdateModal(parcel)}
                                       parcel={parcel}
                                     />

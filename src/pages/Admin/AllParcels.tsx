@@ -50,7 +50,7 @@ export default function AllParcels() {
     parcelId: string,
     newStatus: Partial<ParcelStatus>
   ) => {
-    const toastId = toast.loading('Updating parcel...');
+    const toastId = toast.loading('Updating parcel status...');
     setIsSave(true);
     try {
       const res = await updateParcelStatus({
@@ -59,12 +59,12 @@ export default function AllParcels() {
       }).unwrap();
       setIsSave(false);
       if (res.success) {
-        toast.success('Parcel updated successfully', { id: toastId });
+        toast.success('Parcel status updated successfully', { id: toastId });
       }
       setIsUpdateModalOpen(false);
       setParcelToUpdate(null);
     } catch (error: any) {
-      toast.error(error.data?.message || 'Failed to update parcel');
+      toast.error(error.data?.message || 'Failed to update parcel status');
       setIsSave(false);
     }
   };

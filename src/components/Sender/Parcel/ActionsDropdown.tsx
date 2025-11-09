@@ -1,17 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Parcel } from "@/types/parcel";
-import { Edit, Info, MoreVertical } from "lucide-react";
+import { Edit, Info, MoreVertical, Package } from "lucide-react";
 import { useEffect, useRef, useState, type FC } from "react";
 import { createPortal } from "react-dom";
 
 interface ActionsDropdownProps {
   onViewDetails: () => void;
+  onUpdateParcel: () => void;
   onUpdateStatus: () => void;
   parcel: Parcel;
 }
 
 export const ActionsDropdown: FC<ActionsDropdownProps> = ({
   onViewDetails,
+  onUpdateParcel,
   onUpdateStatus,
   parcel,
 }) => {
@@ -96,6 +98,18 @@ export const ActionsDropdown: FC<ActionsDropdownProps> = ({
               >
                 <Info size={16} /> View Details
               </button>
+
+              {parcel?.currentStatus === "PENDING" && (
+                <button
+                  onClick={() => {
+                    onUpdateParcel();
+                    setIsOpen(false);
+                  }}
+                  className="flex items-center gap-3 px-4 py-2 text-sm text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <Package size={16} /> Update Parcel
+                </button>
+              )}
 
               {parcel?.currentStatus === "PENDING" && (
                 <button

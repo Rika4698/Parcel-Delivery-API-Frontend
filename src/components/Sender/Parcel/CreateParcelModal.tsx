@@ -64,6 +64,14 @@ export const CreateParcelModal: FC<CreateParcelModalProps> = ({
   const fee = weight * rate;
 
   const onSubmit: SubmitHandler<FieldValues> = async data => {
+
+     const rate = location === 'dhaka' ? 60 : 120;
+  const fee = data.weight * rate;
+
+  if (fee <= 0) {
+    toast.error("Delivery fee must be greater than 0");
+    return;
+  }
     try {
       const payload = {
         receiverEmail: data.email,
@@ -86,24 +94,7 @@ export const CreateParcelModal: FC<CreateParcelModalProps> = ({
     }
   };
 
-   useEffect(() => {
-      const handleClickOutside = (event: MouseEvent) => {
-        if (
-          modalRef.current &&
-          !modalRef.current.contains(event.target as Node)
-        ) {
-          onClose();
-        }
-      };
   
-      if (isOpen) {
-        document.addEventListener("mousedown", handleClickOutside);
-      }
-  
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
