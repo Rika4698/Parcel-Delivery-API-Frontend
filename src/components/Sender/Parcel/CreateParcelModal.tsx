@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/select';
 import { useAddParcelMutation } from '@/redux/features/parcel/parcel.api';
 import { X } from 'lucide-react';
-import { type FC } from 'react';
+import { useEffect, useRef, type FC } from 'react';
 import { useForm, type FieldValues, type SubmitHandler } from 'react-hook-form';
 import z from 'zod';
 import { toast } from 'sonner';
@@ -56,7 +56,7 @@ export const CreateParcelModal: FC<CreateParcelModalProps> = ({
 
 
   const [addParcel] = useAddParcelMutation();
-
+  const modalRef = useRef<HTMLDivElement>(null);
   // fee calculation
   const weight = form.watch('weight');
   const location = form.watch('location');
@@ -86,12 +86,31 @@ export const CreateParcelModal: FC<CreateParcelModalProps> = ({
     }
   };
 
+   useEffect(() => {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (
+          modalRef.current &&
+          !modalRef.current.contains(event.target as Node)
+        ) {
+          onClose();
+        }
+      };
+  
+      if (isOpen) {
+        document.addEventListener("mousedown", handleClickOutside);
+      }
+  
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-[#00000051] bg-opacity-50 z-50 flex justify-center items-center p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-md">
-        <div className="flex justify-between items-center p-4 border-b dark:border-gray-700">
+      <div ref={modalRef} className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-md">
+        <div className="flex justify-between items-center p-4 border-b border-gray-300 dark:border-gray-700">
           <h2 className="text-xl font-bold text-gray-900 dark:text-white">
             Create New Parcel
           </h2>
@@ -114,7 +133,7 @@ export const CreateParcelModal: FC<CreateParcelModalProps> = ({
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Receiver Email</FormLabel>
+                  <FormLabel className='text-black dark:text-white'>Receiver Email</FormLabel>
                   <FormControl>
                     <Input type="email" placeholder="Email" {...field} />
                   </FormControl>
@@ -129,9 +148,9 @@ export const CreateParcelModal: FC<CreateParcelModalProps> = ({
               name="address"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Address</FormLabel>
+                  <FormLabel className='text-black dark:text-white'>Address</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Enter Receiver Address" {...field} />
+                    <Textarea className='text-black dark:text-white' placeholder="Enter Receiver Address" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -144,7 +163,7 @@ export const CreateParcelModal: FC<CreateParcelModalProps> = ({
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone</FormLabel>
+                  <FormLabel className='text-black dark:text-white'>Phone</FormLabel>
                   <FormControl>
                     <Input
                       type="text"
@@ -163,15 +182,15 @@ export const CreateParcelModal: FC<CreateParcelModalProps> = ({
               name="location"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Delivery Location</FormLabel>
+                  <FormLabel className='text-black dark:text-white'>Delivery Location</FormLabel>
                   <FormControl className='w-full'>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                 
                     >
-                      <SelectTrigger className='w-full'>
-                        <SelectValue placeholder="Select Location" />
+                      <SelectTrigger className='w-full text-black dark:text-white'>
+                        <SelectValue  placeholder="Select Location" />
                       </SelectTrigger>
                       <SelectContent className='w-full'>
                         <SelectItem value="dhaka">Inside Dhaka</SelectItem>
@@ -190,7 +209,7 @@ export const CreateParcelModal: FC<CreateParcelModalProps> = ({
               name="weight"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Weight (kg)</FormLabel>
+                  <FormLabel className='text-black dark:text-white'>Weight (kg)</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
@@ -211,9 +230,9 @@ export const CreateParcelModal: FC<CreateParcelModalProps> = ({
               name="note"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Note (Optional)</FormLabel>
+                  <FormLabel className='text-black dark:text-white'>Note (Optional)</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Enter Note" {...field} />
+                    <Textarea className='text-black dark:text-white' placeholder="Enter Note" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -222,15 +241,15 @@ export const CreateParcelModal: FC<CreateParcelModalProps> = ({
 
             {/* Fee Preview */}
             <div className="text-right text-lg font-semibold text-gray-700 dark:text-gray-300">
-              Delivery Fee: {fee} ৳
+              Delivery Fee: {fee} TK
             </div>
 
             {/* Buttons */}
             <div className="flex justify-end gap-4 pt-4">
-              <button type="button" onClick={onClose}>
+              <button type="button" onClick={onClose} className='p-2 rounded-md border bg-gray-200 dark:bg-stone-800 border-gray-400 dark:border-gray-700 text-black dark:text-white'>
                 Cancel
               </button>
-              <button type="submit">Add Parcel</button>
+              <button type="submit" className='p-2 rounded-md border bg-blue-600 dark:bg-blue-500 border-blue-700 text-white '>Add Parcel</button>
             </div>
           </form>
         </Form>
