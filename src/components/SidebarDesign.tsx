@@ -91,7 +91,7 @@ export function SidebarDesign({ ...props }: React.ComponentProps<typeof Sidebar>
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton  
               className="text-black dark:text-white bg-blue-600/20 dark:bg-blue-500/20" asChild>
-                  <span>{item.title}</span>
+                  <span >{item.title}</span>
                 </SidebarMenuButton>
                 {item.items?.length && (
                   <SidebarMenuSub>

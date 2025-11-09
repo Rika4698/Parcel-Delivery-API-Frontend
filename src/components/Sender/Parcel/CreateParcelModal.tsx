@@ -87,7 +87,8 @@ export const CreateParcelModal: FC<CreateParcelModalProps> = ({
       const res = await addParcel(payload).unwrap();
       if (res.success) {
         toast.success('Parcel Created Successfully');
-        onClose();
+        form.reset(); 
+      onClose();  
       }
     } catch (error: any) {
       toast.error(error.data.message)
@@ -126,7 +127,7 @@ export const CreateParcelModal: FC<CreateParcelModalProps> = ({
                 <FormItem>
                   <FormLabel className='text-black dark:text-white'>Receiver Email</FormLabel>
                   <FormControl>
-                    <Input type="email" placeholder="Email" {...field} />
+                    <Input type="email" placeholder="Email" {...field} required />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -141,7 +142,7 @@ export const CreateParcelModal: FC<CreateParcelModalProps> = ({
                 <FormItem>
                   <FormLabel className='text-black dark:text-white'>Address</FormLabel>
                   <FormControl>
-                    <Textarea className='text-black dark:text-white' placeholder="Enter Receiver Address" {...field} />
+                    <Textarea className='text-black dark:text-white' placeholder="Enter Receiver Address" {...field} required />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -159,7 +160,7 @@ export const CreateParcelModal: FC<CreateParcelModalProps> = ({
                     <Input
                       type="text"
                       placeholder="Enter Phone Number"
-                      {...field}
+                      {...field} required
                     />
                   </FormControl>
                   <FormMessage />
@@ -177,7 +178,7 @@ export const CreateParcelModal: FC<CreateParcelModalProps> = ({
                   <FormControl className='w-full'>
                     <Select
                       onValueChange={field.onChange}
-                      defaultValue={field.value}
+                      defaultValue={field.value} required
                 
                     >
                       <SelectTrigger className='w-full text-black dark:text-white'>
@@ -205,7 +206,7 @@ export const CreateParcelModal: FC<CreateParcelModalProps> = ({
                     <Input
                       type="number"
                       placeholder="Enter Weight"
-                      {...field}
+                      {...field} required
                       value={field.value ?? ''}
                       onChange={e => field.onChange(e.target.valueAsNumber)}
                     />
