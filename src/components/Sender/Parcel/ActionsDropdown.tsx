@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useDeleteParcelMutation } from "@/redux/features/parcel/parcel.api";
 import type { Parcel } from "@/types/parcel";
-import { Edit, Info, MoreVertical, Package } from "lucide-react";
+import { Edit, Info, MoreVertical, Package, Trash } from "lucide-react";
 import { useEffect, useRef, useState, type FC } from "react";
 import { createPortal } from "react-dom";
+import Swal from 'sweetalert2';
+import { toast } from 'sonner';
 
 interface ActionsDropdownProps {
   onViewDetails: () => void;
@@ -26,6 +29,32 @@ export const ActionsDropdown: FC<ActionsDropdownProps> = ({
 
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+   const [deleteParcel] = useDeleteParcelMutation();
+  
+    // SweetAlert Delete Logic
+    const DeleteParcel = () => {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      }).then(async result => {
+        if (result.isConfirmed) {
+          try {
+            const res = await deleteParcel(parcel._id).unwrap();
+            if (res.success) {
+              toast.success('Parcel deleted successfully');
+            }
+          } catch (error: any) {
+            toast.error(error.data?.message || 'Failed to delete parcel');
+          }
+        }
+      });
+    };
 
   // Toggle dropdown 
   const handleToggle = () => {
@@ -122,6 +151,16 @@ export const ActionsDropdown: FC<ActionsDropdownProps> = ({
                   <Edit size={16} /> Update Status
                 </button>
               )}
+
+               <button
+                              onClick={() => {
+                                DeleteParcel();
+                                setIsOpen(false);
+                              }}
+                              className="flex items-center gap-3 px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700"
+                            >
+                              <Trash size={16} /> Delete Parcel
+                            </button>
             </div>
           </div>,
           document.body
