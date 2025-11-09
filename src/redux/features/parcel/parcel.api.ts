@@ -6,6 +6,14 @@ import type { ITrackParcel, TResponse } from '@/types/parcel';
 
 export const parcelApi = baseApi.injectEndpoints({
   endpoints: builder => ({
+      addParcel: builder.mutation({
+      query: parcelInfo => ({
+        url: '/parcels/create',
+        method: 'POST',
+        data: parcelInfo,
+      }),
+      invalidatesTags: ['parcel'],
+    }),
     
     allParcels: builder.query({
       query: params => ({
@@ -32,6 +40,14 @@ export const parcelApi = baseApi.injectEndpoints({
       }),
     }),
 
+       cancelParcel: builder.mutation({
+      query: id => ({
+        url: `/parcels/cancel/${id}`,
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['parcel'],
+    }),
+
      deleteParcel: builder.mutation({
       query: id => ({
         url: `/parcels/delete/${id}`,
@@ -46,10 +62,11 @@ export const parcelApi = baseApi.injectEndpoints({
 });
 
 export const {
-  
+  useAddParcelMutation,
   useAllParcelsQuery,
   useUpdateParcelStatusMutation,
   useGetParcelByTrackingIdQuery,
   useDeleteParcelMutation,
+  useCancelParcelMutation,
  
 } = parcelApi;

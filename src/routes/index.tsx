@@ -60,7 +60,7 @@ export const router = createBrowserRouter([
     Component: Auth(Dashboard, Role.sender as TRole),
     path: '/sender',
     children: [
-      { index: true, element: <Navigate to={'/sender'} /> },
+      { index: true, element: <Navigate to={'/sender/parcels'} /> },
       ...GenerateRoutes(senderSidebar),
     ],
   },

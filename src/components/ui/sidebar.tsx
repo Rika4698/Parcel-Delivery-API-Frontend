@@ -326,7 +326,7 @@ function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
     userData?.data?.role === "ADMIN"
       ? "bg-gradient-to-b from-blue-50 to-blue-100 dark:from-gray-700 dark:to-stone-900"
       : userData?.data?.role === "SENDER"
-      ? "bg-gradient-to-b from-purple-50 to-blue-100 dark:from-stone-700 dark:to-gray-900  "
+      ? "bg-gradient-to-b from-purple-100 to-blue-100 dark:from-stone-700 dark:to-gray-900  "
       : userData?.data?.role === "RECEIVER"
       ? "bg-gradient-to-b from-orange-100 to-orange-300 dark:from-orange-900 dark:to-orange-700"
       : "bg-sidebar";
