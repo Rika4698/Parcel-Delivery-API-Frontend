@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/select';
 import { useAddParcelMutation } from '@/redux/features/parcel/parcel.api';
 import { X } from 'lucide-react';
-import { useEffect, useRef, type FC } from 'react';
+import {  useRef, type FC } from 'react';
 import { useForm, type FieldValues, type SubmitHandler } from 'react-hook-form';
 import z from 'zod';
 import { toast } from 'sonner';

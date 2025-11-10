@@ -20,7 +20,7 @@ import {
 import { useUpdateParcelMutation } from '@/redux/features/parcel/parcel.api';
 import { X } from 'lucide-react';
 import { useEffect, useRef, type FC } from 'react';
-import { useForm, type FieldValues, type SubmitHandler } from 'react-hook-form';
+import { useForm,  type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
 import { toast } from 'sonner';

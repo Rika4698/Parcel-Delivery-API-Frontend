@@ -127,9 +127,9 @@ export default function AllParcels() {
         isSave={isSave}
       />
 
-      <div className="bg-sky-100 dark:bg-neutral-800 px-1.5 py-1.5 min-h-screen overflow-hidden">
+      <div className="bg-sky-100 dark:bg-neutral-800 px-0.5 py-0.5 min-h-screen overflow-hidden">
         <section className="w-full mx-auto">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+          <div className="bg-white dark:bg-gray-800  shadow-lg">
             {/* Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4 ">
               <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white px-3 py-3">
@@ -194,7 +194,7 @@ export default function AllParcels() {
                       key={parcel._id}
                       className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition"
                     >
-                      <td className="px-4 lg:px-1 xl:px-3 py-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 flex items-center gap-2">
+                      <td className=" px-4 lg:px-0 xl:px-4 py-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 flex items-center gap-2">
                         {parcel.trackingId}
                         <CopyIcon
                           onClick={() => copyToClipboard(parcel.trackingId)}
