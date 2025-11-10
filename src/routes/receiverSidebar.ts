@@ -3,6 +3,7 @@ import type { ISidebarItem } from "@/types";
 import { lazy } from "react";
 const InComingParcels = lazy(() => import("@/pages/Receiver/InComingParcels"));
 const AllDeliveredParcels = lazy(() => import("@/pages/Receiver/AllDeliveredParcels"));
+const UserProfile = lazy(() => import('@/components/UserProfile'));
 
 export const receiverSidebar: ISidebarItem[] = [
   {
@@ -19,6 +20,16 @@ export const receiverSidebar: ISidebarItem[] = [
         component: AllDeliveredParcels,
       },
   
+    ],
+  },
+  {
+    title: 'User Profile',
+    items: [
+      {
+        title: 'Profile',
+        url: '/receiver/Profile',
+        component: UserProfile,
+      },
     ],
   },
   
