@@ -51,6 +51,7 @@ export default function HeroSection() {
             {/* Buttons */}
             <div className="flex flex-row sm:flex-row gap-3 sm:gap-4 justify-center mb-10">
               <button
+              title="Register or Dashboard"
                 onClick={handleGetStarted}
                 className="flex items-center justify-center bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-semibold text-lg px-3 sm:px-8 py-2 sm:py-4 rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-1"
               >

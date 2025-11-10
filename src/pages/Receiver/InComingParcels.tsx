@@ -154,7 +154,6 @@ export default function InComingParcels() {
                   <option value="BLOCKED">BLOCKED</option>
                   <option value="IN_TRANSIT">IN_TRANSIT</option>
                   <option value="DELIVERED">DELIVERED</option>
-                  <option value="CANCELLED">CANCELLED </option>
                 </select>
               </div>
             </div>

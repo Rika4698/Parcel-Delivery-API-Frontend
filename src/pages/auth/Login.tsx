@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Form,
   FormControl,
@@ -42,19 +43,34 @@ const LogIn = () => {
   });
 
   const [LoginMutation] = useLoginMutation();
+
   const onSubmit: SubmitHandler<FieldValues> = async data => {
     setIsLoading(true)
+    
+     try {
     const userinfo = {
       email: data.email,
       password: data.password,
     };
+
     const res = await LoginMutation(userinfo).unwrap();
-    setIsLoading(false)
+
     if (res.success) {
-      // console.log(res);
       toast.success('Login Successfully');
       navigate('/');
     }
+  } catch (error: any) {
+    // Error from backend
+    if (error?.data?.message) {
+      toast.error(error.data.message);
+    } else if (error?.message) {
+      toast.error(error.message);
+    } else {
+      toast.error('Something went wrong. Please try again.');
+    }
+  } finally {
+    setIsLoading(false);
+  }
   };
 
   

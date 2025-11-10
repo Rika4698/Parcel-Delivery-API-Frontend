@@ -12,6 +12,19 @@ import {
 import { ChartContainer } from './ChartContainer';
 import { useEffect, useState } from 'react';
 
+
+const formatXAxisTick = (tickItem: string) => {
+  try {
+    const date = new Date(tickItem);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = String(date.getFullYear()).slice(-2);
+    return `${year}/${month}/${day}`;
+  } catch {
+    return tickItem;
+  }
+};
+
 interface MonthlyShipmentsChartProps {
   data: { name: string; Shipments: number }[];
 }
@@ -37,13 +50,12 @@ const useDarkMode = () => {
   return isDark;
 };
 
-
 export const MonthlyShipmentsChart = ({ data }: MonthlyShipmentsChartProps) => {
   const isDark = useDarkMode();
 
-  const axisColor = isDark ? '#E5E7EB' : '#475569'; 
+  const axisColor = isDark ? '#E5E7EB' : '#475569';
   const gridColor = isDark ? 'rgba(182, 190, 200, 0.3)' : 'rgba(112, 115, 119, 0.5)';
-  const barColor = isDark ? '#60A5FA' : '#3B82F6'; 
+  const barColor = isDark ? '#60A5FA' : '#3B82F6';
   const tooltipBg = isDark ? '#1E293B' : '#FFFFFF';
   const tooltipBorder = isDark ? '#334155' : '#e2e8f0';
 
@@ -57,49 +69,21 @@ export const MonthlyShipmentsChart = ({ data }: MonthlyShipmentsChartProps) => {
         <BarChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={gridColor} />
 
-        
+         
           <XAxis
             dataKey="name"
+            tickFormatter={formatXAxisTick}
             tickLine={false}
             axisLine={false}
             fontSize={12}
-            tick={(props) => {
-              const { x, y, payload } = props;
-              return (
-                <text
-                  x={x}
-                  y={y + 10}
-                  textAnchor="middle"
-                  fill={axisColor}
-                  fontSize={12}
-                  style={{ fontFamily: 'sans-serif' }}
-                >
-                  {payload.value}
-                </text>
-              );
-            }}
+            stroke={axisColor}
           />
-
 
           <YAxis
             tickLine={false}
             axisLine={false}
             fontSize={12}
-            tick={(props) => {
-              const { x, y, payload } = props;
-              return (
-                <text
-                  x={x - 5}
-                  y={y + 3}
-                  textAnchor="end"
-                  fill={axisColor}
-                  fontSize={12}
-                  style={{ fontFamily: 'sans-serif' }}
-                >
-                  {payload.value}
-                </text>
-              );
-            }}
+            stroke={axisColor}
           />
 
           <Tooltip
@@ -110,6 +94,7 @@ export const MonthlyShipmentsChart = ({ data }: MonthlyShipmentsChartProps) => {
               color: axisColor,
               borderRadius: '8px',
             }}
+            labelFormatter={(label) => formatXAxisTick(label as string)} 
           />
 
           <Legend

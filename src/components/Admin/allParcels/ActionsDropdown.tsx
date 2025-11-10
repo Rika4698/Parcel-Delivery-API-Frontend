@@ -4,7 +4,7 @@ import type { Parcel } from '@/types/parcel';
 import { Edit, Info, MoreVertical, Trash } from 'lucide-react';
 import { useEffect, useRef, useState, type FC } from 'react';
 import { toast } from 'sonner';
-import Swal from 'sweetalert2';
+import swal from 'sweetalert';
 import { createPortal } from 'react-dom';
 
 interface ActionsDropdownProps {
@@ -30,29 +30,28 @@ export const ActionsDropdown: FC<ActionsDropdownProps> = ({
 
   const [deleteParcel] = useDeleteParcelMutation();
 
-  // SweetAlert Delete Logic
-  const DeleteParcel = () => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-    }).then(async result => {
-      if (result.isConfirmed) {
-        try {
-          const res = await deleteParcel(parcel._id).unwrap();
-          if (res.success) {
-            toast.success('Parcel deleted successfully');
-          }
-        } catch (error: any) {
-          toast.error(error.data?.message || 'Failed to delete parcel');
+
+const DeleteParcel = (parcel: any, deleteParcel: any) => {
+  swal({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    buttons: ["Cancel", "Yes, delete it!"],
+    dangerMode: true,
+  }).then(async (willDelete) => {
+    if (willDelete) {
+      try {
+        const res = await deleteParcel(parcel._id).unwrap();
+        if (res.success) {
+          toast.success("Parcel deleted successfully");
         }
+      } catch (error: any) {
+        toast.error(error.data?.message || "Failed to delete parcel");
+        swal("Error!", error.data?.message || "Failed to delete parcel", "error");
       }
-    });
-  };
+    }
+  });
+};
 
   // Dropdown toggle
   const handleToggle = () => {
@@ -142,7 +141,7 @@ export const ActionsDropdown: FC<ActionsDropdownProps> = ({
              
               <button
                 onClick={() => {
-                  DeleteParcel();
+                  DeleteParcel(parcel, deleteParcel)
                   setIsOpen(false);
                 }}
                 className="flex items-center gap-3 px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700"

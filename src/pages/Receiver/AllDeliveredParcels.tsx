@@ -26,7 +26,10 @@ export default function AllDeliveredParcels() {
         searchTrim: searchTrim || undefined,
         page: currentPage,
         limit: 5,
-    });
+    },
+     {
+    refetchOnMountOrArgChange: true, 
+  });
 
 
     const [parcels, setParcels] = useState<Parcel[]>(data?.data?.data || []);
@@ -62,6 +65,7 @@ export default function AllDeliveredParcels() {
     };
 
     if (isLoading) return <Loading className='h-screen' />
+    
     const copyToClipboard = async (text: string) => {
         try {
             await navigator.clipboard.writeText(text);

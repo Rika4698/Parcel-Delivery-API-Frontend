@@ -127,21 +127,21 @@ export default function AllParcels() {
         isSave={isSave}
       />
 
-      <div className="bg-sky-100 dark:bg-neutral-800 p-2 sm:p-4 lg:p-6 min-h-screen">
+      <div className="bg-sky-100 dark:bg-neutral-800 px-1.5 py-1.5 min-h-screen overflow-hidden">
         <section className="w-full mx-auto">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
             {/* Header */}
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4 p-4 sm:p-5">
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4 ">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white px-3 py-3">
                 All Parcels
               </h1>
-              <h3 className="font-medium text-gray-400">
+              <h3 className="font-medium text-gray-400 px-3 ">
                 Total: {data?.data?.meta?.total || 0} parcels
               </h3>
             </div>
 
             {/* Search & Filter */}
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6 p-4">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6 px-3">
               <div className="relative md:col-span-3">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                   <Search className="h-5 w-5 text-gray-400" />
@@ -194,7 +194,7 @@ export default function AllParcels() {
                       key={parcel._id}
                       className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition"
                     >
-                      <td className="px-4 py-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 flex items-center gap-2">
+                      <td className="px-4 lg:px-1 xl:px-3 py-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 flex items-center gap-2">
                         {parcel.trackingId}
                         <CopyIcon
                           onClick={() => copyToClipboard(parcel.trackingId)}
