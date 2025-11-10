@@ -63,7 +63,7 @@ function SheetContent({
         : userData?.data?.role === "SENDER"
         ? "  border-purple-400 dark:border-stone-600"
         : userData?.data?.role === "RECEIVER"
-        ? "bg-gradient-to-b from-orange-100 to-orange-300 dark:from-orange-900 dark:to-orange-700"
+        ? "border-blue-300 dark:border-neutral-700"
         : "bg-sidebar";
   return (
     <SheetPortal>

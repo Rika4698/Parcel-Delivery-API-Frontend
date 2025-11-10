@@ -216,13 +216,18 @@ export default function Parcel() {
                   className="w-full appearance-none pl-9 sm:pl-10 pr-4 py-2 text-sm sm:text-base rounded-lg bg-gray-100 dark:bg-gray-700 border-transparent focus:border-indigo-500 focus:ring-indigo-500 text-gray-900 dark:text-gray-100"
                 >
                   <option value="">All Statuses</option>
-                  <option value="PENDING">Pending</option>
-                  <option value="CANCELLED">Cancelled</option>
+                  <option value="PENDING">PENDING</option>
+                  <option value="APPROVED">APPROVED</option>
+                  <option value="BLOCKED">BLOCKED</option>
+                  <option value="IN_TRANSIT">IN_TRANSIT</option>
+                  <option value="DELIVERED">DELIVERED</option>
+                  <option value="CONFIRMED">CONFIRMED </option>
+                  <option value="CANCELLED">CANCELLED </option>
                 </select>
               </div>
             </div>
 
-            {/* Parcel Table - All Screens with Horizontal Scroll */}
+            {/* Parcel Table  */}
               <div className="overflow-x-auto">
                           <table className="min-w-full text-left ">
                             <thead className="bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-100">

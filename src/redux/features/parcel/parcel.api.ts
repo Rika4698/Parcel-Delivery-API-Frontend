@@ -23,12 +23,28 @@ export const parcelApi = baseApi.injectEndpoints({
       }),
       providesTags: ['parcel'],
     }),
+    allInComingParcels: builder.query({
+      query: params => ({
+        url: '/parcels/incoming-parcel',
+        method: 'GET',
+        params: params,
+      }),
+      providesTags: ['parcel'],
+    }),
 
    updateParcel: builder.mutation({
       query: ({ id, payload }: { id: string; payload: any }) => ({
         url: `/parcels/update-parcel/${id}`,
         method: 'PATCH',
         data: payload,
+      }),
+      invalidatesTags: ['parcel'],
+    }),
+
+     confirmDelivery: builder.mutation({
+      query: id => ({
+        url: `/parcels/confirm/${id}`,
+        method: 'PATCH',
       }),
       invalidatesTags: ['parcel'],
     }),
@@ -78,5 +94,7 @@ export const {
   useDeleteParcelMutation,
   useCancelParcelMutation,
   useUpdateParcelMutation,
+  useAllInComingParcelsQuery,
+  useConfirmDeliveryMutation,
  
 } = parcelApi;

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react';
+import { cn } from "@/lib/utils"
 import {
   Sidebar,
   SidebarContent,
@@ -46,7 +47,7 @@ export function SidebarDesign({ ...props }: React.ComponentProps<typeof Sidebar>
       : userData?.data?.role === "SENDER"
       ? "hover:bg-gradient-to-b from-purple-300 to-blue-200 dark:from-stone-700 dark:to-gray-800 py-6"
       : userData?.data?.role === "RECEIVER"
-      ? "bg-gradient-to-b from-orange-100 to-orange-300 dark:from-orange-900 dark:to-orange-700"
+      ? "hover:bg-gradient-to-b from-blue-300 to-purple-300 dark:from-neutral-700 dark:to-slate-600 py-6"
       : "bg-sidebar"}`}>
               <SidebarMenuButton size="lg" asChild>
                 <div className={`flex justify-between mt-3 ${ userData?.data?.role === "ADMIN"
@@ -54,7 +55,7 @@ export function SidebarDesign({ ...props }: React.ComponentProps<typeof Sidebar>
       : userData?.data?.role === "SENDER"
       ? "hover:bg-gradient-to-b from-purple-300 to-blue-200 dark:from-stone-700 dark:to-gray-800 py-6"
       : userData?.data?.role === "RECEIVER"
-      ? "bg-gradient-to-b from-orange-100 to-orange-300 dark:from-orange-900 dark:to-orange-700"
+      ? "hover:bg-gradient-to-b from-blue-300 to-purple-300 dark:from-neutral-700 dark:to-slate-600 py-6"
       : "bg-sidebar"}`}>
                   <Link to='/' className="flex items-center gap-2 ">
                     <div className=" flex aspect-square size-16 items-center justify-center rounded-lg ">
@@ -87,39 +88,56 @@ export function SidebarDesign({ ...props }: React.ComponentProps<typeof Sidebar>
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu>
-            {data.navMain.map(item => (
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton  
-              className="text-black dark:text-white bg-blue-600/20 dark:bg-blue-500/20" asChild>
-                  <span >{item.title}</span>
-                </SidebarMenuButton>
-                {item.items?.length && (
-                  <SidebarMenuSub>
-                    {item.items.map((subItem: any) => {
-  const isActive = location.pathname === subItem.url; // current route check
+          {data.navMain.map(item => {
+  // check if any subItem is active
+  const isParentActive = item.items?.some((subItem: any) => location.pathname === subItem.url);
 
   return (
-    <SidebarMenuSubItem key={subItem.title}>
-      <SidebarMenuSubButton 
-        asChild 
-        isActive={isActive} 
-        className="data-[active=true]:bg-blue-600/20 dark:data-[active=true]:bg-blue-500/20 data-[active=true]:text-black dark:data-[active=true]:text-white"
+    <SidebarMenuItem key={item.title}>
+      <SidebarMenuButton
+        asChild
+        className={cn(
+          "text-black dark:text-white ",
+          isParentActive
+            ? "bg-blue-600/20 dark:bg-blue-500/20 font-semibold"
+            : "hover:bg-blue-200 dark:hover:bg-gray-700"
+        )}
       >
-        <Link
-          to={subItem.url}
-          onClick={() => isMobile && setOpenMobile(false)}
-        >
-          {subItem.title}
-        </Link>
-      </SidebarMenuSubButton>
-    </SidebarMenuSubItem>
+        <span>{item.title}</span>
+      </SidebarMenuButton>
+
+      {item.items?.length && (
+        <SidebarMenuSub>
+          {item.items.map((subItem: any) => {
+            const isActive = location.pathname === subItem.url;
+
+            return (
+              <SidebarMenuSubItem key={subItem.title}>
+                <SidebarMenuSubButton
+                  asChild
+                  isActive={isActive}
+                  className={cn(
+                    "",
+                    isActive
+                      ? "bg-blue-400/20 dark:bg-blue-300/20 text-black dark:text-white font-medium"
+                      : "hover:bg-blue-200 dark:hover:bg-gray-700"
+                  )}
+                >
+                  <Link
+                    to={subItem.url}
+                    onClick={() => isMobile && setOpenMobile(false)}
+                  >
+                    {subItem.title}
+                  </Link>
+                </SidebarMenuSubButton>
+              </SidebarMenuSubItem>
+            );
+          })}
+        </SidebarMenuSub>
+      )}
+    </SidebarMenuItem>
   );
 })}
-
-                  </SidebarMenuSub>
-                )}
-              </SidebarMenuItem>
-            ))}
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>

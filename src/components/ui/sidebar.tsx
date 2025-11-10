@@ -173,9 +173,9 @@ function Sidebar({
     userData?.data?.role === "ADMIN"
       ? "bg-gradient-to-b from-blue-100 to-blue-300 dark:from-gray-600 dark:to-stone-800 group-data-[side=left]:border-blue-200 dark:group-data-[side=left]:border-gray-700"
       : userData?.data?.role === "SENDER"
-      ? "bg-gradient-to-b from-purple-200 to-blue-200 dark:from-stone-600 dark:to-gray-800  group-data-[side=left]:border-purple-500 dark:group-data-[side=left]:border-stone-600"
+      ? "bg-gradient-to-b from-purple-200 to-blue-200 dark:from-stone-600 dark:to-gray-800  group-data-[side=left]:border-purple-500 dark:group-data-[side=left]:border-stone-700"
       : userData?.data?.role === "RECEIVER"
-      ? "bg-gradient-to-b from-orange-100 to-orange-300 dark:from-orange-900 dark:to-orange-700"
+      ? "bg-gradient-to-b from-blue-200 to-purple-300 dark:from-neutral-600 dark:to-slate-900 group-data-[side=left]:border-blue-300 dark:group-data-[side=left]:border-neutral-700"
       : "bg-sidebar";
 
   if (collapsible === "none") {
@@ -328,7 +328,7 @@ function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
       : userData?.data?.role === "SENDER"
       ? "bg-gradient-to-b from-purple-100 to-blue-100 dark:from-stone-700 dark:to-gray-900  "
       : userData?.data?.role === "RECEIVER"
-      ? "bg-gradient-to-b from-orange-100 to-orange-300 dark:from-orange-900 dark:to-orange-700"
+      ? "bg-gradient-to-b from-blue-100 to-purple-100 dark:from-neutral-700 dark:to-slate-900"
       : "bg-sidebar";
   return (
     <main
@@ -724,8 +724,8 @@ function SidebarMenuSubButton({
       data-size={size}
       data-active={isActive}
       className={cn(
-        "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 outline-hidden focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
-        "data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground",
+        "text-sidebar-foreground ring-sidebar-ring hover:bg- hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 outline-hidden focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
+        "data-[active=true]:bg- data-[active=true]:text-sidebar-accent-foreground",
        
         size === "sm" && "text-xs",
         size === "md" && "text-sm",
