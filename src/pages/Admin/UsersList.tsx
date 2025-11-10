@@ -74,7 +74,7 @@ export default function AllUsers() {
               <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">
                 All Users
               </h1>
-              <h3 className=' font-medium text-gray-900 dark:text-white'>Total: {data?.meta?.total || 0}  users</h3>
+              <h3 className=' font-medium text-gray-400'>Total: {data?.meta?.total || 0}  users</h3>
             </div>
 
             {/* Search & Filter */}

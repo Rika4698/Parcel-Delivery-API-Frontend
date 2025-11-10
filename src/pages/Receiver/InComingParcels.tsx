@@ -110,7 +110,7 @@ export default function InComingParcels() {
         isUpdate={isUpdate}
       />
 
-<div className="bg-gray-50 dark:bg-gray-900  min-h-screen px-2 py-2">
+<div className="bg-blue-50 dark:bg-neutral-800  min-h-screen px-2 py-2">
         <section className="w-full mx-auto">
           <div className="bg-white dark:bg-gray-800  rounded-xl shadow-lg">
             {/* Header */}
@@ -118,6 +118,9 @@ export default function InComingParcels() {
               <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white p-4">
                 My InComing Parcels
               </h1>
+               <h3 className="font-medium text-gray-400  px-4">
+                Total: {data?.data?.meta?.total || 0} parcels
+              </h3>
             </div>
 
             {/* Search & Filter */}

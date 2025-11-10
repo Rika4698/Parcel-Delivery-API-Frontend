@@ -135,7 +135,7 @@ export default function AllParcels() {
               <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">
                 All Parcels
               </h1>
-              <h3 className="font-medium text-gray-900 dark:text-white">
+              <h3 className="font-medium text-gray-400">
                 Total: {data?.data?.meta?.total || 0} parcels
               </h3>
             </div>

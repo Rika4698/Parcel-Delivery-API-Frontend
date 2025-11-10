@@ -23,6 +23,7 @@ export const parcelApi = baseApi.injectEndpoints({
       }),
       providesTags: ['parcel'],
     }),
+    
     allInComingParcels: builder.query({
       query: params => ({
         url: '/parcels/incoming-parcel',
@@ -65,6 +66,15 @@ export const parcelApi = baseApi.injectEndpoints({
       }),
     }),
 
+      allDeliveryHistory: builder.query({
+      query: params => ({
+        url: '/parcels/delivery-history',
+        method: 'GET',
+        params: params,
+      }),
+      providesTags: ['parcel'],
+    }),
+
        cancelParcel: builder.mutation({
       query: id => ({
         url: `/parcels/cancel/${id}`,
@@ -96,5 +106,6 @@ export const {
   useUpdateParcelMutation,
   useAllInComingParcelsQuery,
   useConfirmDeliveryMutation,
+  useAllDeliveryHistoryQuery,
  
 } = parcelApi;
