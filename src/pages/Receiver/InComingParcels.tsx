@@ -173,8 +173,8 @@ export default function InComingParcels() {
                                          <th className="px-4 py-2 text-center">Actions</th>
                                        </tr>
                                      </thead>
-                                     <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                                       {(parcels || []).map(parcel => (
+   <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                    {(parcels || []).map(parcel => (
                                          <tr
                                            key={parcel._id}
                                            className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition"

@@ -30,11 +30,11 @@ export const UpgradeRole: FC<UpgradeModalProps> = ({
 
         {/* Modal Content */}
         <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-          Upgrade to Receiver
+          Upgrade to {userRole==='SENDER'? "Receiver":"Sender"}
         </h2>
         <p className="text-gray-700 dark:text-gray-300 mb-6">
-          You are currently a {userRole}. Upgrade to Receiver to access
-          receiver-only features.
+          You are currently a {userRole}. Upgrade to {userRole==='SENDER'? "Receiver":"Sender"} to access{" "}
+           {userRole==='SENDER'? "Receiver":"Sender"} user features.
         </p>
 
         {/* Buttons */}
