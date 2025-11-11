@@ -59,7 +59,7 @@ export const ActionsDropdown: FC<ActionsDropdownProps> = ({
   const handleToggle = () => {
     if (buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
-      const dropdownHeight = 120;
+      const dropdownHeight = (parcel?.currentStatus === "PENDING"? 100 : 50);
       const isBottomCutOff = rect.bottom + dropdownHeight > window.innerHeight;
 
       setDropdownPosition({
@@ -150,7 +150,8 @@ export const ActionsDropdown: FC<ActionsDropdownProps> = ({
                   <Edit size={16} /> Update Status
                 </button>
               )}
-
+             
+             {parcel?.currentStatus === "PENDING" && (
                <button
                    onClick={() => {
                       DeleteParcel(parcel, deleteParcel)
@@ -158,8 +159,11 @@ export const ActionsDropdown: FC<ActionsDropdownProps> = ({
                className="flex items-center gap-3 px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                <Trash size={16} /> Delete Parcel
-               </button>                    
+               </button>
+               
+                   )}
             </div>
+
           </div>,
           document.body
         )}

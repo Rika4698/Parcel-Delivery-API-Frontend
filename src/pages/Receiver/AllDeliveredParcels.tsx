@@ -196,12 +196,14 @@ export default function AllDeliveredParcels() {
                                 </div>
                             )}
                         </div>
-
+                         
+                         <div className='py-6 mr-4 flex justify-end'>
                         <PaginationView
                             setCurrentPage={setCurrentPage}
                             currentPage={currentPage}
                             meta={data?.data?.meta}
                         />
+                        </div>
                     </div>
                 </section>
             </div>

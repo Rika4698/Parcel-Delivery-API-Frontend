@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Search, Filter, CopyIcon } from 'lucide-react';
 
 import { useAllParcelsQuery, useCancelParcelMutation, useUpdateParcelMutation } from '@/redux/features/parcel/parcel.api';
-import { useSearchParams } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 import { toast } from 'sonner';
 import PaginationView from '@/components/Pagination';
 import { CreateParcelModal } from '@/components/Sender/Parcel/CreateParcelModal';
@@ -16,14 +16,23 @@ import Loading from '@/components/Loading';
 import { UpdateParcelModal } from '@/components/Sender/Parcel/UpdateParcelModal';
 
 export default function Parcel() {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams();
+   const navigate = useNavigate();
   const [filter, setFilter] = useState('');
   const [isUpdate, setIsUpdate] = useState(false)
  
    const searchTrim = searchParams.get('searchTrim') || '';
   const statusFilter = searchParams.get('filter') || '';
 
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+ const params = new URLSearchParams(searchParams);
+  params.delete('filter');
+  params.delete('searchTrim');
+   navigate({ search: params.toString() }, { replace: true });
+  }, []);   
+    
 
   const { data, isLoading } = useAllParcelsQuery({
     currentStatus: statusFilter || undefined,
@@ -173,7 +182,7 @@ export default function Parcel() {
               </h1>
               <button
                 onClick={() => setIsCreateModalOpen(true)}
-                className="w-full sm:w-auto bg-indigo-600 text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg font-semibold hover:bg-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 text-sm sm:text-base mx-2"
+                className=" w-[300px] sm:w-auto bg-indigo-600 text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg font-semibold hover:bg-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 text-sm sm:text-base mx-2"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -247,7 +256,7 @@ export default function Parcel() {
                                   key={parcel._id}
                                   className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition"
                                 >
-                                  <td className="px-4 py-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 flex items-center gap-2">
+                                  <td className="px-4 lg:px-0 xl:px-4 py-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 flex items-center gap-2">
                                     {parcel.trackingId}
                                     <CopyIcon
                                       onClick={() => copyToClipboard(parcel.trackingId)}
@@ -303,12 +312,14 @@ export default function Parcel() {
                 </p>
               </div>
             )}
-
+             
+              <div className='py-6 mr-4 flex justify-end'>
             <PaginationView
               setCurrentPage={setCurrentPage}
               currentPage={currentPage}
               meta={data?.data?.meta}
             />
+            </div>
           </div>
         </section>
       </div>
