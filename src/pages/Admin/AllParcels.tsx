@@ -6,7 +6,7 @@ import {
   useAllParcelsQuery,
   useUpdateParcelStatusMutation,
 } from '@/redux/features/parcel/parcel.api';
-import { useSearchParams } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 import { toast } from 'sonner';
 import PaginationView from '@/components/Pagination';
 import { ActionsDropdown } from '@/components/Admin/allParcels/ActionsDropdown';
@@ -17,13 +17,21 @@ import Loading from '@/components/Loading';
 
 export default function AllParcels() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [filter, setFilter] = useState('');
   const [isSave, setIsSave] = useState(false);
   const searchTrim = searchParams.get('searchTrim') || '';
   const statusFilter = searchParams.get('filter') || '';
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Fetch data
+    useEffect(() => {
+   const params = new URLSearchParams(searchParams);
+    params.delete('filter');
+    params.delete('searchTrim');
+     navigate({ search: params.toString() }, { replace: true });
+    }, []);  
+
+  
   const { data, isLoading } = useAllParcelsQuery({
     currentStatus: statusFilter || undefined,
     searchTrim: searchTrim || undefined,

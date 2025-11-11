@@ -57,7 +57,7 @@ const DeleteParcel = (parcel: any, deleteParcel: any) => {
   const handleToggle = () => {
     if (buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
-      const dropdownHeight = 120;
+      const dropdownHeight = 110;
       const isBottomCutOff =
         rect.bottom + dropdownHeight > window.innerHeight;
 

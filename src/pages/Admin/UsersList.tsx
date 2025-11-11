@@ -6,12 +6,13 @@ import { useGetAllUsersQuery } from '@/redux/features/user/user.api';
 import type { ParcelStatus } from '@/types/parcel';
 import type { IUser } from '@/types/user';
 import { Filter, Search } from 'lucide-react';
-import { useState } from 'react';
-import { useSearchParams } from 'react-router';
+import { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router';
 
 
 export default function AllUsers() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const searchTrem = searchParams.get('searchTerm') || '';
     const statusFilter = searchParams.get('filter') || undefined;
   const [searchInput, setSearchInput] = useState(searchTrem);
@@ -19,6 +20,13 @@ export default function AllUsers() {
 
   
   const [currentPage, setCurrentPage] = useState(1);
+
+   useEffect(() => {
+     const params = new URLSearchParams(searchParams);
+      params.delete('filter');
+      params.delete('searchTrim');
+       navigate({ search: params.toString() }, { replace: true });
+      }, []);  
 
   const { data, isLoading, isError } = useGetAllUsersQuery({
     searchTerm: searchInput,
@@ -92,7 +100,7 @@ export default function AllUsers() {
               </span>
               <input
                 type="text"
-                placeholder="Search..."
+                placeholder="Search by role, user and status..."
                 value={searchInput}
                 onChange={e => {
                 
@@ -186,7 +194,7 @@ export default function AllUsers() {
             <td className="p-4 text-sm text-gray-800 dark:text-gray-200">
               <UserDetailsDialog user={user} />
             </td>
-            <td className="p-4 text-center text-gray-800 dark:text-gray-200">
+            <td className="p-4 text-center text-gray-800 dark:text-gray-200 ">
               <UpdateUserStatusDialog user={user} />
             </td>
           </tr>
