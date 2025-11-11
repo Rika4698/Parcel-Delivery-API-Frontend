@@ -147,7 +147,7 @@ export const ActionsDropdown: FC<ActionsDropdownProps> = ({
   const handleToggle = () => {
     if (buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
-      const dropdownHeight = 120;
+      const dropdownHeight = 56;
       const isBottomCutOff = rect.bottom + dropdownHeight > window.innerHeight;
 
       setDropdownPosition({
@@ -194,7 +194,7 @@ export const ActionsDropdown: FC<ActionsDropdownProps> = ({
           <div
             ref={dropdownRef}
             onClick={(e) => e.stopPropagation()}
-            className="absolute bg-white dark:bg-gray-800 shadow-xl rounded-md w-48 z-[9999] border border-gray-200 dark:border-gray-700"
+            className="absolute bg-white dark:bg-gray-900 shadow-xl rounded-md w-48 z-[9999] border border-gray-200 dark:border-gray-700"
             style={{
               top: dropdownPosition.top,
               left: dropdownPosition.left,

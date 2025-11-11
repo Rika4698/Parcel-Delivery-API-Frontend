@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Search, Filter, CopyIcon } from 'lucide-react';
 import type { Parcel, ParcelStatus } from '@/types/parcel';
 import { useAllInComingParcelsQuery, useConfirmDeliveryMutation } from '@/redux/features/parcel/parcel.api';
-import { useSearchParams } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 import { toast } from 'sonner';
 import PaginationView from '@/components/Pagination';
 import { UpdateStatusModal } from '@/components/Receiver/IncomingParcel/UpdateStatusModal';
@@ -15,12 +15,23 @@ import Loading from '@/components/Loading';
 
 export default function InComingParcels() {
   const [searchParams, setSearchParams] = useSearchParams();
+         const navigate = useNavigate();
   const [filter, setFilter] = useState('');
   const [isUpdate, setIsUpdate] = useState(false)
   const searchTrim = searchParams.get('searchTrim') || '';
   const statusFilter = searchParams.get('filter') || '';
 
   const [currentPage, setCurrentPage] = useState(1);
+
+
+   useEffect(() => {
+          
+          const params = new URLSearchParams(searchParams);
+          params.delete('filter');
+          params.delete('searchTrim');
+          navigate({ search: params.toString() }, { replace: true });
+      }, []);
+  
 
   const { data, isLoading } = useAllInComingParcelsQuery({
     currentStatus: statusFilter || undefined,
@@ -85,6 +96,7 @@ export default function InComingParcels() {
 
     setSearchParams(params);
     setFilter(value);
+    setCurrentPage(1);
   };
 
   if (isLoading) return <Loading className='h-screen' />
@@ -110,9 +122,9 @@ export default function InComingParcels() {
         isUpdate={isUpdate}
       />
 
-<div className="bg-blue-50 dark:bg-neutral-800  min-h-screen px-2 py-2">
+<div className="bg-blue-50 dark:bg-neutral-800  min-h-screen px-1.5 py-1.5">
         <section className="w-full mx-auto">
-          <div className="bg-white dark:bg-gray-800  rounded-xl shadow-lg">
+          <div className="bg-white dark:bg-gray-800   shadow-lg">
             {/* Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
               <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white p-4">
@@ -178,7 +190,7 @@ export default function InComingParcels() {
                                            key={parcel._id}
                                            className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition"
                                          >
-                                           <td className="px-4 py-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 flex items-center gap-2">
+                                           <td className="px-4 lg:px-0 xl:px-4 py-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 flex items-center gap-2">
                                              {parcel.trackingId}{' '}
                                              <CopyIcon
                                                onClick={() => copyToClipboard(parcel.trackingId)}

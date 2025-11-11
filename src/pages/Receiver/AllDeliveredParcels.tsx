@@ -4,7 +4,7 @@ import type { Parcel, ParcelStatus } from '@/types/parcel';
 import {
     useAllDeliveryHistoryQuery
 } from '@/redux/features/parcel/parcel.api';
-import { useSearchParams } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 import { toast } from 'sonner';
 import PaginationView from '@/components/Pagination';
 import { StatusBadge } from '@/components/uis';
@@ -15,11 +15,21 @@ import Loading from '@/components/Loading';
 
 export default function AllDeliveredParcels() {
     const [searchParams, setSearchParams] = useSearchParams();
+       const navigate = useNavigate();
     const [filter, setFilter] = useState('');
     const searchTrim = searchParams.get('searchTrim') || '';
     const statusFilter = searchParams.get('filter') || '';
 
     const [currentPage, setCurrentPage] = useState(1);
+
+    useEffect(() => {
+        
+        const params = new URLSearchParams(searchParams);
+        params.delete('filter');
+        params.delete('searchTrim');
+        navigate({ search: params.toString() }, { replace: true });
+    }, []);
+
 
     const { data, isLoading } = useAllDeliveryHistoryQuery({
         currentStatus: statusFilter || undefined,
@@ -62,6 +72,7 @@ export default function AllDeliveredParcels() {
 
         setSearchParams(params);
         setFilter(value);
+        setCurrentPage(1);
     };
 
     if (isLoading) return <Loading className='h-screen' />
@@ -81,9 +92,9 @@ export default function AllDeliveredParcels() {
                 onClose={() => setSelectedParcel(null)}
             />
 
-            <div className="bg-blue-50 dark:bg-neutral-800 px-2 py-2 min-h-screen">
+            <div className="bg-blue-50 dark:bg-neutral-800 px-1 py-1 min-h-screen">
                 <section className="w-full mx-auto">
-                    <div className="bg-white dark:bg-gray-800  rounded-xl shadow-lg">
+                    <div className="bg-white dark:bg-gray-800   shadow-lg">
                         {/* Header */}
                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                             <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white p-4">
@@ -146,7 +157,7 @@ export default function AllDeliveredParcels() {
                                             key={parcel._id}
                                             className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition"
                                         >
-                                            <td className="px-4 py-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 flex items-center gap-2">
+                                            <td className="lg:px-0 xl:px-4 py-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 flex items-center gap-2">
                                                 {parcel.trackingId}{' '}
                                                 <CopyIcon
                                                     onClick={() => copyToClipboard(parcel.trackingId)}

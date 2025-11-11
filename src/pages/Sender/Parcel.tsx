@@ -124,6 +124,7 @@ export default function Parcel() {
 
     setSearchParams(params);
     setFilter(value);
+    setCurrentPage(1);
   };
 
 
