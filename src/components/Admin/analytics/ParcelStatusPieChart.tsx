@@ -20,7 +20,14 @@ interface ParcelStatusPieChartProps {
   data: PieData[];
 }
 
-const PIE_COLORS = ['#3B82F6', '#22C55E', '#FBBF24', '#EF4444', '#8B5CF6'];
+
+const STATUS_COLORS: Record<string, string> = {
+  'Approved': '#3B82F6',    
+  'Cancelled':'#EF4444',    
+  'Completed':  '#22C55E',  
+  'In transit':  '#8B5CF6', 
+  'Pending':   '#FBBF24',   
+};
 
 const useIsMobile = (breakpoint = 1024) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < breakpoint);
@@ -79,12 +86,13 @@ export const ParcelStatusPieChart = ({ data }: ParcelStatusPieChartProps) => {
             paddingAngle={2}
             dataKey="value"
             nameKey="name"
+            
           >
-            {data.map((_entry, index) => (
+            {data.map((entry) => (
               <Cell
-                key={`cell-${index}`}
-                fill={PIE_COLORS[index % PIE_COLORS.length]}
-                stroke={PIE_COLORS[index % PIE_COLORS.length]}
+                key={entry.name}
+    fill={STATUS_COLORS[entry.name] || '#888888'}
+    stroke={STATUS_COLORS[entry.name] || '#888888'}
               />
             ))}
           </Pie>

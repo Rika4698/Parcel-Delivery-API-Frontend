@@ -12,19 +12,6 @@ import {
 import { ChartContainer } from './ChartContainer';
 import { useEffect, useState } from 'react';
 
-
-const formatXAxisTick = (tickItem: string) => {
-  try {
-    const date = new Date(tickItem);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = String(date.getFullYear()).slice(-2);
-    return `${year}/${month}/${day}`;
-  } catch {
-    return tickItem;
-  }
-};
-
 interface MonthlyShipmentsChartProps {
   data: { name: string; Shipments: number }[];
 }
@@ -38,12 +25,10 @@ const useDarkMode = () => {
     const observer = new MutationObserver(() => {
       setIsDark(document.documentElement.classList.contains('dark'));
     });
-
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['class'],
     });
-
     return () => observer.disconnect();
   }, []);
 
@@ -69,22 +54,15 @@ export const MonthlyShipmentsChart = ({ data }: MonthlyShipmentsChartProps) => {
         <BarChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={gridColor} />
 
-         
           <XAxis
             dataKey="name"
-            tickFormatter={formatXAxisTick}
             tickLine={false}
             axisLine={false}
             fontSize={12}
             stroke={axisColor}
           />
 
-          <YAxis
-            tickLine={false}
-            axisLine={false}
-            fontSize={12}
-            stroke={axisColor}
-          />
+          <YAxis tickLine={false} axisLine={false} fontSize={12} stroke={axisColor} />
 
           <Tooltip
             cursor={{ fill: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(241,245,249,0.5)' }}
@@ -94,15 +72,11 @@ export const MonthlyShipmentsChart = ({ data }: MonthlyShipmentsChartProps) => {
               color: axisColor,
               borderRadius: '8px',
             }}
-            labelFormatter={(label) => formatXAxisTick(label as string)} 
           />
 
           <Legend
             iconSize={10}
-            wrapperStyle={{
-              fontSize: '14px',
-              color: axisColor,
-            }}
+            wrapperStyle={{ fontSize: '14px', color: axisColor }}
           />
 
           <Bar dataKey="Shipments" fill={barColor} radius={[4, 4, 0, 0]} />

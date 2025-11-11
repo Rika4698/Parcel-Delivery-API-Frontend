@@ -8,7 +8,7 @@ import { StatsGrid } from '@/components/Admin/analytics/StatsGrid';
 import { MonthlyShipmentsChart } from '@/components/Admin/analytics/MonthlyShipmentsChart';
 import { ParcelStatusPieChart } from '@/components/Admin/analytics/ParcelStatusPieChart';
 import { DailyTrendChart } from '@/components/Admin/analytics/DailyTrendChart';
-import type { ParcelStatsData, UserStatsData } from '@/types/analytics';
+import type {  ParcelStatsData, UserStatsData } from '@/types/analytics';
 import { UserRolesChart } from '@/components/Admin/analytics/UserRolesChart';
 
 
@@ -23,6 +23,7 @@ export default function AnalyticsPage() {
   
 
   const parcelStatsData: ParcelStatsData = parcelStats?.data || {};
+  console.log(parcelStatsData);
   const userStatsData: UserStatsData = userStats?.data || {};
 
   const processedStats = useMemo(() => {
@@ -63,13 +64,13 @@ export default function AnalyticsPage() {
     };
   }, [parcelStatsData.parcelStats]);
 
-  const monthlyShipmentsData = useMemo(() => {
+const monthlyShipmentsData = useMemo(() => {
     if (!parcelStatsData.monthlyShipments) return [];
     return parcelStatsData.monthlyShipments.map(item => ({
       name: `${new Date(item._id.year, item._id.month - 1).toLocaleString(
         'default',
         { month: 'short' }
-      )} '${String(item._id.year).slice(-2)}`,
+      )} '${String(item._id.year)}`,
       Shipments: item.total,
     }));
   }, [parcelStatsData.monthlyShipments]);

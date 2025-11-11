@@ -40,8 +40,9 @@ export default function AllUsers() {
   const users = data?.data || [];
 
 
-    const handleSearchchange = (value: string) => {
-     setSearchInput(value);
+   const handleSearchchange = (value: string) => {
+  setSearchInput(value);
+  setCurrentPage(1); 
 
   const params = new URLSearchParams(searchParams);
   if (value.trim() === '') {
@@ -49,21 +50,27 @@ export default function AllUsers() {
   } else {
     params.set('searchTerm', value.trim());
   }
-
   setSearchParams(params);
-    };
+};
+
+
  const handleFilterChange = (value: string) => {
-   const params = new URLSearchParams(searchParams);
+  setFilter(value);
+  setCurrentPage(1); 
 
-   if (value === '') {
-     params.delete('filter'); 
-   } else {
-     params.set('filter', value);
-   }
+  const params = new URLSearchParams(searchParams);
+  if (value === '') {
+    params.delete('filter');
+  } else {
+    params.set('filter', value);
+  }
+  setSearchParams(params);
+};
 
-   setSearchParams(params);
-   setFilter(value);
- };
+
+
+
+
   return (
    
  <div className="bg-sky-100 dark:bg-neutral-800 min-h-screen transition-colors duration-300">

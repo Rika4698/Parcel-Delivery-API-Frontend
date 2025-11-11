@@ -112,7 +112,7 @@ export default function AllParcels() {
     'CONFIRMED',
     'CANCELLED',
   ];
-
+console.log(data?.data?.meta);
   return (
     <>
       <ParcelDetailsModal
@@ -235,11 +235,13 @@ export default function AllParcels() {
               )}
             </div>
 
+            <div className='py-6 mr-4 flex justify-end'>
             <PaginationView
               setCurrentPage={setCurrentPage}
               currentPage={currentPage}
               meta={data?.data?.meta}
             />
+            </div>
           </div>
         </section>
       </div>
