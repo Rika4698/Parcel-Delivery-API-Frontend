@@ -1,18 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Role } from '@/constants/role';
 import { authApi, useLogoutMutation } from '@/redux/features/auth/auth';
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router';
-import LoadingSpinner from './Public/HomePage/LoadingSpinner';
+
 
 export const Dropdown = ({userData, onClose }: any) => {
   const dispatch = useDispatch();
   const [logoutUser] = useLogoutMutation();
-const [isLoading, setIsLoading] = useState(false); // loading state
+
 
   const logOutUser = async () => {
-    setIsLoading(true); // show loading screen
+   
     try {
       const res = await logoutUser(undefined).unwrap();
       dispatch(authApi.util.resetApiState());
@@ -20,19 +19,13 @@ const [isLoading, setIsLoading] = useState(false); // loading state
       onClose();
     } catch (err) {
       console.error('Logout failed:', err);
-    } finally {
-      setIsLoading(false); // hide loading screen
     }
   };
 
   return (
     <>
 
-     {isLoading && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-           <LoadingSpinner />
-        </div>
-      )}
+ 
     <div
       onClick={(e) => e.stopPropagation()}
   >

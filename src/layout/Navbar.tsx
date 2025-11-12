@@ -130,19 +130,6 @@ export default function Navbar() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
             {/* Mobile Toggle */}
             <button
               onClick={() => setIsOpen(true)}
