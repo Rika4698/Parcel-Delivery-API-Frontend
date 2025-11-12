@@ -23,18 +23,19 @@ export default function AnalyticsPage() {
   
 
   const parcelStatsData: ParcelStatsData = parcelStats?.data || {};
-  console.log(parcelStatsData);
+
   const userStatsData: UserStatsData = userStats?.data || {};
 
   const processedStats = useMemo(() => {
     if (!parcelStatsData.parcelStats) {
       return {
         totalParcels: 0,
-        completed: 0,
+        confirm: 0,
         inTransit: 0,
         pending: 0,
         cancelled: 0,
         approved: 0,
+        delivered:0,
         blocked: 0,
         pieData: [],
       };
@@ -54,7 +55,8 @@ export default function AnalyticsPage() {
     }));
     return {
       totalParcels,
-      completed: statsMap.get('COMPLETED') || 0,
+      confirm: statsMap.get('CONFIRMED') || 0,
+      delivered:statsMap.get('DELIVERED') || 0,
       inTransit: statsMap.get('IN_TRANSIT') || 0,
       pending: statsMap.get('PENDING') || 0,
       cancelled: statsMap.get('CANCELLED') || 0,
@@ -133,7 +135,8 @@ const monthlyShipmentsData = useMemo(() => {
             pending: processedStats.pending,
             approved: processedStats.approved,
             inTransit: processedStats.inTransit,
-            completed: processedStats.completed,
+            confirm: processedStats.confirm,
+            delivered: processedStats.delivered,
             cancelled: processedStats.cancelled,
             blocked: processedStats.blocked,
           }}

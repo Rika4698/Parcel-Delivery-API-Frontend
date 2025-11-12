@@ -4,7 +4,7 @@ import {
   CheckCircle2,
   XCircle,
   LoaderIcon,
-  Archive,
+  Archive,ThumbsUp
 } from 'lucide-react';
 import { StatCard } from './StatCard';
 import { BsLockFill } from 'react-icons/bs';
@@ -14,7 +14,8 @@ interface StatsGridProps {
     totalParcels: number;
     pending: number;
     approved: number;
-    completed: number;
+    confirm: number;
+    delivered: number;
     inTransit: number;
     cancelled: number;
     blocked: number;
@@ -52,11 +53,18 @@ export const StatsGrid = ({ stats }: StatsGridProps) => (
       description="Parcels on their way"
     />
     <StatCard
-      icon={<CheckCircle2 className="text-green-600" size={24} />}
+      icon={<CheckCircle2 className="text-lime-600" size={24} />}
       iconBgColor="bg-green-100 dark:bg-green-900/50"
       title="Delivered"
-      value={stats.completed}
+      value={stats.delivered}
       description="Completed deliveries"
+    />
+    <StatCard
+      icon={<ThumbsUp className="w-6 h-6 text-[#0d860d]" size={24} />}
+      iconBgColor="bg-green-100 dark:bg-green-900/50"
+      title="Confirmed"
+      value={stats.confirm}
+      description="Receiver confirmed"
     />
     <StatCard
       icon={<XCircle className="text-red-600" size={24} />}

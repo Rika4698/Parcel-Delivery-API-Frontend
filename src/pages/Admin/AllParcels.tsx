@@ -120,7 +120,7 @@ export default function AllParcels() {
     'CONFIRMED',
     'CANCELLED',
   ];
-console.log(data?.data?.meta);
+
   return (
     <>
       <ParcelDetailsModal

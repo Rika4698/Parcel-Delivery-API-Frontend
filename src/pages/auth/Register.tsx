@@ -71,9 +71,18 @@ const Register = () => {
         navigate("/login");
       }
     } catch (error: any) {
-      setIsLoading(false);
-      toast.error(error?.data?.message || "Registration failed");
-    }
+      if (error?.data?.message) {
+            toast.error(error.data.message);
+          } else if (error?.message) {
+            toast.error(error.message);
+          } else {
+            toast.error("Registration failed");
+          }
+        } finally {
+          setIsLoading(false);
+        }
+      
+      
   };
 
   const toggleVisibility = () => setIsVisible((prev) => !prev);

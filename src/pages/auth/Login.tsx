@@ -78,7 +78,7 @@ const LogIn = () => {
 
   return (
    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 bg-white dark:bg-gray-900 overflow-x-hidden">
-      {/* ===== LEFT: FORM SECTION ===== */}
+      {/*LEFT: FORM SECTION */}
       <div className="flex items-center justify-center px-6 py-12 lg:px-12">
         <div className="w-full max-w-md mx-auto flex flex-col items-center">
            <p className="mt-6 text-xl font-bold tracking-tight text-gray-800 dark:text-white">
@@ -185,7 +185,7 @@ const LogIn = () => {
         </div>
       </div>
 
-      {/* ===== RIGHT: IMAGE SECTION ===== */}
+      {/* RIGHT: IMAGE SECTION  */}
       <div className="hidden lg:block">
         <img
           src="https://i.ibb.co.com/67HnCQh6/caucasian-man-receiving-his-order-from-deliverywoman-latin-courier-delivering-order-holding-parcels.jpg"

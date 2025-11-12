@@ -22,11 +22,15 @@ interface ParcelStatusPieChartProps {
 
 
 const STATUS_COLORS: Record<string, string> = {
-  'Approved': '#3B82F6',    
-  'Cancelled':'#EF4444',    
-  'Completed':  '#22C55E',  
-  'In transit':  '#8B5CF6', 
-  'Pending':   '#FBBF24',   
+  'Pending': '#FBBF24',       // Yellow
+  'Approved': '#3B82F6',      // Blue
+  'In transit': '#8B5CF6',    // Purple
+  'Confirmed': '#00a600',     // green
+  'Delivered': '#00d900',     // lime
+  'Cancelled': '#EF4444',     // Red
+  'Blocked': '#6B7280',       // Gray
+  'Completed': '#14B8A6',     // Teal
+  'Returned': '#EC4899',      // Pink (if exists)
 };
 
 const useIsMobile = (breakpoint = 1024) => {
@@ -50,10 +54,8 @@ export const ParcelStatusPieChart = ({ data }: ParcelStatusPieChartProps) => {
   return (
     <ChartContainer
       title="Parcel Status"
-      description="Distribution of all parcels by their current status."
-      icon={
-        <Package className="text-slate-500 dark:text-slate-400" size={24} />
-      }
+      description="Distribution of parcels by their current status."
+      icon={<Package className="text-slate-500 dark:text-slate-400" size={24} />}
     >
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
@@ -61,7 +63,7 @@ export const ParcelStatusPieChart = ({ data }: ParcelStatusPieChartProps) => {
             contentStyle={{
               borderRadius: '8px',
               border: '1px solid #e2e8f0',
-              backgroundColor: 'rgba(255, 255, 255, 0.8)',
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
               backdropFilter: 'blur(4px)',
             }}
           />
@@ -79,20 +81,19 @@ export const ParcelStatusPieChart = ({ data }: ParcelStatusPieChartProps) => {
           <Pie
             data={data as any}
             cx={isMobile ? '50%' : '40%'}
-            cy={isMobile ? '45%' : '50%'} 
+            cy={isMobile ? '45%' : '50%'}
             labelLine={false}
             outerRadius="80%"
             innerRadius="50%"
             paddingAngle={2}
             dataKey="value"
             nameKey="name"
-            
           >
             {data.map((entry) => (
               <Cell
                 key={entry.name}
-    fill={STATUS_COLORS[entry.name] || '#888888'}
-    stroke={STATUS_COLORS[entry.name] || '#888888'}
+                fill={STATUS_COLORS[entry.name] || '#9CA3AF'}
+                stroke={STATUS_COLORS[entry.name] || '#9CA3AF'}
               />
             ))}
           </Pie>

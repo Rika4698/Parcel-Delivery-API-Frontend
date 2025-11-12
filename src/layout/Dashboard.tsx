@@ -16,13 +16,14 @@ import {
   SidebarTrigger
 } from '@/components/ui/sidebar';
 import { Outlet, useLocation } from 'react-router';
+import  ScrollToTop  from './ScrollToTop';
 
 export default function Dashboard() {
   const pathname = useLocation();
   const parts = pathname.pathname.split('/').filter(Boolean);
 
-  const first = parts[0]; // "demo"
-  const second = parts[1]; // "demo"
+  const first = parts[0]; 
+  const second = parts[1]; 
   return (
     <SidebarProvider>
       <SidebarDesign />
@@ -52,6 +53,7 @@ export default function Dashboard() {
           </div>
             <ThemeSwitch />
         </header>
+        <ScrollToTop/>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           <Outlet />
         </div>

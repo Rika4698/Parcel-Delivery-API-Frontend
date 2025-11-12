@@ -51,7 +51,7 @@ export default function TrackParcel() {
     }
   };
 
-  // Optional manual submit
+
   const handleTrack = (e: React.FormEvent) => {
     e.preventDefault();
     const trimmed = trackingId.trim();
@@ -59,7 +59,7 @@ export default function TrackParcel() {
     setSubmittedId(trimmed);
   };
 
-  //  Only result if query is not fetching and data exists
+
   const trackingResult: ITrackParcel | null =
     !isError &&
     !isFetching &&

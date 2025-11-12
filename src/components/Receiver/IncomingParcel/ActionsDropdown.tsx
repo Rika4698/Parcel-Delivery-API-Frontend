@@ -147,7 +147,7 @@ export const ActionsDropdown: FC<ActionsDropdownProps> = ({
   const handleToggle = () => {
     if (buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
-      const dropdownHeight = 56;
+      const dropdownHeight = (parcel?.currentStatus === 'DELIVERED'? 74:48);
       const isBottomCutOff = rect.bottom + dropdownHeight > window.innerHeight;
 
       setDropdownPosition({
