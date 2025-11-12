@@ -163,7 +163,6 @@ export default function InComingParcels() {
                  <option value="">All Statuses</option>
                   <option value="PENDING">PENDING</option>
                   <option value="APPROVED">APPROVED</option>
-                  <option value="BLOCKED">BLOCKED</option>
                   <option value="IN_TRANSIT">IN_TRANSIT</option>
                   <option value="DELIVERED">DELIVERED</option>
                 </select>
