@@ -16,7 +16,7 @@ const CTASection = () => {
                                 Ready to Get Started?
                             </h2>
                             <p className="text-lg text-gray-200 dark:text-gray-700 font-medium">
-                                Join thousands of satisfied customers who trust Parcel Nexus for their delivery needs
+                                Join thousands of satisfied customers who trust Delivo for their delivery needs
                             </p>
                         </div>
 
