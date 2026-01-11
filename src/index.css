@@ -130,6 +130,8 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+  --loader-bg: #dbd8d8;
+  --loader-top: #3a85e2;
 }
 
 .dark {
@@ -164,18 +166,18 @@
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
+  --loader-bg: #d0cbcb;
+  --loader-top: #6ea8ff;
 }
 
 
 .loader {
-    border: 8px solid #dbd8d8;
-    /* Light grey */
-    border-top: 8px solid #3a85e2;
-    /* Blue */
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 1.5s linear infinite;
+  border: 8px solid var(--loader-bg);
+  border-top: 8px solid var(--loader-top);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1.5s linear infinite;
 }
 
 @keyframes spin {

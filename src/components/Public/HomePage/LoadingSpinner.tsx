@@ -1,8 +1,8 @@
 const LoadingSpinner = () => {
     return (
-        <div className="h-screen">
+        <div className="h-screen bg-white dark:bg-gray-700">
             <div className="flex h-full w-full items-center justify-center">
-                <div className="loader" role="status">
+                <div className="loader dark:loader" role="status">
                     <span className="sr-only">Loading...</span>
                 </div>
             </div>
