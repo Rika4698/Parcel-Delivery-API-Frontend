@@ -73,6 +73,13 @@ const LogIn = () => {
   }
   };
 
+
+  const handleClickLogin = (email: string, password: string) => {
+    // Pre-fill login form for specific roles
+    onSubmit({ email, password });
+  };
+
+
   
   const toggleVisibility = () => setIsVisible(prevState => !prevState);
 
@@ -159,11 +166,13 @@ const LogIn = () => {
                   </FormItem>
                 )}
               />
-              <button type="submit" className="mt-4 w-full font-semibold rounded-lg p-2 bg-gray-800 dark:bg-gray-200 text-white dark:text-black">
+              <button type="submit" className="mt-4 w-full font-semibold rounded-lg p-2 bg-blue-600 dark:bg-blue-400 text-white dark:text-white">
                 {isLoading ? 'Checking You...' : ' Continue with Email'}
               </button>
             </form>
           </Form>
+
+
 
           <div className="mt-5 space-y-5">
             <Link
@@ -178,12 +187,47 @@ const LogIn = () => {
                 to="/register"
                 className="ml-1 underline text-gray-500 dark:text-gray-400 hover:text-blue-400 font-semibold"
               >
-                Create account
+                Create Account
               </Link>
             </p>
           </div>
+
+           <div className="mt-8 space-y-4">
+          <button
+            onClick={() => handleClickLogin("person@gmail.com", "12345678")}
+          
+            className="mt-4 w-full font-semibold rounded-lg p-2 bg-sky-700 dark:bg-sky-400 text-white dark:text-white border"
+            
+          >
+            Demo Login as Admin
+     
+            
+          </button>
+
+          <button
+            onClick={() => handleClickLogin("Samira12@gmail.com", "*Samira12")}
+            
+             className="mt-4 w-full font-semibold rounded-lg p-2 bg-purple-700 dark:bg-purple-500 text-white dark:text-black border"
+           
+          >
+            Demo Login as Sender
+            
+          </button>
+          <button
+            onClick={() => handleClickLogin("Karim12@gmail.com", "*Karim12")}
+           
+              className="mt-4 w-full font-semibold rounded-lg p-2 bg-green-700 dark:bg-green-500 text-white dark:text-black border"
+            
+          >
+            Demo Login as Receiver
+            
+         
+          </button>
+        </div>
         </div>
       </div>
+
+
 
       {/* RIGHT: IMAGE SECTION  */}
       <div className="hidden lg:block">
