@@ -219,4 +219,8 @@ The following features are planned for future releases:
 
 ---
 
-**👤 Author Sharmin Akter Reka**
+## 👤 Author & Contact
+
+**Name: Sharmin Akter Reka**
+**Role: Frontend Developer**
+**Portfolio: https://my-portfolio-df10f.web.app/**

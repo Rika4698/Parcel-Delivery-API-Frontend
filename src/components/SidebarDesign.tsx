@@ -145,6 +145,7 @@ export function SidebarDesign({ ...props }: React.ComponentProps<typeof Sidebar>
       <SidebarFooter>
         <NavUser user={userData?.data} />
       </SidebarFooter>
+      
       <SidebarRail />
     </Sidebar>
   );

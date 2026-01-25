@@ -14,6 +14,7 @@ interface IProps {
 function Shared({ children }: IProps) {
 const [loading, setLoading] = useState(true);
 
+
   
   useEffect(() => {
     const timer = setTimeout(() => {

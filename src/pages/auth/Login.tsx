@@ -13,7 +13,7 @@ import envData from '@/config/envData';
 import { useLoginMutation, useUserInfoQuery } from '@/redux/features/auth/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm, type FieldValues, type SubmitHandler } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { toast } from 'sonner';
@@ -24,16 +24,45 @@ const formSchema = z.object({
   password: z.string().min(8, 'Password must be at least 8 characters long'),
 });
 
+const getRoleDefaultRoute = (role: string): string => {
+  switch (role) {
+    case 'ADMIN':
+    case 'superAdmin':
+      return '/admin/analytics';
+    case 'SENDER':
+      return '/sender/parcels';
+    case 'RECEIVER':
+      return '/receiver/incoming-parcels';
+    default:
+      return '/';
+  }
+};
+
+
 const LogIn = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const pathname = useLocation()
+  // const pathname = useLocation()
   const {data} = useUserInfoQuery(undefined)
   const navigate = useNavigate();
+ const location = useLocation();
+  // Get the previous location from state (where user was before logout)
+  const from = (location.state as any)?.from || null;
   
-  if (data?.data && pathname.pathname === '/login') {
-     navigate('/');
-  }
+    // Redirect if user is already logged in
+   useEffect(() => {
+    if (data?.data && location.pathname === '/login') {
+      const userRole = data.data.role;
+      
+      // If there's a previous location, go there, otherwise go to default dashboard
+      if (from) {
+        navigate(from, { replace: true });
+      } else {
+        const redirectPath = getRoleDefaultRoute(userRole);
+        navigate(redirectPath, { replace: true });
+      }
+    }
+  }, [data, location.pathname, navigate, from]);
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       email: '',
@@ -57,7 +86,15 @@ const LogIn = () => {
 
     if (res.success) {
       toast.success('Login Successfully');
-      navigate('/');
+      // Redirect based on user role
+        const userRole = res.data?.role;
+
+        if (from) {
+          navigate(from, { replace: true });
+        } else {
+          const redirectPath = getRoleDefaultRoute(userRole);
+          navigate(redirectPath, { replace: true });
+        }
     }
   } catch (error: any) {
     // Error from backend
