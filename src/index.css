@@ -189,3 +189,272 @@
         transform: rotate(360deg);
     }
 }
+
+  .bg-grid-pattern {
+          background-image: 
+            linear-gradient(to right, currentColor 1px, transparent 1px),
+            linear-gradient(to bottom, currentColor 1px, transparent 1px);
+          background-size: 40px 40px;
+        }
+
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) translateX(0px); }
+          33% { transform: translateY(-20px) translateX(10px); }
+          66% { transform: translateY(10px) translateX(-10px); }
+        }
+
+        @keyframes float-delayed {
+          0%, 100% { transform: translateY(0px) translateX(0px); }
+          33% { transform: translateY(15px) translateX(-15px); }
+          66% { transform: translateY(-10px) translateX(15px); }
+        }
+
+        @keyframes float-slow {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-15px) rotate(2deg); }
+        }
+
+        @keyframes fade-in-up {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes fade-in {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        @keyframes draw-line {
+          from {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+          }
+          to {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 0;
+          }
+        }
+
+        @keyframes gradient {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+
+        @keyframes bounce-slow {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+
+        @keyframes truck-bounce {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-8px); }
+        }
+
+        @keyframes package-float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-12px) rotate(5deg); }
+        }
+
+        @keyframes road-line {
+          0% { stroke-dashoffset: 0; }
+          100% { stroke-dashoffset: -400; }
+        }
+
+        @keyframes speed-line-1 {
+          0%, 100% { opacity: 0; transform: translateX(0); }
+          50% { opacity: 0.5; transform: translateX(-20px); }
+        }
+
+        @keyframes speed-line-2 {
+          0%, 100% { opacity: 0; transform: translateX(0); }
+          50% { opacity: 0.5; transform: translateX(-25px); }
+        }
+
+        @keyframes speed-line-3 {
+          0%, 100% { opacity: 0; transform: translateX(0); }
+          50% { opacity: 0.5; transform: translateX(-30px); }
+        }
+
+        .animate-float {
+          animation: float 8s ease-in-out infinite;
+        }
+
+        .animate-float-delayed {
+          animation: float-delayed 10s ease-in-out infinite;
+        }
+
+        .animate-float-slow {
+          animation: float-slow 6s ease-in-out infinite;
+        }
+
+        .animate-fade-in-up {
+          animation: fade-in-up 0.8s ease-out forwards;
+        }
+
+        .animate-fade-in {
+          animation: fade-in 1s ease-out forwards;
+        }
+
+        .animate-draw-line {
+          animation: draw-line 3s ease-out forwards;
+        }
+
+        .animate-draw-line-delayed {
+          animation: draw-line 3s ease-out 0.5s forwards;
+        }
+
+        .animate-gradient {
+          background-size: 200% 200%;
+          animation: gradient 3s ease infinite;
+        }
+
+        .animate-bounce-slow {
+          animation: bounce-slow 2s ease-in-out infinite;
+        }
+
+        .animate-truck-bounce {
+          animation: truck-bounce 3s ease-in-out infinite;
+        }
+
+        .animate-package-float {
+          animation: package-float 2.5s ease-in-out infinite;
+        }
+
+        .animate-road-line {
+          animation: road-line 2s linear infinite;
+        }
+
+        .animate-speed-line-1 {
+          animation: speed-line-1 1.5s ease-in-out infinite;
+        }
+
+        .animate-speed-line-2 {
+          animation: speed-line-2 1.5s ease-in-out infinite 0.2s;
+        }
+
+        .animate-speed-line-3 {
+          animation: speed-line-3 1.5s ease-in-out infinite 0.4s;
+        }
+
+        .animation-delay-200 {
+          animation-delay: 0.2s;
+        }
+
+        .animation-delay-400 {
+          animation-delay: 0.4s;
+        }
+
+        .animation-delay-600 {
+          animation-delay: 0.6s;
+        }
+
+        .animation-delay-800 {
+          animation-delay: 0.8s;
+        }
+
+        .animation-delay-1000 {
+          animation-delay: 1s;
+        }
+
+
+         @keyframes truck-drive {
+          0%, 100% { transform: translateX(-10px); }
+          50% { transform: translateX(10px); }
+        }
+
+        @keyframes truck-bounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-4px); }
+        }
+
+        @keyframes package-bounce {
+          0%, 100% { transform: translateY(0) rotate(0deg); }
+          50% { transform: translateY(-3px) rotate(2deg); }
+        }
+
+        @keyframes wheel-spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-8px) rotate(10deg); }
+        }
+
+        @keyframes progress {
+          0% { width: 0%; }
+          100% { width: 100%; }
+        }
+
+        @keyframes road-shimmer {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(200%); }
+        }
+
+        @keyframes pulse-slow {
+          0%, 100% { opacity: 0.3; transform: scale(1); }
+          50% { opacity: 0.5; transform: scale(1.1); }
+        }
+
+        @keyframes gradient {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+
+        .animate-truck-drive {
+          animation: truck-drive 3s ease-in-out infinite;
+        }
+
+        .animate-truck-bounce {
+          animation: truck-bounce 1s ease-in-out infinite;
+        }
+
+        .animate-package-bounce {
+          animation: package-bounce 1.5s ease-in-out infinite;
+          transform-origin: center;
+        }
+
+        .animate-wheel-spin {
+          animation: wheel-spin 1s linear infinite;
+          transform-origin: center;
+        }
+
+        .animate-float {
+          animation: float 2s ease-in-out infinite;
+        }
+
+        .animate-progress {
+          animation: progress 2s ease-in-out infinite;
+        }
+
+        .animate-road-shimmer {
+          animation: road-shimmer 2s linear infinite;
+        }
+
+        .animate-pulse-slow {
+          animation: pulse-slow 4s ease-in-out infinite;
+        }
+
+        .animate-gradient {
+          background-size: 200% 200%;
+          animation: gradient 3s ease infinite;
+        }
+
+        .animation-delay-200 {
+          animation-delay: 0.2s;
+        }
+
+        .animation-delay-400 {
+          animation-delay: 0.4s;
+        }
+
+        .animation-delay-1000 {
+          animation-delay: 1s;
+        }
