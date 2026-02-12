@@ -1,6 +1,6 @@
 "use client";
 import {  useEffect, useRef, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import ThemeButton from "@/components/theme/ModeSwitch";
 import { useUserInfoQuery } from '@/redux/features/auth/auth';
 import { User2Icon, UserIcon } from 'lucide-react';
@@ -12,26 +12,29 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState("Home");
   const { data, isLoading } = useUserInfoQuery(undefined);
-
- 
-
-  //  console.log(data);
-    const [openDropdown, setOpenDropdown] = useState(false);
-
-
+  const [openDropdown, setOpenDropdown] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
 
   const navItems = [
-  { name: "Home", path: "/" },
-  { name: "Track Parcel", path: "/track-parcel" },
-  { name: "About Us", path: "/about" },
-  { name: "Contact Us", path: "/contact" },
-];
+    { name: "Home", path: "/" },
+    { name: "Track Parcel", path: "/track-parcel" },
+    { name: "About Us", path: "/about" },
+    { name: "Contact Us", path: "/contact" },
+  ];
+
+  const serviceLinks = [
+    { name: "Express Delivery", path: "/services/express" },
+    { name: "Same Day Delivery", path: "/services/same-day" },
+    { name: "International Shipping", path: "/services/international" },
+    { name: "Bulk Orders", path: "/services/bulk" },
+    { name: "Package Insurance", path: "/services/insurance" },
+  ];
 
   const avatarRef = useRef<HTMLDivElement | null>(null);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const servicesRef = useRef<HTMLDivElement | null>(null);
 
-
-   const toggleDropdown = () => setOpenDropdown((prev)=> !prev);
+  const toggleDropdown = () => setOpenDropdown((prev)=> !prev);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -43,19 +46,24 @@ export default function Navbar() {
       ) {
         setOpenDropdown(false);
       }
+
+      if (
+        servicesRef.current &&
+        !servicesRef.current.contains(event.target as Node)
+      ) {
+        setServicesOpen(false);
+      }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-
-
   return (
     <>
       {/* ===== NAVBAR ===== */}
-      <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-1.5rem)] sm:w-[calc(100%-6rem)] z-50 overflow-hidden rounded-full border-2 border-blue-600/20 dark:border-blue-800 backdrop-blur-lg mt-4 animate-slide-down">
+      <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-1.5rem)] sm:w-[calc(100%-6rem)] z-50 rounded-full border-2 border-blue-600/20 dark:border-blue-800 backdrop-blur-lg mt-4 animate-slide-down">
         {/* Background */}
-        <div className="absolute inset-0 bg-white/80 dark:bg-gray-800 backdrop-blur-md"></div>
+        <div className="absolute inset-0 bg-white/80 dark:bg-gray-800 backdrop-blur-md overflow-hidden rounded-full"></div>
 
         {/* Floating Bubbles */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -63,7 +71,7 @@ export default function Navbar() {
           <div className="absolute h-3 w-3 rounded-full bg-blue-400/10 dark:bg-gray-600 animate-float top-8 left-[20%] [animation-delay:0.5s]" />
           <div className="absolute h-5 w-5 rounded-full bg-blue-400/10 dark:bg-gray-600 animate-float top-8 left-[33%] [animation-delay:0.5s]" />
           <div className="absolute h-5 w-5 rounded-full bg-blue-400/10 dark:bg-gray-600 animate-float top-6 left-[70%] [animation-delay:1s]" />
-           <div className="absolute h-5 w-5 rounded-full bg-blue-400/10 dark:bg-gray-600 animate-float top-4 left-[80%] [animation-delay:1s]" />
+          <div className="absolute h-5 w-5 rounded-full bg-blue-400/10 dark:bg-gray-600 animate-float top-4 left-[80%] [animation-delay:1s]" />
           <div className="absolute h-6 w-6 rounded-full bg-blue-400/10 dark:bg-gray-600 animate-float top-2 left-[60%] [animation-delay:1.5s]" />
         </div>
 
@@ -97,38 +105,74 @@ export default function Navbar() {
                 ></div>
               </Link>
             ))}
+
+            {/* Services Dropdown */}
+            <div className="relative" ref={servicesRef}>
+              <button
+                onClick={() => setServicesOpen(!servicesOpen)}
+                className={`relative group text-blue-500 dark:text-blue-200 transition font-medium text-base xl:text-lg flex items-center gap-1 ${
+                  servicesOpen ? "text-blue-700 dark:text-blue-400" : "hover:text-blue-700 dark:hover:text-blue-400"
+                }`}
+              >
+                Services
+                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${servicesOpen ? 'rotate-180' : ''}`} />
+                <div
+                  className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-500 transition-all duration-300 ${
+                    servicesOpen
+                      ? "w-full opacity-100"
+                      : "w-0 group-hover:w-full opacity-70"
+                  }`}
+                ></div>
+              </button>
+
+              {/* Dropdown Menu */}
+              {servicesOpen && (
+                <div className="absolute top-full mt-6 left-1/2 -translate-x-1/2 w-56 bg-white dark:bg-gray-800 border-2 border-blue-600/20 dark:border-blue-800 rounded-2xl shadow-xl overflow-hidden animate-fade-in">
+                  <div className="py-2">
+                    {serviceLinks.map((service) => (
+                      <Link
+                        key={service.name}
+                        to={service.path}
+                        onClick={() => {
+                          setServicesOpen(false);
+                          setActive("Services");
+                        }}
+                        className="block px-4 py-2.5 text-blue-600 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors text-sm font-medium"
+                      >
+                        {service.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Right Section */}
           <div className="flex items-center space-x-2.5 lg:space-x-4">
             <ThemeButton />
-           <div  className="relative" ref={avatarRef} >
-            {isLoading ? (
-              <User2Icon className="w-6 h-6" />
-            ) : data?.data ? (
-              <>
-                <button
-                
-                  onClick={toggleDropdown}
-                  className="cursor-pointer flex items-center gap-1 p-2 text-gray-800 dark:text-gray-100 rounded-full bg-gray-100 dark:bg-gray-400 hover:bg-gray-300 dark:hover:bg-gray-500"
-                >
-                  {data?.data?.picture ? (
-                    <UserAvatar user={data?.data} />
-                  ) : (
-                    <UserIcon className="w-6 h-6 " />
-                  )}
+            <div className="relative" ref={avatarRef}>
+              {isLoading ? (
+                <User2Icon className="w-6 h-6" />
+              ) : data?.data ? (
+                <>
+                  <button
+                    onClick={toggleDropdown}
+                    className="cursor-pointer flex items-center gap-1 p-2 text-gray-800 dark:text-gray-100 rounded-full bg-gray-100 dark:bg-gray-400 hover:bg-gray-300 dark:hover:bg-gray-500"
+                  >
+                    {data?.data?.picture ? (
+                      <UserAvatar user={data?.data} />
+                    ) : (
+                      <UserIcon className="w-6 h-6 " />
+                    )}
+                  </button>
+                </>
+              ) : (
+                <button className="rounded bg-blue-600 dark:bg-blue-400 p-2 text-sm font-semibold text-white">
+                  <Link to="/login">LogIn</Link>
                 </button>
-             
-              </>
-            ) : (
-              <button className="rounded bg-blue-600 dark:bg-blue-400 p-2 text-sm font-semibold text-white">
-                <Link to="/login">LogIn</Link>
-              </button>
-            )}
-          </div>
-
-
-
+              )}
+            </div>
 
             {/* Mobile Toggle */}
             <button
@@ -145,8 +189,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-
-     
+      {/* User Dropdown */}
       {openDropdown && (
         <div
           ref={dropdownRef}
@@ -157,7 +200,6 @@ export default function Navbar() {
         </div>
       )}
 
-
       {/* ===== MOBILE SIDEBAR ===== */}
       <div
         className={`lg:hidden fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm transform transition-all duration-300 ${
@@ -166,14 +208,14 @@ export default function Navbar() {
         onClick={() => setIsOpen(false)}
       >
         <div
-          className={`absolute top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg border-r border-blue-500/20 p-6 transform transition-transform duration-300 ${
+          className={`overflow-y-auto absolute top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg border-r border-blue-500/20 p-6 transform transition-transform duration-300 ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
           onClick={(e) => e.stopPropagation()}
         >
           <button
             onClick={() => setIsOpen(false)}
-            className="absolute top-4 right-4 text-blue-600 dark:text-blue-400 hover:text-blue-800  dark:hover:text-blue-600  "
+            className="absolute top-4 right-4 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-600"
           >
             <X className="w-6 h-6" />
           </button>
@@ -196,6 +238,24 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
+
+            {/* Mobile Services Section */}
+            <div className="pt-2 border-t border-blue-200 dark:border-blue-700">
+              <p className="text-xs font-semibold text-blue-700 dark:text-blue-300 mb-2 px-3">SERVICES</p>
+              {serviceLinks.map((service) => (
+                <Link
+                  key={service.name}
+                  to={service.path}
+                  onClick={() => {
+                    setActive("Services");
+                    setIsOpen(false);
+                  }}
+                  className="block w-full text-center px-3 py-2 rounded-lg text-sm text-blue-500 dark:text-blue-400 hover:bg-blue-50 hover:text-blue-600 transition-all"
+                >
+                  {service.name}
+                </Link>
+              ))}
+            </div>
           </nav>
         </div>
       </div>
