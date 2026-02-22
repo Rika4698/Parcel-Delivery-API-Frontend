@@ -487,15 +487,41 @@
 
 
      /* Top Enterprises    */
-        @keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-.animate-marquee {
-  animation: marquee 25s linear infinite;
-}
+       @keyframes marquee {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          animation: marquee 28s linear infinite;
+        }
+        .animate-marquee:hover {
+          animation-play-state: paused;
+        }
+        .brand-card {
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .brand-card:hover {
+          transform: translateY(-6px) scale(1.04);
+          box-shadow: 0 16px 40px -8px rgba(99, 102, 241, 0.25);
+        }
+        .brand-card img {
+          
+          opacity: 0.6;
+          transition: filter 0.3s ease, opacity 0.3s ease;
+        }
+        .brand-card:hover img {
+          filter: grayscale(0%);
+          opacity: 1;
+        }
+        .fade-left {
+          background: linear-gradient(to right, white, transparent);
+        }
+        .fade-right {
+          background: linear-gradient(to left, white, transparent);
+        }
+        .dark .fade-left {
+          background: linear-gradient(to right, #111827, transparent);
+        }
+        .dark .fade-right {
+          background: linear-gradient(to left, #111827, transparent);
+        }

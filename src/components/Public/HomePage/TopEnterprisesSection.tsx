@@ -7,60 +7,20 @@ type Brand = {
 
 export function TopEnterprisesSection() {
   const brands: Brand[] = [
-    { name: "Aarong",    logo: "/logos/aarong.png" },
-    { name: "Bata",      logo: "/logos/bata.png" },
-    { name: "Daraz",     logo: "/logos/daraz.png" },
-    { name: "Rokomari",  logo: "/logos/rokomari.png" },
-    { name: "Sailor",    logo: "/logos/sailor.png" },
-    { name: "Sajgoj",    logo: "/logos/sajgoj.png" },
-    { name: "Apex",      logo: "/logos/apex.png" },
-    { name: "Rivana",    logo: "/logos/rivana.png" },
+    { name: "Aarong",    logo: "/src/assets/arong.png" },
+    { name: "Bata",      logo: "/src/assets/bata.jpg" },
+    { name: "Daraz",     logo: "/src/assets/daraz.png" },
+    { name: "Rokomari",  logo: "/src/assets/rokomari.png" },
+    { name: "Sailor",    logo: "/src/assets/sailor.png" },
+    { name: "Shajgoj",    logo: "/src/assets/shajgoj.png" },
+    { name: "Apex",      logo: "/src/assets/apex.png" },
+    { name: "Ribana",    logo: "/src/assets/ribana.png" },
   ];
 
   const sliderBrands = [...brands, ...brands];
 
   return (
-    <section className="py-16 md:py-20 bg-white dark:bg-gray-900 overflow-hidden">
-      <style>{`
-        @keyframes marquee {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-          animation: marquee 28s linear infinite;
-        }
-        .animate-marquee:hover {
-          animation-play-state: paused;
-        }
-        .brand-card {
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .brand-card:hover {
-          transform: translateY(-6px) scale(1.04);
-          box-shadow: 0 16px 40px -8px rgba(99, 102, 241, 0.25);
-        }
-        .brand-card img {
-          filter: grayscale(100%);
-          opacity: 0.6;
-          transition: filter 0.3s ease, opacity 0.3s ease;
-        }
-        .brand-card:hover img {
-          filter: grayscale(0%);
-          opacity: 1;
-        }
-        .fade-left {
-          background: linear-gradient(to right, white, transparent);
-        }
-        .fade-right {
-          background: linear-gradient(to left, white, transparent);
-        }
-        .dark .fade-left {
-          background: linear-gradient(to right, #111827, transparent);
-        }
-        .dark .fade-right {
-          background: linear-gradient(to left, #111827, transparent);
-        }
-      `}</style>
+    <section className="py-16 md:py-20 bg-gradient-to-br from-purple-100 via-blue-50 to-purple-100 dark:from-gray-900 dark:via-slate-800 dark:to-gray-900 overflow-hidden">
 
       <div className="max-w-7xl mx-auto px-4">
 
@@ -69,10 +29,10 @@ export function TopEnterprisesSection() {
           <span className="inline-block px-4 py-1.5 rounded-full text-sm font-semibold bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/40 dark:to-purple-900/40 text-indigo-600 dark:text-indigo-300 mb-4">
             Our Partners
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
+          <h2 className="text-3xl sm:text-5xl font-bold  mb-3 text-foreground">
             Trusted by Leading Brands
           </h2>
-          <p className="text-gray-500 dark:text-gray-400 text-base md:text-lg">
+          <p className="text-muted-foreground text-lg font-medium ">
             Bangladesh's top businesses trust us for reliable delivery
           </p>
         </div>
@@ -89,7 +49,7 @@ export function TopEnterprisesSection() {
             {sliderBrands.map((brand, index) => (
               <div
                 key={index}
-                className="brand-card h-20 w-36 sm:h-24 sm:w-44 bg-gray-50 dark:bg-gray-800 rounded-2xl flex items-center justify-center shadow-sm border border-gray-100 dark:border-gray-700 cursor-pointer flex-shrink-0 px-4"
+                className="brand-card h-20 w-36 sm:h-24 sm:w-44  rounded-2xl flex items-center justify-center shadow-sm border border-gray-50 dark:border-gray-700 cursor-pointer flex-shrink-0 px-4"
               >
                 <img
                   src={brand.logo}
