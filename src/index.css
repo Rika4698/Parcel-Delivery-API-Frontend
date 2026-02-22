@@ -190,6 +190,18 @@
     }
 }
 
+/* loading */
+
+ @keyframes road-dash-move {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-road-dash {
+          animation: road-dash-move 1s linear infinite;
+        }
+
+        /* Hero section */
+
   .bg-grid-pattern {
           background-image: 
             linear-gradient(to right, currentColor 1px, transparent 1px),
@@ -458,3 +470,32 @@
         .animation-delay-1000 {
           animation-delay: 1s;
         }
+
+        /* demo package */
+
+         @keyframes dash {
+          to {
+            stroke-dashoffset: -100;
+          }
+        }
+        .animate-dash {
+          animation: dash 2s linear infinite;
+        }
+
+
+
+
+
+     /* Top Enterprises    */
+        @keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}

@@ -1,6 +1,6 @@
 "use client";
 import {  useEffect, useRef, useState } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X} from "lucide-react";
 import ThemeButton from "@/components/theme/ModeSwitch";
 import { useUserInfoQuery } from '@/redux/features/auth/auth';
 import { User2Icon, UserIcon } from 'lucide-react';
@@ -13,7 +13,7 @@ export default function Navbar() {
   const [active, setActive] = useState("Home");
   const { data, isLoading } = useUserInfoQuery(undefined);
   const [openDropdown, setOpenDropdown] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
+  // const [servicesOpen, setServicesOpen] = useState(false);
 
   const navItems = [
     { name: "Home", path: "/" },
@@ -22,17 +22,17 @@ export default function Navbar() {
     { name: "Contact Us", path: "/contact" },
   ];
 
-  const serviceLinks = [
-    { name: "Express Delivery", path: "/services/express" },
-    { name: "Same Day Delivery", path: "/services/same-day" },
-    { name: "International Shipping", path: "/services/international" },
-    { name: "Bulk Orders", path: "/services/bulk" },
-    { name: "Package Insurance", path: "/services/insurance" },
-  ];
+  // const serviceLinks = [
+  //   { name: "Express Delivery", path: "/services/express" },
+  //   { name: "Same Day Delivery", path: "/services/same-day" },
+  //   { name: "International Shipping", path: "/services/international" },
+  //   { name: "Bulk Orders", path: "/services/bulk" },
+  //   { name: "Package Insurance", path: "/services/insurance" },
+  // ];
 
   const avatarRef = useRef<HTMLDivElement | null>(null);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const servicesRef = useRef<HTMLDivElement | null>(null);
+  // const servicesRef = useRef<HTMLDivElement | null>(null);
 
   const toggleDropdown = () => setOpenDropdown((prev)=> !prev);
 
@@ -47,12 +47,12 @@ export default function Navbar() {
         setOpenDropdown(false);
       }
 
-      if (
-        servicesRef.current &&
-        !servicesRef.current.contains(event.target as Node)
-      ) {
-        setServicesOpen(false);
-      }
+      // if (
+      //   servicesRef.current &&
+      //   !servicesRef.current.contains(event.target as Node)
+      // ) {
+      //   setServicesOpen(false);
+      // }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -107,7 +107,7 @@ export default function Navbar() {
             ))}
 
             {/* Services Dropdown */}
-            <div className="relative" ref={servicesRef}>
+            {/* <div className="relative" ref={servicesRef}>
               <button
                 onClick={() => setServicesOpen(!servicesOpen)}
                 className={`relative group text-blue-500 dark:text-blue-200 transition font-medium text-base xl:text-lg flex items-center gap-1 ${
@@ -126,7 +126,7 @@ export default function Navbar() {
               </button>
 
               {/* Dropdown Menu */}
-              {servicesOpen && (
+              {/* {servicesOpen && (
                 <div className="absolute top-full mt-6 left-1/2 -translate-x-1/2 w-56 bg-white dark:bg-gray-800 border-2 border-blue-600/20 dark:border-blue-800 rounded-2xl shadow-xl overflow-hidden animate-fade-in">
                   <div className="py-2">
                     {serviceLinks.map((service) => (
@@ -144,8 +144,8 @@ export default function Navbar() {
                     ))}
                   </div>
                 </div>
-              )}
-            </div>
+              )} 
+            </div> */} 
           </div>
 
           {/* Right Section */}
@@ -240,7 +240,7 @@ export default function Navbar() {
             ))}
 
             {/* Mobile Services Section */}
-            <div className="pt-2 border-t border-blue-200 dark:border-blue-700">
+            {/* <div className="pt-2 border-t border-blue-200 dark:border-blue-700">
               <p className="text-xs font-semibold text-blue-700 dark:text-blue-300 mb-2 px-3">SERVICES</p>
               {serviceLinks.map((service) => (
                 <Link
@@ -255,7 +255,7 @@ export default function Navbar() {
                   {service.name}
                 </Link>
               ))}
-            </div>
+            </div> */}
           </nav>
         </div>
       </div>

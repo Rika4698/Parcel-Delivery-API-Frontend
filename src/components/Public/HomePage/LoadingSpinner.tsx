@@ -3,6 +3,10 @@ import { Package} from 'lucide-react';
 export default function LoadingSpinner() {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-100 dark:from-gray-950 dark:via-slate-900 dark:to-indigo-950">
+
+      <style>{`
+       
+      `}</style>
       
       {/* Animated Background Orbs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -15,14 +19,10 @@ export default function LoadingSpinner() {
         
         {/* Animated Truck */}
         <div className="relative">
-          {/* Road */}
-          <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-48 h-2 bg-gray-300 dark:bg-gray-700 rounded-full overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500/50 to-transparent animate-road-shimmer"></div>
-          </div>
 
           {/* Truck Animation Container */}
           <div className="relative animate-truck-drive">
-            <div className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-3xl shadow-2xl border border-blue-200/50 dark:border-purple-500/30">
+            <div className="relative bg-white/80 dark:bg-purple-700/30 backdrop-blur-sm p-6 rounded-3xl shadow-2xl border border-blue-200/50 dark:border-purple-500/30">
               
               {/* Truck SVG */}
               <svg width="120" height="80" viewBox="0 0 120 80" className="animate-truck-bounce">
@@ -48,25 +48,30 @@ export default function LoadingSpinner() {
                   <line x1="59" y1="12" x2="59" y2="27" stroke="#fff" strokeWidth="1.5" />
                 </g>
                 
-                {/* Wheels */}
-                <g className="animate-wheel-spin">
-                  <circle cx="50" cy="55" r="8" fill="#1e293b" />
-                  <circle cx="50" cy="55" r="5" fill="#475569" />
-                  <line x1="50" y1="50" x2="50" y2="60" stroke="#94a3b8" strokeWidth="1" />
-                  <line x1="45" y1="55" x2="55" y2="55" stroke="#94a3b8" strokeWidth="1" />
-                </g>
-                <g className="animate-wheel-spin">
-                  <circle cx="80" cy="55" r="8" fill="#1e293b" />
-                  <circle cx="80" cy="55" r="5" fill="#475569" />
-                  <line x1="80" y1="50" x2="80" y2="60" stroke="#94a3b8" strokeWidth="1" />
-                  <line x1="75" y1="55" x2="85" y2="55" stroke="#94a3b8" strokeWidth="1" />
-                </g>
+                {/* Rear Wheel - no spin */}
+                <circle cx="50" cy="55" r="8" fill="#1e293b" />
+                <circle cx="50" cy="55" r="5" fill="#475569" />
+                <circle cx="50" cy="55" r="2" fill="#94a3b8" />
+
+                {/* Front Wheel - no spin */}
+                <circle cx="80" cy="55" r="8" fill="#1e293b" />
+                <circle cx="80" cy="55" r="5" fill="#475569" />
+                <circle cx="80" cy="55" r="2" fill="#94a3b8" />
               </svg>
 
               {/* Floating Package Icon */}
               <div className="absolute -top-3 -right-3 bg-gradient-to-br from-purple-500 to-indigo-500 p-2 rounded-xl shadow-lg animate-float">
                 <Package className="w-5 h-5 text-white" />
               </div>
+            </div>
+          </div>
+
+          {/* Road with moving dashes below truck */}
+          <div className="mt-1 w-full h-4 bg-gray-300 dark:bg-gray-700 rounded-full overflow-hidden relative">
+            <div className="absolute top-1/2 -translate-y-1/2 flex gap-4 animate-road-dash" style={{ width: '200%' }}>
+              {Array.from({ length: 20 }).map((_, i) => (
+                <div key={i} className="w-6 h-1 bg-gray-500 rounded-full flex-shrink-0 opacity-80" />
+              ))}
             </div>
           </div>
         </div>
@@ -92,15 +97,8 @@ export default function LoadingSpinner() {
             </div>
           </div>
         </div>
-
-        {/* Brand Badge */}
-        {/* <div className=" flex items-center gap-2 opacity-60">
-          <Truck className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-          <span className="text-sm font-semibold text-gray-700 dark:text-gray-300 mt-12">Fast & Secure Delivery</span>
-        </div> */}
       </div>
 
-    
     </div>
   );
 }
