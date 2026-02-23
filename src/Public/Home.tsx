@@ -1,4 +1,5 @@
 import CTASection from "@/components/Public/HomePage/CTASection";
+import { FAQSection } from "@/components/Public/HomePage/FAQSection";
 import FeaturesSection from "@/components/Public/HomePage/FeaturesSection";
 import HeroSection from "@/components/Public/HomePage/HeroSection";
 import HowItWorks from "@/components/Public/HomePage/HowItWorks";
@@ -20,6 +21,7 @@ function Home(){
             <StatisticsSection/>
             <HowItWorks/>
             <TestimonialsSection/>
+             <FAQSection/>
             <CTASection/>
 
         </div>

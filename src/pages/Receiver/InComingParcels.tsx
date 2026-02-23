@@ -10,7 +10,8 @@ import { UpdateStatusModal } from '@/components/Receiver/IncomingParcel/UpdateSt
 import { ActionsDropdown } from '@/components/Receiver/IncomingParcel/ActionsDropdown';
 import { StatusBadge } from '@/components/uis';
 import { ParcelDetailsModal } from '@/components/ParcelDetailsModal';
-import Loading from '@/components/Loading';
+// import Loading from '@/components/Loading';
+import LoadingSpinner from '@/components/Public/HomePage/LoadingSpinner';
 
 
 export default function InComingParcels() {
@@ -99,7 +100,7 @@ export default function InComingParcels() {
     setCurrentPage(1);
   };
 
-  if (isLoading) return <Loading className='h-screen' />
+  if (isLoading) return <LoadingSpinner />
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);

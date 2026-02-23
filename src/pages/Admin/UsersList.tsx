@@ -1,7 +1,8 @@
 import { UserDetailsDialog } from '@/components/Admin/allUsers/UserDetails';
 import { UpdateUserStatusDialog } from '@/components/Admin/allUsers/UserStatusUpdate';
-import Loading from '@/components/Loading';
+// import Loading from '@/components/Loading';
 import PaginationView from '@/components/Pagination';
+import LoadingSpinner from '@/components/Public/HomePage/LoadingSpinner';
 import { useGetAllUsersQuery } from '@/redux/features/user/user.api';
 import type { ParcelStatus } from '@/types/parcel';
 import type { IUser } from '@/types/user';
@@ -38,7 +39,7 @@ export default function AllUsers() {
 
 
   if (isLoading) {
-    return  <Loading className='h-screen' />
+    return  <LoadingSpinner />
   }
 
   if (isError) {

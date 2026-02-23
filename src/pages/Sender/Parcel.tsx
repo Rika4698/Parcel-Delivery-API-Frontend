@@ -12,8 +12,9 @@ import type { Parcel, ParcelStatus } from '@/types/parcel';
 import { StatusBadge } from '@/components/uis';
 import { ActionsDropdown } from '@/components/Sender/Parcel/ActionsDropdown';
 import { ParcelDetailsModal } from '@/components/ParcelDetailsModal';
-import Loading from '@/components/Loading';
+// import Loading from '@/components/Loading';
 import { UpdateParcelModal } from '@/components/Sender/Parcel/UpdateParcelModal';
+import LoadingSpinner from '@/components/Public/HomePage/LoadingSpinner';
 
 export default function Parcel() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -41,7 +42,7 @@ export default function Parcel() {
     limit: 5
   });
   
-  console.log(data, isLoading);
+  // console.log(data, isLoading);
   
 
   const [parcels, setParcels] = useState<Parcel[]>(data?.data?.data || []);
@@ -137,7 +138,7 @@ export default function Parcel() {
   };
 
 
-  if (isLoading) return <Loading className='h-screen' />
+  if (isLoading) return <LoadingSpinner  />
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);

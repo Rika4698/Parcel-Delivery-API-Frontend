@@ -125,6 +125,21 @@ const LogIn = () => {
       {/*LEFT: FORM SECTION */}
       <div className="flex items-center justify-center px-6 py-12 lg:px-12">
         <div className="w-full max-w-md mx-auto flex flex-col items-center">
+
+          {/* Back to Home */}
+<Link
+  to="/"
+  className="self-start flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors group mb-2"
+>
+  <svg
+    width="16" height="16" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+    className="group-hover:-translate-x-0.5 transition-transform"
+  >
+    <path d="M19 12H5M12 5l-7 7 7 7"/>
+  </svg>
+  Back to Home
+</Link>
            <p className="mt-6 text-xl font-bold tracking-tight text-gray-800 dark:text-white">
             Log in to Delivo
           </p>
@@ -233,7 +248,7 @@ const LogIn = () => {
           <button
             onClick={() => handleClickLogin("person@gmail.com", "12345678")}
           
-            className="mt-4 w-full font-semibold rounded-lg p-2 bg-sky-700 dark:bg-sky-400 text-white dark:text-white border"
+            className="mt-4 w-full font-semibold rounded-lg p-2 bg-sky-700 dark:bg-sky-400 text-white dark:text-white border border-sky-800 dark:border-sky-500"
             
           >
             Demo Login as Admin
@@ -244,7 +259,7 @@ const LogIn = () => {
           <button
             onClick={() => handleClickLogin("Samira12@gmail.com", "*Samira12")}
             
-             className="mt-4 w-full font-semibold rounded-lg p-2 bg-purple-700 dark:bg-purple-500 text-white dark:text-black border"
+             className="mt-4 w-full font-semibold rounded-lg p-2 bg-purple-700 dark:bg-purple-500 text-white border border-purple-800 dark:border-purple-600"
            
           >
             Demo Login as Sender
@@ -253,7 +268,7 @@ const LogIn = () => {
           <button
             onClick={() => handleClickLogin("Karim12@gmail.com", "*Karim12")}
            
-              className="mt-4 w-full font-semibold rounded-lg p-2 bg-green-700 dark:bg-green-500 text-white dark:text-black border"
+              className="mt-4 w-full font-semibold rounded-lg p-2 bg-green-700 dark:bg-green-500 text-white border border-green-800 dark:border-green-600"
             
           >
             Demo Login as Receiver

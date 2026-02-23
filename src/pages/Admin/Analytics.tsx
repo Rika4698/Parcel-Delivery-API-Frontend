@@ -3,13 +3,14 @@ import {
   useGetParcelsStatsQuery,
   useGetUserStatsQuery,
 } from '@/redux/features/stats/stats.api';
-import Loading from '@/components/Loading';
+// import Loading from '@/components/Loading';
 import { StatsGrid } from '@/components/Admin/analytics/StatsGrid';
 import { MonthlyShipmentsChart } from '@/components/Admin/analytics/MonthlyShipmentsChart';
 import { ParcelStatusPieChart } from '@/components/Admin/analytics/ParcelStatusPieChart';
 import { DailyTrendChart } from '@/components/Admin/analytics/DailyTrendChart';
 import type {  ParcelStatsData, UserStatsData } from '@/types/analytics';
 import { UserRolesChart } from '@/components/Admin/analytics/UserRolesChart';
+import LoadingSpinner from '@/components/Public/HomePage/LoadingSpinner';
 
 
 
@@ -102,7 +103,7 @@ const monthlyShipmentsData = useMemo(() => {
   }, [userStatsData.roleStats]);
 
 
-  if (isLoading) return <Loading className="h-screen" />;
+  if (isLoading) return <LoadingSpinner />;
 
   if (isError) {
     return (

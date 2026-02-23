@@ -514,14 +514,301 @@
           opacity: 1;
         }
         .fade-left {
-          background: linear-gradient(to right, white, transparent);
+          background: linear-gradient(to right, rgba(231, 231, 231, 0.952), transparent);
         }
         .fade-right {
-          background: linear-gradient(to left, white, transparent);
+          background: linear-gradient(to left, rgba(231, 231, 231, 0.952), transparent);
         }
         .dark .fade-left {
-          background: linear-gradient(to right, #111827, transparent);
+          background: linear-gradient(to right, #182031, transparent);
         }
         .dark .fade-right {
           background: linear-gradient(to left, #111827, transparent);
         }
+
+
+            /* ══════════════════════════════════════
+           LIGHT MODE  (default)
+        ══════════════════════════════════════ */
+        .faq-section {
+          
+          background: #f0efff;
+        }
+
+        /* backgrounds */
+        .faq-section .faq-card        { background: #ffffff; border: 1px solid rgba(99,102,241,0.15); }
+        .faq-section .faq-card:hover  { background: #f5f3ff; border-color: rgba(99,102,241,0.3); }
+        .faq-section .faq-card.is-open{ background: #edeaff; border-color: rgba(139,92,246,0.45); box-shadow: 0 0 0 1px rgba(99,102,241,0.12), 0 8px 32px rgba(99,102,241,0.1); }
+
+        /* text */
+       
+      
+        .faq-section .q-text          { color: #1e1b4b; }
+        .faq-section .q-text.is-open  { color: #312e81; }
+        .faq-section .a-text          { color: #374151; }
+
+        /* badge */
+        .faq-section .faq-badge {
+          background: rgba(99,102,241,0.1);
+          border: 1px solid rgba(99,102,241,0.22);
+          color: #4f46e5;
+        }
+
+        /* category pills */
+        .faq-section .cat-pill {
+          background: rgba(99,102,241,0.07);
+          border: 1px solid rgba(99,102,241,0.18);
+          color: #4338ca;
+        }
+        .faq-section .cat-pill:hover {
+          background: rgba(99,102,241,0.13);
+          border-color: rgba(99,102,241,0.35);
+          color: #3730a3;
+        }
+
+        /* card tag */
+        .faq-section .card-tag {
+          background: rgba(99,102,241,0.08);
+          border: 1px solid rgba(99,102,241,0.18);
+          color: #4f46e5;
+        }
+
+        /* toggle button */
+        .faq-section .toggle-btn {
+          background: rgba(99,102,241,0.08);
+          border: 1px solid rgba(99,102,241,0.22);
+        }
+        .faq-section .toggle-icon { color: #6366f1; }
+
+        /* divider */
+        .faq-section .faq-divider {
+          background: linear-gradient(90deg, rgba(99,102,241,0.4), rgba(139,92,246,0.2), transparent);
+        }
+
+        /* CTA box */
+        .faq-section .cta-card {
+          background: #ffffff;
+          border: 1px solid rgba(99,102,241,0.2);
+        }
+        .faq-section .cta-heading { color: #1e1b4b; }
+        .faq-section .cta-sub     { color: #6b7280; }
+
+        /* outline button */
+        .faq-section .btn-outline {
+          color: #4f46e5;
+          border: 1px solid rgba(99,102,241,0.3);
+        }
+        .faq-section .btn-outline:hover {
+          background: rgba(99,102,241,0.07);
+          border-color: rgba(99,102,241,0.5);
+        }
+
+        /* orbs light */
+        .faq-section .orb1 { background: rgba(99,102,241,0.1); }
+        .faq-section .orb2 { background: rgba(139,92,246,0.08); }
+
+       
+        
+        /* gradient heading light */
+        .faq-section .gradient-text {
+          background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #9333ea 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        /* ══════════════════════════════════════
+           DARK MODE  (.dark class on <html>)
+        ══════════════════════════════════════ */
+        .dark .faq-section {
+          background: #06060f;
+        }
+
+        /* backgrounds */
+        .dark .faq-section .faq-card        { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); }
+        .dark .faq-section .faq-card:hover  { background: rgba(99,102,241,0.05); border-color: rgba(99,102,241,0.3); }
+        .dark .faq-section .faq-card.is-open{ background: rgba(99,102,241,0.07); border-color: rgba(139,92,246,0.45); box-shadow: 0 0 0 1px rgba(99,102,241,0.15), 0 8px 32px rgba(99,102,241,0.12); }
+
+        /* text */
+       
+    
+        .dark .faq-section .q-text          { color: rgba(210,210,230,0.9); }
+        .dark .faq-section .q-text.is-open  { color: #e0e7ff; }
+        .dark .faq-section .a-text          { color: rgba(170,170,200,0.85); }
+
+        /* badge */
+        .dark .faq-section .faq-badge {
+          background: rgba(99,102,241,0.12);
+          border: 1px solid rgba(99,102,241,0.25);
+          color: #a5b4fc;
+        }
+
+        /* category pills */
+        .dark .faq-section .cat-pill {
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(99,102,241,0.2);
+          color: rgba(200,200,220,0.75);
+        }
+        .dark .faq-section .cat-pill:hover {
+          background: rgba(139,92,246,0.1);
+          border-color: rgba(139,92,246,0.4);
+          color: #c4b5fd;
+        }
+
+        /* card tag */
+        .dark .faq-section .card-tag {
+          background: rgba(99,102,241,0.12);
+          border: 1px solid rgba(99,102,241,0.2);
+          color: #a5b4fc;
+        }
+
+        /* toggle button */
+        .dark .faq-section .toggle-btn {
+          background: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.1);
+        }
+        .dark .faq-section .toggle-icon { color: rgba(180,180,200,0.8); }
+
+        /* divider */
+        .dark .faq-section .faq-divider {
+          background: linear-gradient(90deg, rgba(99,102,241,0.45), rgba(139,92,246,0.3), transparent);
+        }
+
+        /* CTA box */
+        .dark .faq-section .cta-card {
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(99,102,241,0.2);
+        }
+        .dark .faq-section .cta-heading { color: #ffffff; }
+        .dark .faq-section .cta-sub     { color: rgba(170,170,200,0.7); }
+
+        /* outline button */
+        .dark .faq-section .btn-outline {
+          color: #a5b4fc;
+          border: 1px solid rgba(99,102,241,0.35);
+        }
+        .dark .faq-section .btn-outline:hover {
+          background: rgba(99,102,241,0.1);
+          border-color: rgba(139,92,246,0.55);
+        }
+
+        /* orbs dark */
+        .dark .faq-section .orb1 { background: rgba(99,102,241,0.1); }
+        .dark .faq-section .orb2 { background: rgba(139,92,246,0.09); }
+
+       
+        /* gradient heading dark */
+        .dark .faq-section .gradient-text {
+          background: linear-gradient(135deg, #818cf8 0%, #a78bfa 45%, #c084fc 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        /* ══════════════════════════════════════
+           SHARED STYLES (mode-independent)
+        ══════════════════════════════════════ */
+        .faq-heading { font-family: 'Syne', sans-serif; }
+
+        .faq-mesh {
+          background:
+            radial-gradient(ellipse 80% 60% at 10% 20%, rgba(99,102,241,0.1) 0%, transparent 60%),
+            radial-gradient(ellipse 60% 50% at 90% 80%, rgba(139,92,246,0.09) 0%, transparent 55%);
+        }
+
+        @keyframes orb1 {
+          0%,100% { transform: translate(0,0) scale(1); }
+          40%      { transform: translate(60px,-40px) scale(1.08); }
+          70%      { transform: translate(-30px,30px) scale(0.94); }
+        }
+        @keyframes orb2 {
+          0%,100% { transform: translate(0,0) scale(1); }
+          35%      { transform: translate(-50px,60px) scale(1.06); }
+          65%      { transform: translate(40px,-20px) scale(0.96); }
+        }
+        .orb1 { animation: orb1 14s ease-in-out infinite; }
+        .orb2 { animation: orb2 18s ease-in-out infinite; }
+
+        .faq-badge {
+          display: inline-flex; align-items: center; gap: 6px;
+          padding: 5px 14px; border-radius: 999px;
+          font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+        }
+
+        .cat-pill {
+          font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 13px;
+          padding: 6px 16px; border-radius: 999px;
+          cursor: pointer; transition: all 0.22s ease;
+          backdrop-filter: blur(8px);
+        }
+        .cat-pill.active {
+          background: linear-gradient(135deg, #4f46e5, #7c3aed) !important;
+          border-color: transparent !important;
+          color: #fff !important;
+          box-shadow: 0 0 20px rgba(99,102,241,0.35), 0 4px 12px rgba(99,102,241,0.25);
+        }
+
+        .faq-card {
+          border-radius: 16px; overflow: hidden;
+          transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+          backdrop-filter: blur(12px);
+        }
+
+        .faq-body {
+          display: grid; grid-template-rows: 0fr;
+          transition: grid-template-rows 0.38s cubic-bezier(0.4,0,0.2,1);
+        }
+        .faq-body.open { grid-template-rows: 1fr; }
+        .faq-body-inner { overflow: hidden; }
+
+        .toggle-btn {
+          width: 32px; height: 32px; border-radius: 50%;
+          display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+          transition: all 0.3s ease;
+        }
+        .toggle-btn.open {
+          background: linear-gradient(135deg, #4f46e5, #7c3aed) !important;
+          border-color: transparent !important;
+          box-shadow: 0 0 16px rgba(99,102,241,0.45);
+        }
+        .toggle-icon { transition: transform 0.35s cubic-bezier(0.4,0,0.2,1); }
+        .toggle-btn.open .toggle-icon { transform: rotate(45deg); color: white !important; }
+
+        .faq-divider { height: 1px; margin-bottom: 16px; }
+
+        .card-tag {
+          font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 6px; flex-shrink: 0;
+        }
+
+        .cta-card {
+          border-radius: 20px; position: relative; overflow: hidden;
+          backdrop-filter: blur(12px);
+        }
+        .cta-card::before {
+          content: ''; position: absolute; inset: 0;
+          background: linear-gradient(135deg, rgba(79,70,229,0.05), rgba(124,58,237,0.03));
+          pointer-events: none;
+        }
+        .cta-glow {
+          position: absolute; width: 200px; height: 200px; border-radius: 50%;
+          background: radial-gradient(circle, rgba(99,102,241,0.18), transparent 70%);
+          top: -60px; right: -60px; pointer-events: none;
+        }
+
+        .btn-primary {
+          background: linear-gradient(135deg, #4f46e5, #7c3aed);
+          color: white; font-weight: 600; font-size: 14px;
+          padding: 10px 24px; border-radius: 10px; border: none; cursor: pointer;
+          transition: all 0.25s ease;
+          box-shadow: 0 4px 16px rgba(99,102,241,0.3);
+          text-decoration: none; display: inline-block;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(99,102,241,0.45); }
+
+        .btn-outline {
+          font-weight: 600; font-size: 14px;
+          padding: 10px 24px; border-radius: 10px; cursor: pointer;
+          transition: all 0.25s ease; text-decoration: none; display: inline-block;
+          background: transparent;
+        }
+        .btn-outline:hover { transform: translateY(-2px); }

@@ -1,5 +1,6 @@
 import Loading from '@/components/Loading';
 import PaginationView from '@/components/Pagination';
+import LoadingSpinner from '@/components/Public/HomePage/LoadingSpinner';
 import { useGetAllContactsQuery } from '@/redux/features/contact/contact.api';
 import type { IMessages } from '@/types/user';
 import { useState } from 'react';
@@ -23,7 +24,7 @@ export default function ContactMessage() {
 
   if (isLoading) {
     return (
-      <Loading className='h-screen' />
+      <LoadingSpinner />
     );
   }
 

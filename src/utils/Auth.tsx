@@ -1,4 +1,5 @@
 
+import LoadingSpinner from '@/components/Public/HomePage/LoadingSpinner';
 import { useUserInfoQuery } from '@/redux/features/auth/auth';
 import type { TRole } from '@/types';
 import type { ComponentType } from 'react';
@@ -26,9 +27,10 @@ export const Auth = (Component: ComponentType, requiredRole?: TRole) => {
 
        if (isLoading) {
       return (
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-lg">Loading...</div>
-        </div>
+        // <div className="min-h-screen flex items-center justify-center">
+        //   <div className="text-lg">Loading...</div>
+        // </div>
+        <LoadingSpinner/>
       );
     }
 

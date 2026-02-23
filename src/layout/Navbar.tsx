@@ -6,13 +6,14 @@ import { useUserInfoQuery } from '@/redux/features/auth/auth';
 import { User2Icon, UserIcon } from 'lucide-react';
 import UserAvatar from "@/components/Avatar";
 import { Dropdown } from "@/components/Dropdown";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [active, setActive] = useState("Home");
+  // const [active, setActive] = useState("Home");
   const { data, isLoading } = useUserInfoQuery(undefined);
   const [openDropdown, setOpenDropdown] = useState(false);
+  const location = useLocation();
   // const [servicesOpen, setServicesOpen] = useState(false);
 
   const navItems = [
@@ -21,6 +22,10 @@ export default function Navbar() {
     { name: "About Us", path: "/about" },
     { name: "Contact Us", path: "/contact" },
   ];
+const isActive = (path: string) => {
+    if (path === "/") return location.pathname === "/";
+    return location.pathname.startsWith(path);
+  };
 
   // const serviceLinks = [
   //   { name: "Express Delivery", path: "/services/express" },
@@ -91,14 +96,14 @@ export default function Navbar() {
                 key={item.name}
                 to={item.path}
                 className={`relative group text-blue-500 dark:text-blue-200 transition font-medium text-base xl:text-lg ${
-                  active === item.name ? "text-blue-700 dark:text-blue-400" : "hover:text-blue-700 dark:hover:text-blue-400"
+                  isActive(item.path) ? "text-blue-700 dark:text-blue-400" : "hover:text-blue-700 dark:hover:text-blue-400"
                 }`}
-                onClick={()=> setActive(item.name)}
+                
               >
                 {item.name}
                 <div
                   className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-500 transition-all duration-300 ${
-                    active === item.name
+                    isActive(item.path)
                       ? "w-full opacity-100"
                       : "w-0 group-hover:w-full opacity-70"
                   }`}
@@ -226,11 +231,11 @@ export default function Navbar() {
                 key={item.name}
                 to={item.path}
                 onClick={() => {
-                  setActive(item.name);
+                  
                   setIsOpen(false);
                 }}
                 className={`block w-full text-center px-3 py-2 rounded-lg transition-all ${
-                  active === item.name
+                  isActive(item.path)
                     ? "bg-blue-100 text-blue-700 dark:text-blue-600 font-medium"
                     : "text-blue-500 dark:text-blue-400 hover:bg-blue-50 hover:text-blue-600"
                 }`}

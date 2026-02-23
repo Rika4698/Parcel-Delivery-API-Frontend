@@ -13,7 +13,8 @@ import { ActionsDropdown } from '@/components/Admin/allParcels/ActionsDropdown';
 import { StatusBadge } from '@/components/uis';
 import { UpdateStatusModal } from '@/components/Admin/allParcels/UpdateStatusModal';
 import { ParcelDetailsModal } from '@/components/ParcelDetailsModal';
-import Loading from '@/components/Loading';
+// import Loading from '@/components/Loading';
+import LoadingSpinner from '@/components/Public/HomePage/LoadingSpinner';
 
 export default function AllParcels() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -99,7 +100,7 @@ export default function AllParcels() {
     setCurrentPage(1);
   };
 
-  if (isLoading) return <Loading className="h-screen" />;
+  if (isLoading) return <LoadingSpinner />;
 
   const copyToClipboard = async (text: string) => {
     try {

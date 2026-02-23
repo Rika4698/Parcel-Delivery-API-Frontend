@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useUserInfoQuery } from '@/redux/features/auth/auth';
-import Loading from './Loading';
+// import Loading from './Loading';
 import { LocationEdit, MailIcon, Phone, ShieldCheck } from 'lucide-react';
 import { BsGoogle } from 'react-icons/bs';
 import type { IUser } from '@/types/user';
 import { UserProfileEditDialog } from './UserProfileEditDialog';
+import LoadingSpinner from './Public/HomePage/LoadingSpinner';
 
 
 
@@ -12,7 +13,7 @@ export default function UserProfile() {
   const { data, isLoading, isError } = useUserInfoQuery(undefined);
 
   if (isLoading) {
-    return <Loading className="h-screen bg-slate-100 dark:bg-slate-900" />;
+    return <LoadingSpinner />;
   }
 
   if (isError || !data?.data) {
