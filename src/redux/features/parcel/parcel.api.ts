@@ -23,6 +23,7 @@ export const parcelApi = baseApi.injectEndpoints({
       }),
       providesTags: ['parcel'],
     }),
+
     
     allInComingParcels: builder.query({
       query: params => ({
@@ -32,6 +33,7 @@ export const parcelApi = baseApi.injectEndpoints({
       }),
       providesTags: ['parcel'],
     }),
+    
 
    updateParcel: builder.mutation({
       query: ({ id, payload }: { id: string; payload: any }) => ({

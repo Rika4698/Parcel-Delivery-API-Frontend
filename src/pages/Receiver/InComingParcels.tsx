@@ -52,6 +52,8 @@ export default function InComingParcels() {
     if (data?.data?.data) setParcels(data.data.data);
   }, [data]);
 
+  
+
   const handleOpenUpdateModal = (parcel: Parcel) => {
     setParcelToUpdate(parcel);
     setIsUpdateModalOpen(true);

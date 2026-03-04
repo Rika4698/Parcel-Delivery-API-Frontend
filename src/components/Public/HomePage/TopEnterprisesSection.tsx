@@ -1,4 +1,11 @@
-
+import arongLogo from "@/assets/arong.png";
+import bataLogo from "@/assets/bata.jpg";
+import darazLogo from "@/assets/daraz.png";
+import rokomariLogo from "@/assets/rokomari.png";
+import sailorLogo from "@/assets/sailor.png";
+import shajgojLogo from "@/assets/shajgoj.png";
+import apexLogo from "@/assets/apex.png";
+import ribanaLogo from "@/assets/ribana.png";
 
 type Brand = {
   name: string;
@@ -7,14 +14,14 @@ type Brand = {
 
 export function TopEnterprisesSection() {
   const brands: Brand[] = [
-    { name: "Aarong",    logo: "/src/assets/arong.png" },
-    { name: "Bata",      logo: "/src/assets/bata.jpg" },
-    { name: "Daraz",     logo: "/src/assets/daraz.png" },
-    { name: "Rokomari",  logo: "/src/assets/rokomari.png" },
-    { name: "Sailor",    logo: "/src/assets/sailor.png" },
-    { name: "Shajgoj",    logo: "/src/assets/shajgoj.png" },
-    { name: "Apex",      logo: "/src/assets/apex.png" },
-    { name: "Ribana",    logo: "/src/assets/ribana.png" },
+   { name: "Aarong",   logo: arongLogo },
+    { name: "Bata",     logo: bataLogo },
+    { name: "Daraz",    logo: darazLogo },
+    { name: "Rokomari", logo: rokomariLogo },
+    { name: "Sailor",   logo: sailorLogo },
+    { name: "Shajgoj",  logo: shajgojLogo },
+    { name: "Apex",     logo: apexLogo },
+    { name: "Ribana",   logo: ribanaLogo },
   ];
 
   const sliderBrands = [...brands, ...brands];

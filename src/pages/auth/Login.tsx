@@ -266,7 +266,7 @@ const LogIn = () => {
             
           </button>
           <button
-            onClick={() => handleClickLogin("Karim12@gmail.com", "*Karim12")}
+            onClick={() => handleClickLogin("karim12@gmail.com", "*Karim12")}
            
               className="mt-4 w-full font-semibold rounded-lg p-2 bg-green-700 dark:bg-green-500 text-white border border-green-800 dark:border-green-600"
             
