@@ -51,6 +51,8 @@ Delivo is a comprehensive web application that serves as the user interface for 
 ## 🛠️ Technology Stack
 
 - **Frontend Framework:** React with TypeScript
+- **Backend Framework:** Node.js, Express.js with TypeScript
+- **Database:** MongoDB with Mongoose
 - **Build Tool:** Vite
 - **Styling:** Tailwind CSS + shadcn/ui components
 - **State Management:** Redux Toolkit + RTK Query
