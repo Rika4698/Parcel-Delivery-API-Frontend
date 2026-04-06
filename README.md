@@ -224,5 +224,7 @@ The following features are planned for future releases:
 ## 👤 Author & Contact
 
 **Name: Sharmin Akter Reka**
+<br/>
 **Role: Frontend Developer**
+<br/>
 **Portfolio: https://sharmin-rika-portfolio.vercel.app/**
