@@ -225,6 +225,7 @@ The following features are planned for future releases:
 
 **Name: Sharmin Akter Reka**
 <br/>
+<br/>
 **Role: Frontend Developer**
 <br/>
 **Portfolio: https://sharmin-rika-portfolio.vercel.app/**
