@@ -284,7 +284,7 @@ const LogIn = () => {
       {/* RIGHT: IMAGE SECTION  */}
       <div className="hidden lg:block">
         <img
-          src="https://i.ibb.co.com/67HnCQh6/caucasian-man-receiving-his-order-from-deliverywoman-latin-courier-delivering-order-holding-parcels.jpg"
+          src="./login.jpg"
           className="w-full h-full object-cover object-center"
         />
       </div>

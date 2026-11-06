@@ -275,7 +275,7 @@ const Register = () => {
       {/* RIGHT: IMAGE SECTION  */}
       <div className="hidden lg:block">
         <img
-          src="https://i.ibb.co/YByRGLk9/profile-view-attractive-young-delivery-guy-with-some-packages-waiting-door-open.jpg"
+          src="../registration.jpg"
           alt="Delivery guy"
           className="w-full h-full object-cover object-center"
         />
